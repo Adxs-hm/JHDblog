@@ -843,3 +843,99 @@ button:active, .btn:active, .fixed-button:active {
   .stat-banner { gap: 1.5rem; }
   .stat-number { font-size: 2.5rem; }
 }
+
+/* ============================================================
+   22. 排版优化 —— 参考现代设计系统
+   ============================================================ */
+
+/* 详情页阅读体验 */
+.page.single .container, .page.archive .container {
+  max-width: 780px;
+  padding: 0 1.5rem;
+}
+.content, .single-content {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  letter-spacing: 0.01em;
+}
+.content p, .single-content p {
+  margin-bottom: 1.3rem;
+  max-width: 72ch;  /* 最佳阅读宽度 */
+}
+
+/* 标题间距优化 */
+.content h1, .single-content h1 { margin-top: 3rem; margin-bottom: 1rem; }
+.content h2, .single-content h2 { margin-top: 2.2rem; margin-bottom: 0.8rem; }
+.content h3, .single-content h3 { margin-top: 1.6rem; margin-bottom: 0.6rem; }
+
+/* 表格内边距 */
+.content th, .single-content th,
+.content td, .single-content td {
+  padding: 0.85rem 1.1rem;
+}
+
+/* 列表间距 */
+.content li, .single-content li {
+  margin-bottom: 0.45rem;
+  padding-left: 0.3rem;
+}
+
+/* 项目卡片微调 */
+.project-card p { font-size: 0.9rem; line-height: 1.6; }
+.project-title { font-size: 1.2rem; letter-spacing: 0.02em; }
+.project-card-right { padding: 1.6rem 3.5rem 1.6rem 1.8rem; }
+.project-card-left { width: 115px; }
+
+/* 文章列表卡片 */
+.post-card { padding: 1.6rem 1.8rem !important; margin-bottom: 1.1rem !important; }
+.post-card .post-title { font-size: 1.22rem !important; margin-bottom: 0.3rem; }
+.post-card .post-summary { font-size: 0.93rem !important; line-height: 1.65 !important; margin-top: 0.5rem; }
+
+/* 分类页列表 */
+.archive-item { padding: 0.65rem 1.3rem !important; margin-bottom: 0.4rem !important; }
+.archive-item-link { font-size: 1rem !important; }
+.group-title { font-size: 1.15rem !important; margin: 2rem 0 0.6rem !important; }
+
+/* 分隔线间距增加 */
+.content hr, .single-content hr, .section-divider { margin: 3rem 0 !important; }
+
+/* 引用块优化 */
+.content blockquote, .single-content blockquote {
+  padding: 1.3rem 1.6rem !important;
+  margin: 2rem 0 !important;
+  font-size: 0.98rem;
+  line-height: 1.8;
+}
+
+/* 代码块内边距 */
+.content pre, .single-content pre {
+  padding: 1.4rem 1.6rem !important;
+  margin: 1.6rem 0 !important;
+  font-size: 0.86rem;
+  line-height: 1.7;
+}
+
+/* 文章元信息 */
+.post-meta {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin-bottom: 1.2rem;
+}
+
+/* 导航栏微调 */
+.navigation a, .menu-item { font-size: 0.94rem; letter-spacing: 0.04em; padding: 0 0.4rem; }
+
+/* 页脚优化 */
+.footer, footer { padding: 2.5rem 0 !important; font-size: 0.85rem; }
+
+/* 宽屏优化 */
+@media (min-width: 1200px) {
+  .single .container, .page.archive .container { max-width: 800px; }
+  .content p, .single-content p { max-width: 70ch; }
+}
+
+/* 打印优化 */
+@media print {
+  body { font-size: 12pt; line-height: 1.6; }
+  .content, .single-content { max-width: 100%; }
+}

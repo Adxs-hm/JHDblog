@@ -151,7 +151,6 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   [params.social]
     GitHub = "Adxs-hm"
     Email = ""
-    RSS = true
 
   # 文章页面配置
   [params.page]
