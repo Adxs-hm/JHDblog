@@ -321,3 +321,164 @@ body {
   animation: planet-glow 3s ease-in-out infinite;
   display: inline-block;
 }
+
+/* === 14. 项目卡片网格 === */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.project-card {
+  position: relative;
+  background: rgba(15, 15, 45, 0.55) !important;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(100, 140, 255, 0.15) !important;
+  border-radius: 20px !important;
+  padding: 1.75rem;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(233, 184, 71, 0.5), rgba(100, 140, 255, 0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.project-card:hover {
+  border-color: rgba(233, 184, 71, 0.35) !important;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(100, 140, 255, 0.1),
+    0 0 100px rgba(233, 184, 71, 0.05) !important;
+  transform: translateY(-6px);
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+.project-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  display: block;
+  animation: planet-glow 3s ease-in-out infinite;
+  animation-delay: calc(var(--card-index, 0) * 0.3s);
+}
+
+.project-card:nth-child(1) { --card-index: 0; }
+.project-card:nth-child(2) { --card-index: 1; }
+.project-card:nth-child(3) { --card-index: 2; }
+.project-card:nth-child(4) { --card-index: 3; }
+.project-card:nth-child(5) { --card-index: 4; }
+.project-card:nth-child(6) { --card-index: 5; }
+.project-card:nth-child(7) { --card-index: 6; }
+.project-card:nth-child(8) { --card-index: 7; }
+.project-card:nth-child(9) { --card-index: 8; }
+.project-card:nth-child(10) { --card-index: 9; }
+
+.project-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #e0e8ff !important;
+  margin: 0 0 0.5rem;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.project-tag {
+  display: inline-block;
+  background: rgba(233, 184, 71, 0.12) !important;
+  border: 1px solid rgba(233, 184, 71, 0.25) !important;
+  color: #e9b847 !important;
+  font-size: 0.78rem;
+  padding: 0.18em 0.7em;
+  border-radius: 20px;
+  margin-bottom: 0.75rem;
+}
+
+.project-card p {
+  color: rgba(190, 200, 230, 0.75) !important;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  margin: 0 0 1rem;
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.project-meta span {
+  background: rgba(100, 140, 255, 0.1);
+  border: 1px solid rgba(100, 140, 255, 0.15);
+  color: rgba(160, 185, 230, 0.8);
+  font-size: 0.72rem;
+  padding: 0.15em 0.55em;
+  border-radius: 12px;
+}
+
+.project-link {
+  display: inline-block;
+  color: #e9b847 !important;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(233, 184, 71, 0.3);
+  transition: all 0.3s ease;
+}
+
+.project-link:hover {
+  border-bottom-color: #e9b847;
+  text-shadow: 0 0 10px rgba(233, 184, 71, 0.3);
+}
+
+/* === 15. 移动端适配 === */
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .project-card {
+    padding: 1.25rem;
+  }
+}
+
+/* === 16. 数据大字报样式（用于里程碑页） === */
+.stat-banner {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #e9b847 0%, #f5d78c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  color: rgba(160, 180, 220, 0.7);
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
