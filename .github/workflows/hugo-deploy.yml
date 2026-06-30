@@ -32,9 +32,9 @@ jobs:
           hugo-version: 'latest'
           extended: true
 
-      # 3. 构建站点（minify 压缩 HTML/JS/CSS）
+      # 3. 构建站点
       - name: 🔨 Build
-        run: hugo --minify
+        run: hugo
 
       # 4. 部署到 gh-pages 分支
       - name: 🚀 Deploy to GitHub Pages
