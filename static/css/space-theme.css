@@ -69,6 +69,136 @@
 }
 
 /* ============================================================
+   0.0.1 强力反红反白 —— 覆盖 LoveIt 原生红色白色
+   ============================================================ */
+/* 任何白色背景 → 强制深色透明 */
+[theme="dark"] .page, [theme="dark"] .home, [theme="dark"] .archive,
+[theme="dark"] .wrapper, [theme="dark"] .main, [theme="dark"] .container,
+[theme="dark"] article, [theme="dark"] section, [theme="dark"] .single,
+[theme="dark"] .content, [theme="dark"] .post-content, [theme="dark"] .post-body,
+[theme="dark"] .card, [theme="dark"] .panel, [theme="dark"] .box,
+[theme="dark"] .widget, [theme="dark"] .sidebar, [theme="dark"] aside,
+[theme="dark"] .header, [theme="dark"] .header-wrapper, [theme="dark"] .navbar,
+[theme="dark"] .post-card, [theme="dark"] .single-card, [theme="dark"] .archive-item,
+[theme="dark"] .project-card, [theme="dark"] .project-card-left,
+[theme="dark"] .project-card-right, [theme="dark"] .post-meta,
+[theme="dark"] .post-footer, [theme="dark"] .post-nav,
+[theme="dark"] .pagination *, [theme="dark"] .page-item,
+[theme="dark"] .home-profile, [theme="dark"] .links,
+[theme="dark"] .typeit, [theme="dark"] .toc, [theme="dark"] .details,
+[theme="dark"] table, [theme="dark"] thead, [theme="dark"] tbody,
+[theme="dark"] tr, [theme="dark"] td, [theme="dark"] th,
+[theme="dark"] .single-subtitle, [theme="dark"] .breadcrumb,
+[theme="dark"] .summary, [theme="dark"] .single.summary,
+[theme="dark"] #content, [theme="dark"] #mask,
+[theme="dark"] [class*="search"], [theme="dark"] [class*="dropdown"] {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* 任何红色/粉色边框/背景/文字 → 替换为星云紫/金 */
+/* 覆盖 LoveIt 默认红色系 (#e94560, #ff..., #f0..., #e91e63, #d23... etc) */
+[theme="dark"] .post-tags a, [theme="dark"] .post-category a,
+[theme="dark"] .tag a, [theme="dark"] .category a, [theme="dark"] .post-tag,
+[theme="dark"] .tag, [theme="dark"] .category, [theme="dark"] .label,
+[theme="dark"] .badge, [theme="dark"] .pill {
+  color: #c0a8e0 !important;
+  background: rgba(160, 128, 216, 0.15) !important;
+  border: 1px solid rgba(160, 128, 216, 0.3) !important;
+  transition: all 0.3s var(--ease);
+}
+[theme="dark"] .post-tags a:hover, [theme="dark"] .post-category a:hover,
+[theme="dark"] .tag a:hover, [theme="dark"] .category a:hover {
+  color: var(--gold) !important;
+  background: rgba(200, 180, 120, 0.18) !important;
+  border-color: rgba(200, 180, 120, 0.45) !important;
+  box-shadow: 0 0 16px rgba(200, 180, 120, 0.2);
+}
+
+/* 红色链接 → 星云紫 */
+[theme="dark"] a:not(.project-card-link):not(.post-card .post-title a):not(.archive-item-link):not(.pagination a):not(.fixed-button):not(.social-links a) {
+  color: #b8a0d8 !important;
+}
+[theme="dark"] a:hover {
+  color: var(--gold) !important;
+}
+
+/* 红色边框 → 星云紫透光 */
+[theme="dark"] .single-title,
+[theme="dark"] .content, [theme="dark"] .single-content {
+  border-color: rgba(160, 128, 216, 0.2) !important;
+}
+
+/* 红色高亮/选中 → 星云金 */
+[theme="dark"] ::selection { background: rgba(200, 180, 120, 0.3) !important; color: #fff !important; }
+[theme="dark"] mark, [theme="dark"] .highlight, [theme="dark"] [class*="highlight"] {
+  background: rgba(200, 180, 120, 0.15) !important;
+  color: var(--gold) !important;
+}
+
+/* 红色文字强调 → 星云金 */
+[theme="dark"] strong, [theme="dark"] b, [theme="dark"] em,
+[theme="dark"] .emphasis, [theme="dark"] .accent, [theme="dark"] [class*="accent"] {
+  color: #d8c8f0 !important;
+}
+
+/* 红色按钮 → 星云紫 */
+[theme="dark"] button:not(.fixed-button), [theme="dark"] .btn:not(.fixed-button),
+[theme="dark"] [type="button"]:not(.fixed-button), [theme="dark"] [type="submit"],
+[theme="dark"] .button, [theme="dark"] [class*="btn"] {
+  background: rgba(160, 128, 216, 0.2) !important;
+  border: 1px solid rgba(160, 128, 216, 0.35) !important;
+  color: #c0a8e0 !important;
+}
+[theme="dark"] button:hover:not(.fixed-button), [theme="dark"] .btn:hover,
+[theme="dark"] [type="button"]:hover, [theme="dark"] [type="submit"]:hover {
+  background: rgba(200, 180, 120, 0.2) !important;
+  border-color: rgba(200, 180, 120, 0.5) !important;
+  color: var(--gold) !important;
+  box-shadow: 0 0 20px rgba(200, 180, 120, 0.25);
+}
+
+/* 红色分割线 → 渐变星云 */
+[theme="dark"] hr, [theme="dark"] .divider, [theme="dark"] [class*="divider"],
+[theme="dark"] .separator, [theme="dark"] [class*="separator"] {
+  border-color: transparent !important;
+  background: linear-gradient(90deg, transparent, rgba(160,128,216,.3), rgba(200,180,120,.2), transparent) !important;
+  border: none !important;
+  height: 1px;
+}
+
+/* 红色卡片边框 → 星云紫透光 */
+[theme="dark"] .post-card, [theme="dark"] .single-card,
+[theme="dark"] .archive-item, [theme="dark"] .project-card {
+  border-color: rgba(160, 128, 216, 0.18) !important;
+}
+
+/* 红色图标 → 星云金/紫 */
+[theme="dark"] .fa, [theme="dark"] .fas, [theme="dark"] .far,
+[theme="dark"] .fab, [theme="dark"] .fal, [theme="dark"] i[class*="fa"] {
+  color: #a098c8 !important;
+}
+[theme="dark"] a:hover .fa, [theme="dark"] a:hover .fas, [theme="dark"] a:hover .far,
+[theme="dark"] a:hover .fab, [theme="dark"] .fixed-button:hover i {
+  color: var(--gold) !important;
+}
+
+/* 任何内联样式红色/白色 → 用属性选择器覆盖常见模式 */
+[theme="dark"] [style*="background:"][style*="fff"],
+[theme="dark"] [style*="background:"][style*="white"],
+[theme="dark"] [style*="color:"][style*="ff3"],
+[theme="dark"] [style*="color:"][style*="ff4"],
+[theme="dark"] [style*="color:"][style*="ff5"],
+[theme="dark"] [style*="color:"][style*="e94"],
+[theme="dark"] [style*="color:"][style*="e84"],
+[theme="dark"] [style*="border-color:"][style*="ff3"],
+[theme="dark"] [style*="border-color:"][style*="ff4"] {
+  color: var(--text-body) !important;
+  background: transparent !important;
+  border-color: rgba(160, 128, 216, 0.25) !important;
+}
+
+/* ============================================================
    0.1 CSS 变量
    ============================================================ */
 :root {
