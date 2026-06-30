@@ -1,0 +1,17 @@
+<div class="sketchfab-embed-wrapper" style="margin: 2rem 0;">
+  <iframe
+    title="{{ .Get "title" | default "3D Model" }}"
+    src="https://sketchfab.com/models/{{ .Get "id" }}/embed?{{ .Get "params" | default "autostart=1&preload=1&ui_controls=1&ui_infos=1&ui_stop=1" }}"
+    width="100%"
+    height="{{ .Get "height" | default "500" }}"
+    frameborder="0"
+    allow="autoplay; fullscreen; xr-spatial-tracking"
+    allowfullscreen
+    loading="lazy">
+  </iframe>
+  {{ with .Get "caption" }}
+  <p style="text-align: center; color: #888; font-size: 0.9rem; margin-top: 0.5rem;">
+    {{ . }}
+  </p>
+  {{ end }}
+</div>
