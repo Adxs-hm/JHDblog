@@ -1,0 +1,161 @@
+// ==============================
+// JHD 星空主题 · 编译时覆盖
+// 在 LoveIt SCSS 管线的最后一步注入
+// 从编译层面消除所有白色/红色/灰色
+// ==============================
+
+// === 全局背景 → 深空色 === //
+body {
+  background-color: #0a0c1e !important;
+  color: #c0cce4 !important;
+}
+
+// === 所有容器透明 === //
+.wrapper, .main, .container, .page, .home, .archive,
+article, section, .single, .content, .post-content,
+.post-body, .post-card, .single-card, .archive-item,
+.project-card, .project-card-left, .project-card-right,
+.header-wrapper, .header-container,
+.post-meta, .post-footer, .post-nav, .post-navigation,
+.toc, .details, .details-summary, .details-content,
+.featured-image, .single-subtitle,
+#content, #mask, #fixed-buttons, #fixed-buttons-hidden,
+.search-dropdown, #search-dropdown-desktop, #search-dropdown-mobile,
+.pagination, .page-item, .page-link {
+  background-color: transparent !important;
+}
+
+// === 卡片用毛玻璃 === //
+.post-card, .single-card, .archive-item, .project-card,
+.search-dropdown, #search-dropdown-desktop, #search-dropdown-mobile {
+  background: rgba(16, 20, 44, 0.65) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+// === 搜索面板 === //
+.search-dropdown, #search-dropdown-desktop, #search-dropdown-mobile {
+  background: rgba(10, 12, 30, 0.95) !important;
+  border: 1px solid rgba(160, 128, 216, 0.2) !important;
+  border-radius: 16px;
+}
+
+// === 文字颜色 === //
+body, p, li, td, th, span, div, article, section {
+  color: #c0cce4;
+}
+
+h1, .single-title { color: #c8b478 !important; }
+h2, .content h2 { color: #dce4f4 !important; }
+h3, .content h3 { color: #ccd6ec !important; }
+h4, h5, h6 { color: #c0cce0 !important; }
+
+.post-meta, .post-meta *, .archive-item-date, time, .meta * {
+  color: #8698bc !important;
+}
+
+a { color: #c8b478 !important; }
+a:hover { color: #f0d890 !important; }
+
+strong, b { color: #d8c8f0 !important; }
+
+// === 标签徽章 === //
+.post-tags a, .post-category a, .tag a, .category a {
+  color: #c0a8e0 !important;
+  background: rgba(160, 128, 216, 0.15) !important;
+  border: 1px solid rgba(160, 128, 216, 0.3) !important;
+}
+.post-tags a:hover, .post-category a:hover {
+  color: #c8b478 !important;
+  background: rgba(200, 180, 120, 0.18) !important;
+  border-color: rgba(200, 180, 120, 0.45) !important;
+}
+
+// === 表格 === //
+table {
+  border-color: rgba(160, 128, 216, 0.2) !important;
+  background: transparent !important;
+}
+thead { background: rgba(160, 128, 216, 0.15) !important; }
+th {
+  color: #c8b478 !important;
+  font-weight: 700 !important;
+  border-color: rgba(160, 128, 216, 0.3) !important;
+}
+td {
+  color: #c0cce4 !important;
+  border-color: rgba(160, 128, 216, 0.12) !important;
+}
+tbody tr:hover { background: rgba(160, 128, 216, 0.05) !important; }
+
+// === 代码 === //
+code {
+  color: #f0d890 !important;
+  background: rgba(160, 128, 216, 0.18) !important;
+}
+pre {
+  background: rgba(10, 12, 28, 0.9) !important;
+  border: 1px solid rgba(160, 128, 216, 0.2) !important;
+}
+pre code {
+  color: #c0d0f0 !important;
+  background: transparent !important;
+}
+
+// === 引用 === //
+blockquote {
+  background: rgba(160, 128, 216, 0.06) !important;
+  border-left: 3px solid rgba(200, 180, 120, 0.4) !important;
+  color: #c0d0e0 !important;
+}
+
+// === 分割线 === //
+hr {
+  background: linear-gradient(90deg, transparent, rgba(160,128,216,.3), rgba(200,180,120,.2), transparent) !important;
+  height: 1px !important;
+  border: none !important;
+}
+
+// === 导航 === //
+.navigation, .header-wrapper, header, nav {
+  background: rgba(10, 12, 30, 0.94) !important;
+  border-bottom: 1px solid rgba(160, 128, 216, 0.15) !important;
+}
+.navigation a, .menu-item { color: #a8b8d8 !important; }
+.navigation a:hover, .menu-item:hover, .menu-item.active {
+  color: #c8b478 !important;
+}
+
+// === 页脚 === //
+.footer, footer {
+  background: rgba(10, 12, 30, 0.9) !important;
+  border-top: 1px solid rgba(160, 128, 216, 0.12) !important;
+  color: #7888a8 !important;
+}
+.footer a, footer a { color: #98aec8 !important; }
+
+// === 按钮 === //
+button, .btn, [type="button"], [type="submit"], .fixed-button {
+  background: rgba(16, 20, 44, 0.65) !important;
+  border-color: rgba(160, 128, 216, 0.25) !important;
+  color: #c0d0e8 !important;
+}
+button:hover, .btn:hover, .fixed-button:hover {
+  border-color: rgba(200, 180, 120, 0.45) !important;
+  color: #c8b478 !important;
+}
+
+// === 搜索框 === //
+.search input, .search-dropdown input {
+  background: rgba(16, 20, 44, 0.65) !important;
+  border-color: rgba(160, 128, 216, 0.25) !important;
+  color: #c0cce4 !important;
+}
+
+// === 选中 === //
+::selection { background: rgba(200, 180, 120, 0.3) !important; color: #fff !important; }
+
+// === 滚动条 === //
+::-webkit-scrollbar-track { background: #0a0c1e; }
+::-webkit-scrollbar-thumb { background: rgba(160, 128, 216, 0.28); }
+::-webkit-scrollbar-thumb:hover { background: rgba(200, 180, 120, 0.4); }
