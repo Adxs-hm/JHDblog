@@ -1,12 +1,12 @@
-# ============================================================
-# Blender 作品展示博客 · Hugo + LoveIt 主题配置
-# ============================================================
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# JHD 站点 · 星空行星主题 · Hugo + LoveIt
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 baseURL = "https://Adxs-hm.github.io/"
 theme = "LoveIt"
 
 # 网站标题
-title = "DDMer の Blender 作品集"
+title = "JHD"
 
 # 语言设置
 defaultContentLanguage = "zh-cn"
@@ -25,54 +25,42 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   pagerSize = 10
   path = "page"
 
-# ============================================================
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # 导航菜单
-# ============================================================
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 [menu]
   [[menu.main]]
     weight = 1
-    identifier = "works"
-    name = "作品集"
-    url = "/works/"
-    title = "Blender 3D 作品展示"
+    identifier = "projects"
+    name = "项目"
+    url = "/projects/"
+    title = "所有项目记录"
   [[menu.main]]
     weight = 2
-    identifier = "tutorials"
-    name = "教程"
-    url = "/tutorials/"
-    title = "Blender 制作教程"
+    identifier = "milestones"
+    name = "里程碑"
+    url = "/milestones/"
+    title = "关键节点与里程碑"
   [[menu.main]]
     weight = 3
-    identifier = "notes"
-    name = "心得笔记"
-    url = "/notes/"
-    title = "创作心得与经验分享"
-  [[menu.main]]
-    weight = 4
-    identifier = "roadmap"
-    name = "发展路线"
-    url = "/roadmap/"
-    title = "技能发展路线图"
-  [[menu.main]]
-    weight = 5
     identifier = "about"
-    name = "关于我"
+    name = "关于"
     url = "/about/"
-    title = "关于我"
+    title = "关于 JHD"
 
-# ============================================================
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # 全局参数
-# ============================================================
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 [params]
-  defaultTheme = "auto"
+  defaultTheme = "dark"
   dateFormat = "2006-01-02"
-  title = "DDMer の Blender 作品集"
-  description = "Blender 3D 作品展示 · 制作教程 · 创作心得 · 技能成长路线"
-  images = ["/images/avatar.svg"]
+  title = "JHD"
+  description = "记录每一个完成的成品"
+  images = ["/images/planet-avatar.svg"]
 
   # 作者信息
   [params.author]
-    name = "DDMer"
+    name = "JHD"
     email = ""
     link = ""
 
@@ -82,8 +70,8 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     mobileMode = "auto"
     [params.header.title]
       logo = ""
-      name = "DDMer の小站"
-      pre = "<i class='fas fa-cube' aria-hidden='true'></i>"
+      name = "JHD"
+      pre = "<span class='planet-icon'>🪐</span>"
       post = ""
       typeit = false
 
@@ -94,9 +82,9 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     hugo = true
     copyright = true
     author = true
-    since = 2025
+    since = 2026
     icp = ""
-    license = '<a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
+    license = ""
 
   # 文章列表
   [params.section]
@@ -111,19 +99,19 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 
   # 应用图标
   [params.app]
-    title = "DDMer"
+    title = "JHD"
     noFavicon = false
     svgFavicon = ""
-    themeColor = "#1a1a2e"
-    iconColor = "#e94560"
-    tileColor = "#0f3460"
+    themeColor = "#0a0a1a"
+    iconColor = "#e9b847"
+    tileColor = "#0d0d2b"
 
   # 搜索
   [params.search]
     enable = true
     type = "fuse"
     contentLength = 4000
-    placeholder = "搜索文章、教程、作品..."
+    placeholder = "搜索记录..."
     maxResultLength = 10
     snippetLength = 30
     highlightTag = "em"
@@ -143,9 +131,9 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     [params.home.profile]
       enable = true
       gravatarEmail = ""
-      avatarURL = "/images/avatar.svg"
-      title = "DDMer"
-      subtitle = "Blender 3D 艺术家 · 用几何与光影构建世界"
+      avatarURL = "/images/planet-avatar.svg"
+      title = "JHD"
+      subtitle = "记录每一个完成的成品 · 在星轨中留下足迹"
       typeit = true
       social = true
       disclaimer = ""
@@ -156,7 +144,6 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # 社交链接
   [params.social]
     GitHub = "Adxs-hm"
-    Bilibili = ""
     Email = ""
     RSS = true
 
@@ -165,29 +152,24 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     hiddenFromHomePage = false
     hiddenFromSearch = false
     twemoji = false
-    # 🔑 关键：启用灯箱！作品展示必备
     lightgallery = true
     ruby = true
     fraction = true
     fontawesome = true
     linkToMarkdown = true
     rssFullText = false
-    # 目录
     [params.page.toc]
       enable = true
       keepStatic = false
       auto = true
-    # 代码块
     [params.page.code]
       copy = true
       maxShownLines = 50
       [params.page.code.render]
         goat = true
         mermaid = true
-    # 数学公式（关闭，不需要）
     [params.page.math]
       enable = false
-    # 分享
     [params.page.share]
       enable = true
       X = true
@@ -195,33 +177,36 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       Linkedin = true
       Weibo = true
       Telegram = true
-    # 评论（关闭，保持简洁）
     [params.page.comment]
       enable = false
 
   # 打字机动画
   [params.typeit]
-    speed = 100
+    speed = 80
     cursorSpeed = 1000
     cursorChar = "|"
     duration = -1
 
   # SEO
   [params.seo]
-    image = "/images/avatar.svg"
-    thumbnailUrl = "/images/avatar.svg"
+    image = "/images/planet-avatar.svg"
+    thumbnailUrl = "/images/planet-avatar.svg"
 
-  # 不使用 CDN（国内访问更快）
+  # CDN
   [params.cdn]
     data = ""
 
-  # 不使用 Cookie 弹窗
+  # 自定义 CSS（星空主题）
+  [params.page.library]
+    [params.page.library.css]
+      spaceTheme = "css/space-theme.css"
+
   [params.cookieconsent]
     enable = false
 
-# ============================================================
-# Markdown 解析（允许 HTML，可嵌入 Sketchfab）
-# ============================================================
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# Markdown 解析
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 [markup]
   [markup.highlight]
     anchorLineNos = false
@@ -240,41 +225,41 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       taskList = true
       typographer = true
     [markup.goldmark.renderer]
-      unsafe = true   # 允许嵌入 HTML/Sketchfab iframe
+      unsafe = true
   [markup.tableOfContents]
     startLevel = 2
     endLevel = 6
 
-# ============================================================
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # 站点地图
-# ============================================================
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 [sitemap]
   changefreq = "weekly"
   filename = "sitemap.xml"
   priority = 0.5
 
-# ============================================================
-# 文章 URL（直接使用文件名，不包含日期前缀）
-# ============================================================
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# 文章 URL
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 [permalinks]
   posts = ":contentbasename"
 
-# ============================================================
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # 输出格式
-# ============================================================
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 [outputs]
   home = ["HTML", "RSS", "JSON"]
   page = ["HTML"]
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
 
-# ============================================================
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # 中文语言配置
-# ============================================================
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 [languages]
   [languages.zh-cn]
     weight = 1
     locale = "zh-CN"
     label = "简体中文"
     hasCJKLanguage = true
-    copyright = "本站内容采用 CC BY-NC 4.0 许可协议"
+    copyright = ""
