@@ -1,0 +1,100 @@
+<!-- JHD 自定义搜索系统 -->
+<script>
+(function(){
+  var fuse=null, data=null, input=document.getElementById('search-input-desktop'),
+      mobileInput=document.getElementById('search-input-mobile'),
+      dropdown=document.getElementById('search-dropdown-desktop') || document.getElementById('search-dropdown-mobile');
+
+  if(!input && !mobileInput) return;
+
+  function buildDropdown(id){
+    var dd = document.getElementById(id);
+    if(!dd){ dd = document.createElement('div'); dd.id = id; dd.className = 'jhd-search-results'; document.querySelector('.search-dropdown.desktop, .search-dropdown.mobile').appendChild(dd); }
+    return dd;
+  }
+  var resultBox = buildDropdown('jhd-search-results');
+
+  function doSearch(q){
+    if(!fuse){ resultBox.innerHTML='<div class="jhd-search-empty">索引加载中...</div>'; return; }
+    if(q.length<2){ resultBox.innerHTML=''; return; }
+    var r=fuse.search(q).slice(0,8);
+    if(!r.length){ resultBox.innerHTML='<div class="jhd-search-empty">没有找到结果</div>'; return; }
+    var html='';
+    r.forEach(function(h){
+      var item=h.item, t=item.title||'', u=item.uri||'', d=item.date||'',
+          s=(item.content||'').substring(0,100);
+      var re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+      t=t.replace(re,'<mark>$1</mark>');
+      s=s.replace(re,'<mark>$1</mark>');
+      html+='<a class="jhd-search-item" href="'+u+'">'+
+        '<span class="jhd-search-title">'+t+'</span>'+
+        '<span class="jhd-search-path">'+u+'</span>'+
+        '<span class="jhd-search-snippet">'+s+'</span>'+
+        '</a>';
+    });
+    resultBox.innerHTML=html;
+  }
+
+  function loadIndex(){
+    fetch('/index.json').then(function(r){return r.json()}).then(function(d){
+      data=d;
+      fuse=new Fuse(d,{
+        keys:[{name:'title',weight:5},{name:'tags',weight:2},{name:'categories',weight:2},{name:'content',weight:1}],
+        includeMatches:false, threshold:0.35, distance:100, minMatchCharLength:2
+      });
+    }).catch(function(){ resultBox.innerHTML='<div class="jhd-search-empty">搜索索引加载失败</div>'; });
+  }
+
+  function setup(inp){
+    inp.addEventListener('input',function(){
+      doSearch(this.value);
+      resultBox.style.display=this.value.length>1?'block':'none';
+    });
+    inp.addEventListener('focus',function(){
+      if(this.value.length>1){ resultBox.style.display='block'; doSearch(this.value); }
+    });
+    inp.addEventListener('keydown',function(e){
+      if(e.key==='Escape'){ resultBox.style.display='none'; }
+      if(e.key==='Enter'){
+        var first=resultBox.querySelector('a.jhd-search-item');
+        if(first){ window.location=first.getAttribute('href'); }
+      }
+    });
+  }
+
+  if(input) setup(input);
+  if(mobileInput) setup(mobileInput);
+
+  document.addEventListener('click',function(e){
+    if(!e.target.closest('.search') && !e.target.closest('.jhd-search-results')){
+      resultBox.style.display='none';
+    }
+  });
+
+  // 加载索引
+  if(typeof Fuse!=='undefined') loadIndex();
+  else{ var s=setInterval(function(){ if(typeof Fuse!=='undefined'){ clearInterval(s); loadIndex(); } },100); }
+})();
+</script>
+<style>
+.jhd-search-results {
+  position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  width: 440px; max-width: 92vw; max-height: 55vh; overflow-y: auto;
+  background: rgba(12,15,34,.97); border: 1px solid rgba(120,150,200,.2);
+  border-radius: 16px; box-shadow: 0 16px 48px rgba(0,0,0,.6);
+  z-index: 9999; padding: .5rem; display: none;
+}
+.jhd-search-item {
+  display: block; padding: .7rem 1rem; border-radius: 10px; margin-bottom: 2px;
+  color: #c0cce4; text-decoration: none; transition: all .15s ease;
+}
+.jhd-search-item:hover, .jhd-search-item:focus {
+  background: rgba(200,180,120,.12); color: #c8b478;
+}
+.jhd-search-title { display: block; font-weight: 600; font-size: .92rem; margin-bottom: .15rem; }
+.jhd-search-path  { display: block; font-size: .72rem; color: #6a80a0; margin-bottom: .2rem; }
+.jhd-search-snippet { display: block; font-size: .78rem; color: #8898b8; line-height: 1.4; }
+.jhd-search-item mark { background: rgba(200,180,120,.2); color: #c8b478; font-weight: 600; border-radius: 2px; padding: 0 2px; }
+.jhd-search-empty { padding: 1.5rem 1rem; text-align: center; color: #8898b8; font-size: .88rem; }
+@media (max-width: 768px) { .jhd-search-results { width: 95vw; left: 2.5vw; transform: none; } }
+</style>
