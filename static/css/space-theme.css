@@ -333,6 +333,73 @@ body::after {
 /* ============================================================
    3. 黑暗主题全局浅色 —— 覆盖 LoveIt
    ============================================================ */
+
+/* 🔥 详情页（.page.single） 全透明背景 */
+[theme="dark"] .page.single,
+[theme="dark"] .page.single article,
+[theme="dark"] .page.single .content,
+[theme="dark"] .page.single .single-title,
+[theme="dark"] .page.single .post-meta,
+[theme="dark"] .page.single .post-meta-line,
+[theme="dark"] .page.single .post-footer,
+[theme="dark"] .page.single .post-nav,
+[theme="dark"] .page.single .post-navigation,
+[theme="dark"] .page.single .toc,
+[theme="dark"] .page.single .details,
+[theme="dark"] .page.single .details-summary,
+[theme="dark"] .page.single .details-content,
+[theme="dark"] .page.single .featured-image,
+[theme="dark"] .page.single .single-subtitle,
+[theme="dark"] .page.single .post-tags,
+[theme="dark"] .page.single .post-category,
+[theme="dark"] .page.single .post-author,
+[theme="dark"] .page.single .post-publish,
+[theme="dark"] .page.single div {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* 🔥 详情页文字颜色 */
+[theme="dark"] .page.single,
+[theme="dark"] .page.single article,
+[theme="dark"] .page.single .content,
+[theme="dark"] .page.single .content * {
+  color: var(--text-body) !important;
+}
+[theme="dark"] .page.single .single-title {
+  color: var(--gold) !important;
+  -webkit-text-fill-color: var(--gold) !important;
+}
+[theme="dark"] .page.single .content h1 { color: #e8ecf8 !important; -webkit-text-fill-color: #e8ecf8 !important; }
+[theme="dark"] .page.single .content h2 { color: #dce4f4 !important; -webkit-text-fill-color: #dce4f4 !important; }
+[theme="dark"] .page.single .content h3 { color: #ccd6ec !important; -webkit-text-fill-color: #ccd6ec !important; }
+[theme="dark"] .page.single .post-meta,
+[theme="dark"] .page.single .post-meta * { color: var(--text-secondary) !important; }
+[theme="dark"] .page.single .content a { color: var(--gold) !important; }
+[theme="dark"] .page.single .content strong,
+[theme="dark"] .page.single .content b { color: #d8c8f0 !important; }
+[theme="dark"] .page.single .content code { color: #f0d890 !important; background: rgba(160,128,216,.18) !important; }
+[theme="dark"] .page.single .content pre { background: rgba(10,12,28,.9) !important; }
+[theme="dark"] .page.single .content pre code { color: #c0d0f0 !important; background: transparent !important; }
+[theme="dark"] .page.single .content table { border-color: rgba(160,128,216,.2) !important; }
+[theme="dark"] .page.single .content th { color: var(--gold) !important; border-color: rgba(160,128,216,.3) !important; }
+[theme="dark"] .page.single .content td { color: var(--text-body) !important; border-color: rgba(160,128,216,.12) !important; }
+[theme="dark"] .page.single .content tr:hover { background: rgba(160,128,216,.05) !important; }
+[theme="dark"] .page.single .content blockquote { color: #c0d0e0 !important; background: rgba(160,128,216,.06) !important; border-color: rgba(200,180,120,.4) !important; }
+[theme="dark"] .page.single .content hr { background: linear-gradient(90deg,transparent,rgba(160,128,216,.3),rgba(200,180,120,.2),transparent) !important; height:1px !important; border:none !important; }
+[theme="dark"] .page.single .post-tags a { color: #c0a8e0 !important; background: rgba(160,128,216,.15) !important; border-color: rgba(160,128,216,.3) !important; }
+[theme="dark"] .page.single .post-tags a:hover { color: var(--gold) !important; background: rgba(200,180,120,.18) !important; border-color: rgba(200,180,120,.45) !important; }
+[theme="dark"] .page.single .post-category a { color: #c0a8e0 !important; }
+[theme="dark"] .page.single .post-category a:hover { color: var(--gold) !important; }
+[theme="dark"] .page.single .toc { border-color: rgba(160,128,216,.15) !important; }
+[theme="dark"] .page.single .toc a { color: var(--text-secondary) !important; }
+[theme="dark"] .page.single .toc a:hover { color: var(--gold) !important; }
+[theme="dark"] .page.single .details-summary { border-color: rgba(160,128,216,.15) !important; }
+[theme="dark"] .page.single .details-summary:hover { color: var(--gold) !important; }
+[theme="dark"] .page.single .post-nav a,
+[theme="dark"] .page.single .post-navigation a { color: var(--gold) !important; }
+[theme="dark"] .page.single .post-nav a:hover,
+[theme="dark"] .page.single .post-navigation a:hover { color: #f0d890 !important; }
 [theme="dark"] p, [theme="dark"] li, [theme="dark"] td, [theme="dark"] th,
 [theme="dark"] span, [theme="dark"] div, [theme="dark"] article,
 [theme="dark"] .content, [theme="dark"] .content * {
