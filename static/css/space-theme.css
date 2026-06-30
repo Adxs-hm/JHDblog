@@ -1,11 +1,75 @@
 /* ============================================================
-   JHD 星空主题 · Ultimate FX v5
+   JHD 星空主题 · Ultimate FX v6
    鼠标视差 · 光影追随 · 渐变文字 · 滚动入场 · 轨道环线
    银河光带 · 链接展开 · 卡片辉光 · 星际粒子 · 星座装饰
+   反白框 · 锐利标题 · 毛玻璃 · 深色全局
    ============================================================ */
 
 /* ============================================================
-   0. CSS 变量
+   0. 全局反白框 —— 强制所有区域深色透明
+   ============================================================ */
+/* 覆盖 LoveIt 可能产生的任何白色/浅色背景 */
+#mask,
+.search-dropdown, .search-dropdown *, .search-dropdown.desktop, .search-dropdown.mobile,
+#search-dropdown-desktop, #search-dropdown-mobile,
+.search-results, .search-result, .search-result-item,
+.menu-inner, .menu, .menu-item, .dropdown-menu, .dropdown-item,
+.wrapper, .main, .container, .page, .home, .archive,
+.header-wrapper, .nav, nav, .navigation,
+.typeit, .post-footer, .post-nav, .post-navigation,
+.toc, .toc-auto, .toc-static, .toc-content,
+#fixed-buttons, #fixed-buttons-hidden,
+.details, .details-summary, .details-content,
+.featured-image, .single-subtitle,
+.pagination, .page-item, .page-link,
+.breadcrumb, .breadcrumb *, .tooltip, .popup, .modal,
+[class*="search"], [class*="dropdown"], [class*="popup"],
+[class*="overlay"], [class*="mask"] {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* 搜索下拉面板 */
+.search-dropdown {
+  background: rgba(12, 15, 32, 0.95) !important;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(120, 150, 200, 0.2) !important;
+  border-radius: 16px !important;
+}
+.search-dropdown .search-result-item {
+  color: var(--text-body) !important;
+  border-bottom: 1px solid rgba(120, 150, 200, 0.1) !important;
+}
+.search-dropdown .search-result-item:hover {
+  background: rgba(200, 180, 120, 0.08) !important;
+  color: var(--gold) !important;
+}
+.search-dropdown .search-result-item mark {
+  color: var(--gold) !important;
+  background: rgba(200, 180, 120, 0.15) !important;
+}
+
+/* 遮罩层 */
+#mask {
+  background: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* 目录侧栏 */
+.toc, .toc-auto, .toc-static, .details {
+  background: rgba(12, 15, 32, 0.6) !important;
+  border: 1px solid rgba(120, 150, 200, 0.12) !important;
+  border-radius: 14px !important;
+}
+
+/* 文章底部 */
+.post-footer, .post-nav, .post-navigation {
+  background: transparent !important;
+  border-color: rgba(120, 150, 200, 0.12) !important;
+}
+
+/* ============================================================
+   0.1 CSS 变量
    ============================================================ */
 :root {
   --bg-deep: #0a0c1e;
@@ -167,31 +231,61 @@ body::after {
 [theme="dark"] .group-title { color: var(--gold) !important; }
 
 /* ============================================================
-   4. 渐变标题文字 —— 星云紫 → 淡金
+   4. 锐利标题 —— 纯色 + 微阴影，清晰不模糊
    ============================================================ */
+/* 文字全局优化 */
+body, h1, h2, h3, h4, h5, h6, p, span, a, li, td, th {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 首页大标题 —— 纯色金色，锐利 */
 .single-title, .profile-title, .home-profile .profile-title {
-  background: linear-gradient(135deg, #c0a0e8 0%, #d4c0f0 25%, var(--gold) 60%, #e0d0a0 100%) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.02em;
+  color: var(--gold) !important;
+  -webkit-text-fill-color: var(--gold) !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 40px rgba(200,180,120,0.3), 0 2px 4px rgba(0,0,0,0.5);
 }
 
-/* 次级标题渐变 */
+/* 一级标题 —— 纯色银白 + 微光 */
 .content h1, .single-content h1 {
-  background: linear-gradient(135deg, #b898e0 0%, var(--gold) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #e8ecf8 !important;
+  -webkit-text-fill-color: #e8ecf8 !important;
+  font-weight: 800 !important;
+  text-shadow: 0 0 20px rgba(160,180,220,0.15);
 }
 
-/* 项目卡片标题 */
+/* 二级标题 */
+.content h2, .single-content h2 {
+  color: #dce4f4 !important;
+  -webkit-text-fill-color: #dce4f4 !important;
+  font-weight: 700 !important;
+}
+
+/* 三级标题 */
+.content h3, .single-content h3 {
+  color: #ccd6ec !important;
+  -webkit-text-fill-color: #ccd6ec !important;
+  font-weight: 600 !important;
+}
+
+/* 项目卡片标题 —— 纯色清晰 */
 .project-title {
-  background: linear-gradient(135deg, #e2e8f8 0%, #c0d0f0 100%);
+  color: #e0e8f8 !important;
+  -webkit-text-fill-color: #e0e8f8 !important;
+}
+
+/* 导航标题 —— 仅这个保留渐变（装饰性强，面积小） */
+.header-title {
+  background: linear-gradient(135deg, #fff 0%, var(--gold) 55%, #f5d78c 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-weight: 800 !important;
+  letter-spacing: 0.06em;
+  text-shadow: none;
 }
 
 /* ============================================================
