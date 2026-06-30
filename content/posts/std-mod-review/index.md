@@ -14,96 +14,111 @@ draft: false
 
 审查日期：**2026-06-29**。共 663 行。发现 12 项待整改问题（P0 → P3）。
 
-## 方法论
+## 方法论：参考 Mod 优先对比法
 
-### 参考 Mod 优先对比法
+### 为什么需要特殊方法
 
-传统审查的问题在于：审查者自己设定"正确标准"，但这个标准可能与社区实际不符。
+传统审查的问题：审查者自己设定"正确标准"，但这个标准可能与社区实际不符——审查者认为的"错误"可能是社区广泛接受的"惯例"。
 
-本报告的创新做法：选取 6 个已经在 Steam Workshop 发布、有数千订阅的 Mod 作为**基准模板**：
+**参考 Mod 优先对比法** 的核心：选取已在 Steam Workshop 发布、有数千订阅的 Mod 作为**基准模板**。对于 STD 的每个 XML 文件，找到参考 Mod 中对应的同类文件，逐字段对比差异。差异不一定都是错误，但每个差异都会被追问"为什么不同"。
 
-| 参考 Mod | 选取理由 |
-|----------|----------|
-| **UF Heavy Industries**（联合重工） | 主要参考——同为国产 Mod，也含工作台/能量武器/护盾/研究/Hediff/完整翻译 |
-| **Ancot Library** | 辅助参考——护盾 Hediff/WorkGiver 实现/翻译结构 |
-| **Glitterworld Destroyer 5** | 辅助参考——机械族扩展，DLC 兼容处理 |
-| Humanoid Alien Races | 参考大型框架 Mod 的 About.xml 规范 |
-| HugsLib | 参考通用库的依赖声明方式 |
-| Vanilla Expanded Framework | 参考 VEF 系列的代码组织 |
+### 参考 Mod 选取理由
 
-审查方法：对于 STD 的每个 XML 文件，**找到参考 Mod 中对应的同类文件，逐字段对比差异**。差异不一定都是错误，但每个差异都会被追问"为什么不同"。
+| 参考 Mod | 选取理由 | 订阅数参考 |
+|----------|---------|-----------|
+| **UF Heavy Industries**（联合重工） | 主要参考——同为国产 Mod，也含工作台/能量武器/护盾/研究/Hediff/完整翻译 | 高 |
+| **Ancot Library** | 辅助参考——护盾 Hediff/WorkGiver 实现/翻译结构 | 中 |
+| **Glitterworld Destroyer 5** | 辅助参考——机械族扩展，DLC 兼容处理 | 中 |
+| Humanoid Alien Races | 参考大型框架 Mod 的 About.xml 规范 | 极高 |
+| HugsLib | 参考通用库的依赖声明方式 | 极高 |
+| Vanilla Expanded Framework | 参考 VEF 系列的代码组织 | 极高 |
 
-### 三级评分体系
+### 对比流程
 
-| 维度 | 评分 | 风险 | 说明 |
-|------|------|------|------|
-| XML 规范性 | 6/10 | 🟡 | 存在字段名错误、弃用字段使用、格式不规范 |
-| DLC 兼容性 | 4/10 | 🔴 | 使用了 Anomaly 专属类但未声明依赖 |
-| 本地化完整性 | 3/10 | 🔴 | 完全没有 Languages 翻译文件夹 |
+```text
+1. 定位文件   → 在 STD Mod 中找到每个 XML 文件
+2. 匹配参照   → 在参考 Mod 中找到功能最接近的对应文件
+3. 逐字比对   → 字段名/嵌套层级/属性值/缺失字段
+4. 差异分类   → 标记为 P0(致命)/P1(严重)/P2(影响体验)/P3(优化建议)
+5. 改进方案   → 每个 P0/P1 问题附带具体修复建议
+```
 
-## 问题清单
+## 健康度评估
+
+| 评估维度 | 评分(1-10) | 风险等级 | 核心问题 |
+|----------|-----------|---------|---------|
+| XML 规范性 | 6/10 | 🟡 黄 | 存在字段名错误、弃用字段、格式不规范 |
+| DLC 兼容性 | 4/10 | 🔴 红 | 使用 Anomaly 专属类但未声明依赖 |
+| 本地化完整性 | 3/10 | 🔴 红 | 完全无 Languages 翻译文件夹 |
+| 代码复用度 | 5/10 | 🟡 黄 | 有 Abstract 基类但提取不够充分 |
+| 贴图规范性 | 7/10 | 🟢 绿 | 命名正确，分辨率部分过大 |
+| 发布就绪度 | 4/10 | 🔴 红 | P0 和 P1 问题需先修复 |
+
+## 问题清单（完整）
 
 ### P0 —— 必须立即修复
 
-| # | 问题 | 影响 |
-|---|------|------|
-| P0-1 | **未声明 Anomaly DLC 依赖**——About.xml 的 `loadAfter` 仅含 `Ludeon.RimWorld`，但 `09_Resurrection.xml` 使用了 `CompUseEffect_Resurrect` 等 Anomaly 专属类 | 无 Anomaly DLC 的玩家加载 Mod 时直接崩溃 |
-| P0-2 | **无 Languages 翻译文件夹**——所有文本硬编码在 XML 的 `<label>` 和 `<description>` 中，没有独立的翻译文件 | 不符合 RimWorld Mod 发布规范，无法被社区翻译工具识别 |
+| # | 问题 | 具体位置 | 影响 |
+|---|------|---------|------|
+| P0-1 | 未声明 Anomaly DLC 依赖 | `About.xml` 的 `loadAfter` 仅含 `Ludeon.RimWorld`，但 `09_Resurrection.xml` 使用 `CompUseEffect_Resurrect` 等 Anomaly 专属类 | 无 Anomaly 玩家加载 Mod 时**直接崩溃** |
+| P0-2 | 无 Languages 翻译文件夹 | 所有 `label`/`description` 文本硬编码在 XML 中 | 不符合发布规范，社区翻译工具无法识别 |
 
-### P1 —— 应在发布前修复
+### P1 —— 发布前务必修复
 
-| # | 问题 |
-|---|------|
-| P1-1 | `STD_FieldCut`：`armorCategory` 设为 `Heat`（热），但 `hediff` 为 `Cut`（切割）——伤害类型与护甲抗性不匹配 |
-| P1-2 | STD 分析台（`01_Analyzer.xml`）：缺少 `minifiedDef`、`Flickable`、`Power`、`placeWorkers` 等标准 Building 组件 |
-| P1-3 | 护盾充能速度在所有等级相同——III 级护盾腰带应该有更快的充能速度 |
-| P1-4 | `00_Core.xml` 缺少 `Abstract` 基类提取——合金的多个 statBases 可提取为基类供其他物品复用 |
+| # | 问题 | 对比参考 | 修复建议 |
+|---|------|---------|---------|
+| P1-1 | `STD_FieldCut` 的 `armorCategory` 为 Heat 但 `hediff` 为 Cut | UF Heavy Industries 所有 DamageDef 的类型完全匹配 | 统一为 Cut，或分别设 Cut/Burn/Bolt |
+| P1-2 | 分析台缺少 `minifiedDef`/`Flickable`/`Power`/`placeWorkers` | UF 的所有工作台完整包含这些字段 | 逐字段添加，参考 UF 的实现 |
+| P1-3 | EC-I/II/III 护盾充能速度完全相同时 | UF 护盾每级充能递增 | 按等级设充能：8.5/15.0/28.0 |
+| P1-4 | 缺少 `Abstract` 基类提取 | Ancot Library 大量使用 Abstract 减少重复 | 提取 Alloy/Weapon/Apparel/Ingestible 四个基类 |
 
 ### P2 —— 影响用户体验
 
-| # | 问题 |
-|---|------|
-| P2-1 | `Preview.png` 文件达 547KB——参考 Mod 的 Preview 普遍 ≤ 100KB。Steam Workshop 页面的预览图不需要超高分辨率 |
-| P2-2 | III 级研究项目全部只要求 `STD_Analyzer` 作为研究设施——最高科技应该要求 `HiTechResearchBench` 和 `MultiAnalyzer` |
-| P2-3 | 物品标签中英文混杂——`<label>` 中一些是中文，一些是英文缩写 |
+| # | 问题 | 建议 |
+|---|------|------|
+| P2-1 | Preview.png 547KB | 压缩至 ≤ 100KB（参考 Mod 平均 ~60KB） |
+| P2-2 | III 级研究只要求 STD 分析台 | 添加 HiTechResearchBench + MultiAnalyzer 要求 |
+| P2-3 | 物品标签中英文混杂 | 统一使用中文或提供中英双语 |
 
 ### P3 —— 优化建议
 
-| # | 问题 |
-|---|------|
-| P3-1 | 建议使用 `<recipeMaker>` 内嵌方式替代独立 RecipeDef——更现代，减少文件数量 |
-| P3-2 | 建议为护盾腰带添加 `wornGraphicPath` 和完整 `bodyPartGroups` |
-| P3-3 | 建议提取 ResearchProjectDef 的公共 Abstract 基类 |
-
-## 核心建议
-
-1. **添加 `Languages/` 文件夹**——同时支持中文和英文（中文默认 + 英文备用）
-2. **声明 DLC 依赖**——在 About.xml 中添加 Anomaly 相关的 `modDependencies` 或 `loadAfter`
-3. **修复 P0 和 P1 级问题**再公开发布
-4. **压缩 Preview.png**——使用 TinyPNG 或类似工具压至 100KB 以下
+| # | 问题 | 建议 |
+|---|------|------|
+| P3-1 | 独立 RecipeDef 过多 | 使用 `<recipeMaker>` 内嵌方式减少文件数 |
+| P3-2 | 护盾腰带缺少 `wornGraphicPath` | 添加穿戴渲染路径 |
+| P3-3 | ResearchProjectDef 可提取 Abstract | 公共字段提取到基类，具体项目继承 |
 
 ## 审查统计
 
 | 统计项 | 数值 |
 |--------|------|
-| 审查文件数 | 10（9 XML + 1 About.xml） |
-| 参考 Mod 数 | 6 |
-| 发现问题 | 12（P0:2 + P1:4 + P2:3 + P3:3） |
-| 总行数 | 663 |
+| 审查 XML 文件数 | 9（全部 Def 文件） |
+| 审查非 XML 文件 | 1（About.xml） |
+| 参考 Mod 数量 | 6 |
+| 发现问题总数 | 12 |
+| P0（致命） | 2 |
+| P1（严重） | 4 |
+| P2（体验） | 3 |
+| P3（优化） | 3 |
+| 代码行数 | 663 |
+| 引用参考代码段 | 6 |
 
 ## 方法论可复用性
 
-这份报告的框架——参考 Mod 优先对比 + 三级评分 + P0→P3 优先级——可以直接用于审查其他 RimWorld Mod。只需要更换参考 Mod 名单和对应的基准文件即可。
+这份审查报告的框架——参考 Mod 优先对比 + 三级评分 + P0→P3 优先级——可以直接用于审查其他 RimWorld Mod。复用步骤：
+
+1. 根据目标 Mod 的功能选取 3-6 个功能相似的已发布 Mod 作为参考
+2. 逐 XML 文件对比字段差异
+3. 每个差异标注严重等级和建议修复方式
+4. 汇总为健康度评分和问题清单
 
 ## 审查者
 
 审查者身份待确认（报告中未注明审查者姓名或身份）。
 
 ## 相关项目
-
 - **STD Template Mod**——被审查的目标
 - **RimWorld Mod 制作完全指南**——对应开发教程
 
 ## 完成时间
-
 **2026 年 6 月 29 日**
