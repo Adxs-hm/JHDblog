@@ -162,9 +162,9 @@ draft: false
       <span class="project-title">巨星（CLPS / Collapse）</span>
       <span class="project-tag">设定集</span>
     </div>
-    <p>归入此类理由：大型多人共创科幻宇宙设定，以世界观构建为核心</p>
+    <p>归入此类理由：原创科幻宇宙设定，以世界观构建为核心</p>
     <div class="project-meta">
-      <span>科幻</span><span>共创</span><span>10 位创作者</span><span>4,000+ 行</span><span class="meta-date">2024-2026</span>
+      <span>科幻</span><span>世界观</span><span>4,000+ 行</span><span class="meta-date">2024-2026</span>
     </div>
   </div>
 </div>

@@ -78,7 +78,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # 页脚
   [params.footer]
     enable = true
-    custom = ""
+    custom = '<span style="font-size:0.78rem;color:#6a80a0;">本站所有内容为原创或基于个人创作整理。如有与其他作品相似之处，纯属巧合。</span>'
     hugo = true
     copyright = true
     author = true
