@@ -99,4 +99,45 @@
   var banner = document.querySelector('.stat-banner');
   if (banner) countObserver.observe(banner);
 
+  // ============ 6. 目录滚动高亮 ============
+  var tocAuto = document.getElementById('toc-auto');
+  var tocLinks = document.querySelectorAll('#toc-auto nav a, #TableOfContents a');
+  var headings = document.querySelectorAll('.content h1[id], .content h2[id], .content h3[id], .content h4[id]');
+
+  if (tocAuto && headings.length > 0) {
+    // 桌面端显示浮动目录
+    if (window.innerWidth > 1024) {
+      tocAuto.classList.add('toc-visible');
+    }
+
+    // ScrollSpy: 高亮当前可见标题
+    var headingObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(function(link) {
+            link.classList.remove('toc-active');
+          });
+          var id = entry.target.getAttribute('id');
+          var activeLink = document.querySelector('#toc-auto a[href="#' + id + '"], #TableOfContents a[href="#' + id + '"]');
+          if (activeLink) activeLink.classList.add('toc-active');
+        }
+      });
+    }, { rootMargin: '-80px 0px -70% 0px', threshold: 0 });
+
+    headings.forEach(function(h) { headingObserver.observe(h); });
+  }
+
+  // 平滑滚动
+  tocLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var id = link.getAttribute('href').replace('#', '');
+      var target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.pushState(null, null, '#' + id);
+      }
+    });
+  });
+
 })();
