@@ -204,7 +204,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # 自定义 CSS（星空主题）
   [params.page.library]
     [params.page.library.css]
-      spaceTheme = "/css/space-theme.css"
+      spaceTheme = "/css/space-theme-v2.css"
 
   [params.cookieconsent]
     enable = false
