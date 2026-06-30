@@ -31,18 +31,24 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 [menu]
   [[menu.main]]
     weight = 1
+    identifier = "posts"
+    name = "文章"
+    url = "/posts/"
+    title = "所有文章记录"
+  [[menu.main]]
+    weight = 2
     identifier = "projects"
     name = "项目"
     url = "/projects/"
     title = "所有项目记录"
   [[menu.main]]
-    weight = 2
+    weight = 3
     identifier = "milestones"
     name = "里程碑"
     url = "/milestones/"
     title = "关键节点与里程碑"
   [[menu.main]]
-    weight = 3
+    weight = 4
     identifier = "about"
     name = "关于"
     url = "/about/"
