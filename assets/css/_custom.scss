@@ -145,25 +145,18 @@ button:hover, .btn:hover, .fixed-button:hover {
   color: #c8b478 !important;
 }
 
-// === 搜索系统 === //
-.search input, .search-dropdown input {
+// === 搜索 === //
+#search-input-desktop, #search-input-mobile {
   background: rgba(16, 20, 44, 0.7) !important;
-  border-color: rgba(120, 150, 200, 0.22) !important;
-  color: #c0cce4 !important;
-}
-.search-dropdown, #search-dropdown-desktop, #search-dropdown-mobile {
-  background: rgba(12, 15, 34, 0.96) !important;
   border-color: rgba(120, 150, 200, 0.2) !important;
-}
-.search-dropdown a, #search-dropdown-desktop a, #search-dropdown-mobile a {
   color: #c0cce4 !important;
-  display: block !important;
-  padding: .75rem 1rem !important;
-  cursor: pointer !important;
 }
-.search-dropdown a:hover, #search-dropdown-desktop a:hover {
+.aa-Panel, .search-dropdown, #search-dropdown-desktop, #search-dropdown-mobile {
+  background: rgba(12, 15, 34, 0.97) !important;
+  border-color: rgba(120, 150, 200, 0.18) !important;
+}
+.aa-Item:hover, .aa-Item[aria-selected="true"] {
   background: rgba(200, 180, 120, 0.12) !important;
-  color: #c8b478 !important;
 }
 
 // === 选中 === //

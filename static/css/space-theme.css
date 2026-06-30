@@ -786,107 +786,59 @@ button:active, .btn:active, .fixed-button:active {
    ============================================================ */
 .footer, footer { background: rgba(10,12,28,.92); border-top: 1px solid var(--border-subtle); padding: 2rem 0; }
 /* ============================================================
-   搜索系统 —— 完整重做
+   搜索系统 —— LoveIt 内置 Fuse.js + autocomplete.js 样式修复
    ============================================================ */
 
-/* 搜索输入框 */
-.search input, .search-dropdown input,
-#search-input-desktop, #search-input-mobile {
+/* 输入框 */
+#search-input-desktop, #search-input-mobile,
+.search.mobile input, .search.desktop input {
   background: rgba(16, 20, 44, 0.7) !important;
-  border: 1px solid rgba(120, 150, 200, 0.22) !important;
-  color: var(--text-body) !important;
-  border-radius: 12px !important;
-  padding: 0.55rem 1rem !important;
-  font-size: 0.9rem !important;
-  transition: all .25s var(--ease);
-  width: 200px;
-}
-.search input::placeholder { color: #5a6a88 !important; }
-.search input:focus, .search-dropdown input:focus,
-#search-input-desktop:focus, #search-input-mobile:focus {
-  border-color: var(--gold) !important;
-  box-shadow: 0 0 18px rgba(200, 180, 120, 0.2) !important;
+  border: 1px solid rgba(120, 150, 200, 0.2) !important;
+  color: #c0cce4 !important;
+  border-radius: 10px !important;
+  padding: 0.45rem 0.9rem !important;
+  font-size: 0.88rem !important;
   outline: none !important;
-  width: 260px;
+}
+#search-input-desktop:focus, #search-input-mobile:focus {
+  border-color: rgba(200,180,120,.4) !important;
+  box-shadow: 0 0 14px rgba(200,180,120,.15) !important;
 }
 
 /* 搜索按钮 */
-.search-button, .search-toggle, .search-clear, .search-cancel, .search-loading {
-  background: transparent !important;
-  border: none !important;
-  color: #8898b8 !important;
-  cursor: pointer;
-  transition: color .2s var(--ease);
-}
-.search-button:hover, .search-toggle:hover { color: var(--gold) !important; }
-.search-clear:hover, .search-cancel:hover { color: var(--accent-rose, #d898a0) !important; }
-.search-loading { color: var(--gold) !important; }
+.search-button, .search-toggle, .search-clear, .search-cancel, .search-loading { background: transparent !important; }
 
-/* 搜索结果下拉面板 */
+/* autocomplete.js 下拉面板 - 深色主题覆盖 */
+.aa-Panel, [id*="autocomplete"] .aa-Panel,
 .search-dropdown, #search-dropdown-desktop, #search-dropdown-mobile {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 420px;
-  max-width: 90vw;
-  max-height: 60vh;
-  overflow-y: auto;
-  background: rgba(12, 15, 34, 0.96) !important;
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-  border: 1px solid rgba(120, 150, 200, 0.2) !important;
-  border-radius: 16px !important;
-  box-shadow: 0 16px 48px rgba(0,0,0,.6), 0 0 60px rgba(100,140,220,.12);
-  z-index: 1000;
-  padding: 0.5rem;
+  background: rgba(12, 15, 34, 0.97) !important;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(120, 150, 200, 0.18) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 16px 48px rgba(0,0,0,.55) !important;
+  z-index: 9999;
 }
-
-/* 搜索结果项 */
-.search-dropdown a, .search-dropdown .search-result-item,
-#search-dropdown-desktop a, #search-dropdown-mobile a,
-.search-dropdown [class*="result"], #search-dropdown-desktop [class*="result"] {
-  display: block !important;
-  padding: 0.75rem 1rem !important;
+.aa-List { padding: 0.4rem !important; }
+.aa-Item {
+  padding: 0.65rem 0.9rem !important;
   border-radius: 10px !important;
-  margin-bottom: 2px;
-  color: var(--text-body) !important;
-  text-decoration: none !important;
-  border: none !important;
   cursor: pointer !important;
-  transition: all .15s var(--ease);
+  transition: background .15s ease !important;
 }
-.search-dropdown a:hover, .search-dropdown .search-result-item:hover,
-#search-dropdown-desktop a:hover {
+.aa-Item:hover, .aa-Item[aria-selected="true"] {
   background: rgba(200, 180, 120, 0.12) !important;
-  color: var(--gold) !important;
 }
-
-/* 高亮匹配 */
-.search-dropdown mark, .search-dropdown em,
-#search-dropdown-desktop mark, #search-dropdown-desktop em {
+.aa-Item mark, .aa-Item em {
   background: rgba(200, 180, 120, 0.2) !important;
-  color: var(--gold) !important;
+  color: #c8b478 !important;
   font-weight: 600;
-  border-radius: 3px;
-  padding: 0 2px;
+  border-radius: 2px; padding: 0 1px;
 }
-
-/* 无结果 */
-.search-dropdown .search-no-results {
-  padding: 1.5rem 1rem !important;
-  text-align: center;
-  color: var(--text-secondary) !important;
-}
-
-/* 移动端搜索 */
-@media (max-width: 768px) {
-  .search-dropdown { width: 95vw; left: 2.5vw; transform: none; }
-  .search input { width: 140px; }
-  .search input:focus { width: 180px; }
-  .search.mobile { display: flex; align-items: center; gap: .5rem; }
-  .search.mobile input { flex: 1; }
-}
+.aa-ItemWrapper { color: #c0cce4 !important; }
+.aa-ItemContent { color: #c0cce4 !important; }
+.aa-ItemContentTitle { color: #dce4f4 !important; font-weight: 600; }
+.aa-ItemContentDescription { color: #8698bc !important; font-size: 0.82rem; }
 
 /* 分页 */
 .pagination a { background: var(--bg-card); border: 1px solid var(--border-subtle); color: var(--text-secondary); border-radius: 10px; padding: .5rem 1rem; transition: all .2s var(--ease); }
