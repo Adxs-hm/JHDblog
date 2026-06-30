@@ -33,7 +33,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     weight = 1
     identifier = "posts"
     name = "文章"
-    url = "/posts/"
+    url = "/articles/"
     title = "所有文章记录"
   [[menu.main]]
     weight = 2
