@@ -786,59 +786,86 @@ button:active, .btn:active, .fixed-button:active {
    ============================================================ */
 .footer, footer { background: rgba(10,12,28,.92); border-top: 1px solid var(--border-subtle); padding: 2rem 0; }
 /* ============================================================
-   搜索系统 —— LoveIt 内置 Fuse.js + autocomplete.js 样式修复
+   搜索系统 —— 大面板 + 可点击 + 深色主题
    ============================================================ */
 
-/* 输入框 */
-#search-input-desktop, #search-input-mobile,
-.search.mobile input, .search.desktop input {
-  background: rgba(16, 20, 44, 0.7) !important;
-  border: 1px solid rgba(120, 150, 200, 0.2) !important;
+/* 输入框 —— 更大 */
+#search-input-desktop {
+  width: 220px !important;
+  background: rgba(16, 20, 44, 0.8) !important;
+  border: 1px solid rgba(120, 150, 200, 0.25) !important;
   color: #c0cce4 !important;
-  border-radius: 10px !important;
-  padding: 0.45rem 0.9rem !important;
-  font-size: 0.88rem !important;
+  border-radius: 20px !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.9rem !important;
+  outline: none !important;
+  transition: all .25s ease;
+}
+#search-input-desktop:focus {
+  width: 280px !important;
+  border-color: rgba(200,180,120,.5) !important;
+  box-shadow: 0 0 20px rgba(200,180,120,.18) !important;
+}
+#search-input-desktop::placeholder { color: #5a6a88; }
+
+/* 移动端输入框 */
+#search-input-mobile {
+  width: 100% !important;
+  background: rgba(16, 20, 44, 0.8) !important;
+  border: 1px solid rgba(120, 150, 200, 0.25) !important;
+  color: #c0cce4 !important;
+  border-radius: 20px !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.9rem !important;
   outline: none !important;
 }
-#search-input-desktop:focus, #search-input-mobile:focus {
-  border-color: rgba(200,180,120,.4) !important;
-  box-shadow: 0 0 14px rgba(200,180,120,.15) !important;
+
+/* autocomplete.js 下拉面板 */
+.search-dropdown, #search-dropdown-desktop, #search-dropdown-mobile,
+.aa-Panel, .aa-DetachedOverlay {
+  width: 460px !important;
+  max-width: 92vw !important;
+  background: rgba(12, 15, 34, 0.98) !important;
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(120, 150, 200, 0.2) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,.6) !important;
+  z-index: 9999 !important;
+  overflow: hidden !important;
 }
 
-/* 搜索按钮 */
-.search-button, .search-toggle, .search-clear, .search-cancel, .search-loading { background: transparent !important; }
-
-/* autocomplete.js 下拉面板 - 深色主题覆盖 */
-.aa-Panel, [id*="autocomplete"] .aa-Panel,
-.search-dropdown, #search-dropdown-desktop, #search-dropdown-mobile {
-  background: rgba(12, 15, 34, 0.97) !important;
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(120, 150, 200, 0.18) !important;
-  border-radius: 14px !important;
-  box-shadow: 0 16px 48px rgba(0,0,0,.55) !important;
-  z-index: 9999;
-}
-.aa-List { padding: 0.4rem !important; }
-.aa-Item {
-  padding: 0.65rem 0.9rem !important;
+/* 每个结果项 —— 大块可点击 */
+.aa-Item, .search-dropdown a, #search-dropdown-desktop a, #search-dropdown-mobile a {
+  display: block !important;
+  padding: 0.85rem 1.1rem !important;
+  margin: 2px 4px !important;
   border-radius: 10px !important;
   cursor: pointer !important;
-  transition: background .15s ease !important;
+  text-decoration: none !important;
+  transition: background .12s ease !important;
+  border: none !important;
+  outline: none !important;
 }
-.aa-Item:hover, .aa-Item[aria-selected="true"] {
-  background: rgba(200, 180, 120, 0.12) !important;
+.aa-Item[aria-selected="true"], .aa-Item:hover,
+.search-dropdown a:hover, #search-dropdown-desktop a:hover {
+  background: rgba(200, 180, 120, 0.15) !important;
 }
-.aa-Item mark, .aa-Item em {
-  background: rgba(200, 180, 120, 0.2) !important;
+.aa-Item mark, .aa-Item em, .search-dropdown mark {
+  background: rgba(200, 180, 120, 0.22) !important;
   color: #c8b478 !important;
-  font-weight: 600;
-  border-radius: 2px; padding: 0 1px;
+  font-weight: 700;
+  border-radius: 2px; padding: 0 2px;
 }
-.aa-ItemWrapper { color: #c0cce4 !important; }
-.aa-ItemContent { color: #c0cce4 !important; }
-.aa-ItemContentTitle { color: #dce4f4 !important; font-weight: 600; }
-.aa-ItemContentDescription { color: #8698bc !important; font-size: 0.82rem; }
+
+/* 结果文字 */
+.aa-ItemWrapper, .aa-ItemContent, .aa-ItemContentTitle {
+  color: #dce4f4 !important; font-size: 0.92rem;
+}
+
+/* 清除/加载按钮 */
+.search-button, .search-toggle, .search-clear, .search-loading { background: transparent !important; color: #8898b8 !important; }
+.search-clear:hover { color: #d898a0 !important; }
 
 /* 分页 */
 .pagination a { background: var(--bg-card); border: 1px solid var(--border-subtle); color: var(--text-secondary); border-radius: 10px; padding: .5rem 1rem; transition: all .2s var(--ease); }
