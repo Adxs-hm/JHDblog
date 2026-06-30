@@ -455,7 +455,14 @@ body {
   }
 }
 
-/* === 16. 数据大字报样式（用于里程碑页） === */
+/* === 16. 栏目页内容分隔线 === */
+.section-divider {
+  border: none;
+  border-top: 1px solid rgba(100, 140, 255, 0.15);
+  margin: 2rem 0 1.5rem;
+}
+
+/* === 17. 数据大字报样式（用于里程碑页） === */
 .stat-banner {
   display: flex;
   justify-content: center;
