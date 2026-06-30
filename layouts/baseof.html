@@ -52,6 +52,139 @@
 
         {{- partial "assets.html" . -}}
 
+        <!-- 🔥 JHD 终极样式覆盖 —— 内联 style 标签，最高优先级，100% 生效 -->
+        <style id="jhd-override">
+          /* 核弹级 —— 详情页全部透明背景 */
+          [theme="dark"] .page.single *,
+          [theme="dark"] .page.single article *,
+          [theme="dark"] .page.single .content *,
+          [theme="dark"] .page.single div,
+          [theme="dark"] .page.single section,
+          [theme="dark"] .page.single article,
+          [theme="dark"] .page.single .content,
+          [theme="dark"] .page.single .single-title,
+          [theme="dark"] .page.single .post-meta,
+          [theme="dark"] .page.single .post-footer,
+          [theme="dark"] .page.single .post-nav,
+          [theme="dark"] .page.single .toc,
+          [theme="dark"] .page.single .details {
+            background-color: transparent !important;
+            background: transparent !important;
+          }
+          /* 元素本身也透明 */
+          [theme="dark"] .page.single {
+            background: transparent !important;
+            background-color: transparent !important;
+          }
+          /* 正文容器 */
+          [theme="dark"] .page.single .content {
+            background: transparent !important;
+            color: #c0cce4 !important;
+          }
+          /* 正文所有文字 */
+          [theme="dark"] .page.single .content p,
+          [theme="dark"] .page.single .content li,
+          [theme="dark"] .page.single .content span,
+          [theme="dark"] .page.single .content div {
+            color: #c0cce4 !important;
+          }
+          /* 标题 */
+          [theme="dark"] .page.single .single-title {
+            color: #c8b478 !important;
+            background: transparent !important;
+            text-shadow: 0 0 40px rgba(200,180,120,.3);
+            font-weight: 900 !important;
+          }
+          [theme="dark"] .page.single .content h1 {
+            color: #e8ecf8 !important; background: transparent !important;
+            border-left: 4px solid #c8b478 !important;
+          }
+          [theme="dark"] .page.single .content h2 {
+            color: #dce4f4 !important; background: transparent !important;
+            border-left: 3px solid rgba(200,180,120,.5) !important;
+          }
+          [theme="dark"] .page.single .content h3 {
+            color: #ccd6ec !important; background: transparent !important;
+            border-left: 2px solid rgba(200,180,120,.3) !important;
+          }
+          /* 链接 */
+          [theme="dark"] .page.single .content a {
+            color: #c8b478 !important;
+          }
+          [theme="dark"] .page.single .content a:hover {
+            color: #f0d890 !important;
+            text-shadow: 0 0 10px rgba(200,180,120,.3);
+          }
+          /* 加粗 */
+          [theme="dark"] .page.single .content strong,
+          [theme="dark"] .page.single .content b {
+            color: #d8c8f0 !important;
+          }
+          /* 表格 */
+          [theme="dark"] .page.single .content table {
+            background: transparent !important;
+            border-color: rgba(160,128,216,.2) !important;
+          }
+          [theme="dark"] .page.single .content thead {
+            background: rgba(160,128,216,.15) !important;
+          }
+          [theme="dark"] .page.single .content th {
+            color: #c8b478 !important;
+            background: transparent !important;
+            border-color: rgba(160,128,216,.3) !important;
+          }
+          [theme="dark"] .page.single .content td {
+            color: #c0cce4 !important;
+            background: transparent !important;
+            border-color: rgba(160,128,216,.12) !important;
+          }
+          /* 代码 */
+          [theme="dark"] .page.single .content code {
+            color: #f0d890 !important;
+            background: rgba(160,128,216,.2) !important;
+          }
+          [theme="dark"] .page.single .content pre {
+            background: rgba(10,12,28,.92) !important;
+            border-color: rgba(160,128,216,.2) !important;
+          }
+          [theme="dark"] .page.single .content pre code {
+            color: #c0d0f0 !important;
+            background: transparent !important;
+          }
+          /* 引用 */
+          [theme="dark"] .page.single .content blockquote {
+            background: rgba(160,128,216,.06) !important;
+            border-left: 3px solid rgba(200,180,120,.4) !important;
+            color: #c0d0e0 !important;
+          }
+          [theme="dark"] .page.single .content blockquote p {
+            color: #c0d0e0 !important;
+          }
+          /* 标签 */
+          [theme="dark"] .page.single .post-tags a {
+            color: #c0a8e0 !important;
+            background: rgba(160,128,216,.15) !important;
+            border: 1px solid rgba(160,128,216,.3) !important;
+          }
+          /* 元信息 */
+          [theme="dark"] .page.single .post-meta,
+          [theme="dark"] .page.single .post-meta * {
+            color: #8698bc !important;
+            background: transparent !important;
+          }
+          /* 分割线 */
+          [theme="dark"] .page.single .content hr {
+            background: linear-gradient(90deg,transparent,rgba(160,128,216,.3),rgba(200,180,120,.2),transparent) !important;
+            height: 1px !important;
+            border: none !important;
+          }
+          /* 导航 */
+          [theme="dark"] .page.single .post-nav a,
+          [theme="dark"] .page.single .post-navigation a {
+            color: #c8b478 !important;
+          }
+        </style>
+
         <!-- JHD 星空特效引擎 -->
         <script src="/js/space-fx.js"></script>
     </body>
