@@ -95,8 +95,7 @@
         var cleaned = [];
         var seen = {};
         d.forEach(function(item){
-          var key = item.uri + '|' + item.objectID;
-          if (!seen[key]) { seen[key] = true; cleaned.push(item); }
+          if (!seen[item.uri]) { seen[item.uri] = true; cleaned.push(item); }
         });
         fuse = new Fuse(cleaned, {
           keys: [
