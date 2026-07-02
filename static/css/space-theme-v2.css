@@ -786,105 +786,73 @@ button:active, .btn:active, .fixed-button:active {
    ============================================================ */
 .footer, footer { background: rgba(10,12,28,.92); border-top: 1px solid var(--border-subtle); padding: 2rem 0; }
 /* ============================================================
-   搜索系统 —— autocomplete.js v0.38.1 正确类名
+   搜索系统 —— autocomplete.js v0.38.1 + noPrefix:true
    ============================================================ */
+/*
+   noPrefix:true 去掉 "aa-" 前缀！
+   正确类名: .dropdown-menu .suggestion .cursor（非 .aa-dropdown-menu .aa-suggestion）
+*/
 
-/* 输入框 —— 更大 */
 #search-input-desktop {
-  width: 220px !important;
-  background: rgba(16, 20, 44, 0.8) !important;
-  border: 1px solid rgba(120, 150, 200, 0.25) !important;
-  color: #c0cce4 !important;
-  border-radius: 20px !important;
-  padding: 0.5rem 1rem !important;
-  font-size: 0.9rem !important;
-  outline: none !important;
+  width: 220px !important; background: rgba(16, 20, 44, 0.8) !important;
+  border: 1px solid rgba(120, 150, 200, 0.25) !important; color: #c0cce4 !important;
+  border-radius: 20px !important; padding: 0.5rem 1rem !important;
+  font-size: 0.9rem !important; outline: none !important;
   transition: all .25s var(--ease);
 }
 #search-input-desktop:focus {
-  width: 280px !important;
-  border-color: rgba(200,180,120,.5) !important;
+  width: 280px !important; border-color: rgba(200,180,120,.5) !important;
   box-shadow: 0 0 20px rgba(200,180,120,.18) !important;
 }
 #search-input-desktop::placeholder { color: #5a6a88; }
 #search-input-mobile {
-  width: 100% !important;
-  background: rgba(16, 20, 44, 0.8) !important;
-  border: 1px solid rgba(120, 150, 200, 0.25) !important;
-  color: #c0cce4 !important;
-  border-radius: 20px !important;
-  padding: 0.5rem 1rem !important;
-  font-size: 0.9rem !important;
-  outline: none !important;
+  width: 100% !important; background: rgba(16, 20, 44, 0.8) !important;
+  border: 1px solid rgba(120, 150, 200, 0.25) !important; color: #c0cce4 !important;
+  border-radius: 20px !important; padding: 0.5rem 1rem !important;
+  font-size: 0.9rem !important; outline: none !important;
 }
 
-/* autocomplete.js v0.38.1 下拉面板（正确类名：.aa-dropdown-menu / .aa-suggestion） */
-.algolia-autocomplete .aa-dropdown-menu,
-.algolia-autocomplete .aa-dropdown-menu .aa-suggestions,
+/* 下拉面板（noPrefix:true = 无 aa- 前缀） */
+.algolia-autocomplete .dropdown-menu,
 .search-dropdown, #search-dropdown-desktop, #search-dropdown-mobile {
-  width: 460px !important;
-  max-width: 92vw !important;
+  width: 460px !important; max-width: 92vw !important;
   background: rgba(12, 15, 34, 0.98) !important;
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
+  backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
   border: 1px solid rgba(120, 150, 200, 0.2) !important;
-  border-radius: 16px !important;
-  box-shadow: 0 20px 60px rgba(0,0,0,.6) !important;
-  z-index: 9999 !important;
-  overflow: hidden !important;
-  padding: 0.4rem !important;
+  border-radius: 16px !important; box-shadow: 0 20px 60px rgba(0,0,0,.6) !important;
+  z-index: 9999 !important; overflow: hidden !important; padding: 0.4rem !important;
 }
 
-/* 每条建议 —— 大块可点击 */
-.algolia-autocomplete .aa-suggestion,
-.search-dropdown a, #search-dropdown-desktop a, #search-dropdown-mobile a,
-.search-dropdown .search-result-item {
-  display: block !important;
-  padding: 0.85rem 1.1rem !important;
-  margin: 2px 4px !important;
-  border-radius: 10px !important;
-  cursor: pointer !important;
-  text-decoration: none !important;
-  transition: background .12s ease !important;
-  border: none !important;
-  color: #c0cce4 !important;
+/* 每条结果（noPrefix:true = .suggestion 非 .aa-suggestion） */
+.algolia-autocomplete .suggestion,
+.search-dropdown a, #search-dropdown-desktop a, #search-dropdown-mobile a {
+  display: block !important; padding: 0.85rem 1.1rem !important;
+  margin: 2px 4px !important; border-radius: 10px !important;
+  cursor: pointer !important; text-decoration: none !important;
+  transition: background .12s ease !important; border: none !important; color: #c0cce4 !important;
 }
-.algolia-autocomplete .aa-suggestion.aa-cursor,
-.algolia-autocomplete .aa-suggestion:hover,
-.algolia-autocomplete .aa-cursor .aa-suggestion,
+.algolia-autocomplete .suggestion:hover,
+.algolia-autocomplete .cursor,
 .search-dropdown a:hover, #search-dropdown-desktop a:hover {
-  background: rgba(200, 180, 120, 0.15) !important;
-  color: #c8b478 !important;
+  background: rgba(200, 180, 120, 0.15) !important; color: #c8b478 !important;
 }
 
 /* 高亮匹配 */
-.algolia-autocomplete .aa-suggestion em,
-.algolia-autocomplete .aa-suggestion .aa-highlight,
-.search-dropdown mark, .search-dropdown em,
-#search-dropdown-desktop mark, #search-dropdown-desktop em {
-  background: rgba(200, 180, 120, 0.22) !important;
-  color: #c8b478 !important;
-  font-weight: 700 !important;
-  font-style: normal !important;
+.algolia-autocomplete .suggestion em,
+.search-dropdown mark, .search-dropdown em {
+  background: rgba(200, 180, 120, 0.22) !important; color: #c8b478 !important;
+  font-weight: 700 !important; font-style: normal !important;
   border-radius: 2px; padding: 0 2px;
 }
 
-/* 结果文字 */
-.algolia-autocomplete .aa-suggestion span,
-.aa-dataset-1 .aa-suggestion span,
-.search-dropdown .search-result-item span {
-  color: #c0cce4 !important; font-size: 0.9rem;
-}
-
-/* 清除/加载按钮 */
+/* 清除按钮 */
 .search-button, .search-toggle, .search-clear, .search-loading {
   background: transparent !important; color: #8898b8 !important;
 }
 .search-clear:hover { color: #d898a0 !important; }
 
-/* 移动端搜索面板 */
 @media (max-width: 768px) {
-  .algolia-autocomplete .aa-dropdown-menu { width: 95vw !important; left: 2.5vw !important; }
+  .algolia-autocomplete .dropdown-menu { width: 95vw !important; }
 }
 
 /* 分页 */
