@@ -151,11 +151,11 @@ button:hover, .btn:hover, .fixed-button:hover {
   border-color: rgba(120, 150, 200, 0.2) !important;
   color: #c0cce4 !important;
 }
-.aa-Panel, .search-dropdown, #search-dropdown-desktop, #search-dropdown-mobile {
+.algolia-autocomplete .dropdown-menu, .search-dropdown, #search-dropdown-desktop, #search-dropdown-mobile {
   background: rgba(12, 15, 34, 0.97) !important;
   border-color: rgba(120, 150, 200, 0.18) !important;
 }
-.aa-Item:hover, .aa-Item[aria-selected="true"] {
+.algolia-autocomplete .suggestion:hover, .algolia-autocomplete .cursor {
   background: rgba(200, 180, 120, 0.12) !important;
 }
 
