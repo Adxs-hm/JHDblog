@@ -7,7 +7,7 @@ draft: false
 
 <div class="stat-banner">
   <div class="stat-item">
-    <div class="stat-number">9</div>
+    <div class="stat-number">10</div>
     <div class="stat-label">已完成项目</div>
   </div>
   <div class="stat-item">
@@ -15,7 +15,7 @@ draft: false
     <div class="stat-label">创作领域</div>
   </div>
   <div class="stat-item">
-    <div class="stat-number">1.5MB+</div>
+    <div class="stat-number">2.2MB+</div>
     <div class="stat-label">产出内容</div>
   </div>
 </div>
@@ -139,6 +139,24 @@ draft: false
     <p>归入此类理由：SillyTavern（酒馆）AI 角色扮演设定包，主神空间无限流体系</p>
     <div class="project-meta">
       <span>无限流</span><span>SillyTavern</span><span>3 文件</span><span>499KB</span><span class="meta-date">2026.06.06</span>
+    </div>
+  </div>
+</div>
+</a>
+
+<a class="project-card-link" href="/posts/zombie-apocalypse/">
+<div class="project-card">
+  <div class="project-card-left">
+    <span class="project-icon">🧟</span>
+  </div>
+  <div class="project-card-right">
+    <div class="project-title-row">
+      <span class="project-title">丧尸危世</span>
+      <span class="project-tag">SillyTavern 设定</span>
+    </div>
+    <p>归入此类理由：SillyTavern（酒馆）AI 角色扮演设定包，硬核丧尸末日双病毒体系</p>
+    <div class="project-meta">
+      <span>丧尸末日</span><span>SillyTavern</span><span>9 文件</span><span>726KB</span><span class="meta-date">2026.06-07</span>
     </div>
   </div>
 </div>
