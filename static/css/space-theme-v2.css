@@ -8,12 +8,9 @@
 /* ============================================================
    0. 全局反白框 —— 强制所有区域深色透明
    ============================================================ */
-/* 覆盖 LoveIt 可能产生的任何白色/浅色背景 */
+/* 覆盖 LoveIt 可能产生的任何白色/浅色背景（排除搜索面板本身） */
 #mask,
-.search-dropdown, .search-dropdown *, .search-dropdown.desktop, .search-dropdown.mobile,
-#search-dropdown-desktop, #search-dropdown-mobile,
-.search-results, .search-result, .search-result-item,
-.menu-inner, .menu, .menu-item, .dropdown-menu, .dropdown-item,
+.menu-inner, .menu, .menu-item,
 .wrapper, .main, .container, .page, .home, .archive,
 .header-wrapper, .nav, nav, .navigation,
 .typeit, .post-footer, .post-nav, .post-navigation,
@@ -23,31 +20,29 @@
 .featured-image, .single-subtitle,
 .pagination, .page-item, .page-link,
 .breadcrumb, .breadcrumb *, .tooltip, .popup, .modal,
-[class*="search"], [class*="dropdown"], [class*="popup"],
 [class*="overlay"], [class*="mask"] {
   background-color: transparent !important;
   background: transparent !important;
 }
 
-/* 搜索下拉面板 */
-.search-dropdown {
-  background: rgba(12, 15, 32, 0.95) !important;
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+/* 搜索面板容器 —— 透明无边，不显示空框 */
+.search-dropdown.desktop, .search-dropdown.mobile {
+  position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  background: transparent !important; border: none !important;
+  pointer-events: none;
+}
+/* autocomplete.js 生成的 .dropdown-menu 在容器内，需要完整样式 */
+.search-dropdown .dropdown-menu,
+#search-dropdown-desktop .dropdown-menu,
+.algolia-autocomplete .dropdown-menu {
+  width: 460px !important; max-width: 92vw !important;
+  background: rgba(12, 15, 34, 0.98) !important;
+  backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
   border: 1px solid rgba(120, 150, 200, 0.2) !important;
   border-radius: 16px !important;
-}
-.search-dropdown .search-result-item {
-  color: var(--text-body) !important;
-  border-bottom: 1px solid rgba(120, 150, 200, 0.1) !important;
-}
-.search-dropdown .search-result-item:hover {
-  background: rgba(200, 180, 120, 0.08) !important;
-  color: var(--gold) !important;
-}
-.search-dropdown .search-result-item mark {
-  color: var(--gold) !important;
-  background: rgba(200, 180, 120, 0.15) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,.6) !important;
+  z-index: 9999 !important; overflow: hidden !important; padding: 0.4rem !important;
+  pointer-events: auto;
 }
 
 /* 遮罩层 */
@@ -812,9 +807,8 @@ button:active, .btn:active, .fixed-button:active {
   font-size: 0.9rem !important; outline: none !important;
 }
 
-/* 下拉面板（noPrefix:true = 无 aa- 前缀） */
-.algolia-autocomplete .dropdown-menu,
-.search-dropdown, #search-dropdown-desktop, #search-dropdown-mobile {
+/* 下拉面板 —— 仅 autocomplete.js 生成的 .dropdown-menu */
+.algolia-autocomplete .dropdown-menu {
   width: 460px !important; max-width: 92vw !important;
   background: rgba(12, 15, 34, 0.98) !important;
   backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
@@ -824,22 +818,19 @@ button:active, .btn:active, .fixed-button:active {
 }
 
 /* 每条结果（noPrefix:true = .suggestion 非 .aa-suggestion） */
-.algolia-autocomplete .suggestion,
-.search-dropdown a, #search-dropdown-desktop a, #search-dropdown-mobile a {
+.algolia-autocomplete .suggestion {
   display: block !important; padding: 0.85rem 1.1rem !important;
   margin: 2px 4px !important; border-radius: 10px !important;
   cursor: pointer !important; text-decoration: none !important;
   transition: background .12s ease !important; border: none !important; color: #c0cce4 !important;
 }
 .algolia-autocomplete .suggestion:hover,
-.algolia-autocomplete .cursor,
-.search-dropdown a:hover, #search-dropdown-desktop a:hover {
+.algolia-autocomplete .cursor {
   background: rgba(200, 180, 120, 0.15) !important; color: #c8b478 !important;
 }
 
 /* 高亮匹配 */
-.algolia-autocomplete .suggestion em,
-.search-dropdown mark, .search-dropdown em {
+.algolia-autocomplete .suggestion em {
   background: rgba(200, 180, 120, 0.22) !important; color: #c8b478 !important;
   font-weight: 700 !important; font-style: normal !important;
   border-radius: 2px; padding: 0 2px;
