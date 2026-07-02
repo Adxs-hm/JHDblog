@@ -40,6 +40,7 @@ draft: false
 - 禁用 CSS/HTML 压缩，修复 `transparent` 关键字被 tdewolff/minify 破坏的根因
 
 **内容建设**
+- 丧尸危世硬核丧尸末日设定包（9 文件，~726KB，50万字）
 - 终局时代硬科幻世界设定（12 文件，~500KB）
 - 巨星（CLPS）科幻宇宙设定（4,000+ 行）
 - 化身为影 SillyTavern 设定包（9 文件，484KB）
