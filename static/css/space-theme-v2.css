@@ -842,8 +842,36 @@ button:active, .btn:active, .fixed-button:active {
 }
 .search-clear:hover { color: #d898a0 !important; }
 
+/* JHD 自定义搜索面板 */
+.jhd-search-panel {
+  position: fixed;
+  z-index: 10000;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: rgba(12, 15, 34, 0.97);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(120, 150, 200, 0.18);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  padding: 0.4rem;
+}
+.jsh-item {
+  display: block; padding: 0.75rem 1rem; margin: 2px 4px; border-radius: 10px;
+  text-decoration: none; cursor: pointer; transition: background .12s ease;
+}
+.jsh-item:hover, .jsh-item.active {
+  background: rgba(200, 180, 120, 0.15);
+}
+.jsh-title { display: block; font-weight: 600; font-size: 0.9rem; color: #dce4f4; margin-bottom: 0.15rem; }
+.jsh-uri   { display: block; font-size: 0.7rem; color: #6a80a0; margin-bottom: 0.2rem; }
+.jsh-snippet { display: block; font-size: 0.78rem; color: #8898b8; line-height: 1.4; }
+.jsh-item mark { background: rgba(200, 180, 120, 0.22); color: #c8b478; font-weight: 700; border-radius: 2px; padding: 0 1px; }
+.jsh-empty { padding: 1.5rem 1rem; text-align: center; color: #8898b8; font-size: 0.88rem; }
+
 @media (max-width: 768px) {
   .algolia-autocomplete .dropdown-menu { width: 95vw !important; }
+  .jhd-search-panel { left: 2.5vw !important; width: 95vw !important; min-width: unset !important; }
 }
 
 /* 分页 */
