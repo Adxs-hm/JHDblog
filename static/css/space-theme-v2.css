@@ -1160,6 +1160,74 @@ button:active, .btn:active, .fixed-button:active {
   .content p, .single-content p { max-width: 70ch; }
 }
 
+/* ============================================================
+   23. 文章导航（替代内联样式）
+   ============================================================ */
+.post-navigation {
+  margin-top: 2.5rem; padding-top: 1.5rem;
+  border-top: 1px solid rgba(100,140,220,0.15);
+}
+.post-navigation-links {
+  display: flex; justify-content: space-between; flex-wrap: wrap;
+  gap: 1rem; margin-bottom: 1.2rem;
+}
+.post-navigation-return {
+  display: flex; justify-content: space-between; flex-wrap: wrap;
+  gap: 1rem;
+}
+.post-nav-prev, .post-nav-next {
+  color: #8a9cc0; font-weight: 400; text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+.post-nav-prev:hover, .post-nav-next:hover { color: #c0d4f4; }
+.post-nav-next { text-align: right; }
+.post-nav-back {
+  color: #f0c060; font-weight: 500; text-decoration: none;
+  transition: text-shadow 0.2s var(--ease);
+}
+.post-nav-back:hover { text-shadow: 0 0 10px rgba(240,192,96,0.4); }
+.post-nav-all {
+  color: #8a9cc0; font-weight: 400; text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+.post-nav-all:hover { color: #c0d4f4; }
+
+/* ============================================================
+   24. 无障碍增强
+   ============================================================ */
+/* skip-to-content 链接 */
+.skip-link {
+  position: absolute; top: -100px; left: 1rem;
+  background: rgba(200, 180, 120, 0.95); color: #0a0c1e;
+  padding: 0.6rem 1.2rem; border-radius: 0 0 8px 8px;
+  font-weight: 700; font-size: 0.9rem; text-decoration: none;
+  z-index: 9999; transition: top 0.2s var(--ease);
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* 全局焦点指示器 */
+:focus-visible {
+  outline: 2px solid rgba(200, 180, 120, 0.8) !important;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+a:focus-visible {
+  color: var(--gold) !important;
+  text-shadow: 0 0 8px rgba(200, 180, 120, 0.4);
+}
+.post-card:focus-visible, .project-card:focus-visible,
+.archive-item:focus-visible, .single-card:focus-visible {
+  border-color: var(--border-glow) !important;
+  box-shadow: 0 0 20px rgba(200, 180, 120, 0.3);
+  transform: translateY(-3px);
+}
+button:focus-visible, .btn:focus-visible,
+.fixed-button:focus-visible {
+  box-shadow: 0 0 16px rgba(200, 180, 120, 0.4);
+}
+
 /* 打印优化 */
 @media print {
   body { font-size: 12pt; line-height: 1.6; }

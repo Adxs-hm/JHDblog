@@ -30,6 +30,17 @@ jobs:
     steps:
       - name: 📥 Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: false
+
+      - name: ⚙️ Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: 🔨 Build Hugo site
+        run: hugo --minify
 
       - name: 🔗 Lychee — 外部链接有效性检查
         uses: lycheeverse/lychee-action@v1
