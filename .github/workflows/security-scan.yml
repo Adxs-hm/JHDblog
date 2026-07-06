@@ -43,7 +43,7 @@ jobs:
         run: hugo --minify
 
       - name: 🔗 Lychee — 外部链接有效性检查
-        uses: lycheeverse/lychee-action@v1
+        uses: lycheeverse/lychee-action@v2.0.2
         with:
           args: --accept 200,403,429 --no-progress './public/**/*.html'
         continue-on-error: true
