@@ -1,9 +1,9 @@
 /**
- * JHD 搜索组件 —— 自动补全 · 关键词高亮 · 可点击跳转 · ARIA 无障碍
+ * JHD 搜索组件 —— 自动补全 · 关键词高亮 · 可点击跳转
  */
 (function(){
   'use strict';
-  var fuse = null, activeIdx = -1;
+  var fuse = null, data = null, activeIdx = -1;
   var input = document.getElementById('search-input-desktop');
   var mobileInput = document.getElementById('search-input-mobile');
 
@@ -11,27 +11,11 @@
     var dd = document.createElement('div');
     dd.id = 'jhd-search-results';
     dd.className = 'jhd-search-panel';
-    dd.setAttribute('role', 'listbox');
-    dd.setAttribute('aria-label', '搜索结果');
     dd.style.display = 'none';
     document.body.appendChild(dd);
     return dd;
   }
   var panel = createDropdown();
-
-  // 实时播报区域
-  var liveRegion = document.createElement('div');
-  liveRegion.id = 'jhd-search-live';
-  liveRegion.setAttribute('aria-live', 'polite');
-  liveRegion.setAttribute('aria-atomic', 'true');
-  liveRegion.className = 'sr-only';
-  liveRegion.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0';
-  document.body.appendChild(liveRegion);
-
-  function announceResult(count) {
-    if (count === 0) liveRegion.textContent = '没有找到结果';
-    else liveRegion.textContent = '找到 ' + count + ' 条结果';
-  }
 
   function positionPanel(inp){
     var r = inp.getBoundingClientRect();
@@ -45,27 +29,12 @@
     return text.replace(new RegExp('(' + esc + ')', 'gi'), '<mark>$1</mark>');
   }
 
-  function updateActiveDescendant(inp) {
-    var items = panel.querySelectorAll('.jsh-item');
-    if (items[activeIdx]) {
-      inp.setAttribute('aria-activedescendant', items[activeIdx].id);
-    } else {
-      inp.removeAttribute('aria-activedescendant');
-    }
-  }
-
-  function doSearch(query, inp){
-    if (!fuse || query.length < 2) {
-      panel.style.display = 'none';
-      inp.setAttribute('aria-expanded', 'false');
-      return;
-    }
+  function doSearch(query){
+    if (!fuse || query.length < 2) { panel.style.display = 'none'; return; }
     var results = fuse.search(query).slice(0, 10);
     if (!results.length) {
-      panel.innerHTML = '<div class="jsh-empty" role="option" aria-selected="false">没有找到结果</div>';
+      panel.innerHTML = '<div class="jsh-empty">没有找到结果</div>';
       panel.style.display = 'block';
-      inp.setAttribute('aria-expanded', 'true');
-      announceResult(0);
       return;
     }
     var html = '';
@@ -75,10 +44,7 @@
       var uri = item.uri || '';
       var snippet = (item.content || '').substring(0, 120);
       snippet = highlight(snippet, query);
-      var itemId = 'jsh-result-' + i;
-      html += '<a class="jsh-item' + (i===0?' active':'') + '" href="' + uri +
-        '" data-idx="' + i + '" id="' + itemId +
-        '" role="option" aria-selected="' + (i===0?'true':'false') + '">' +
+      html += '<a class="jsh-item' + (i===0?' active':'') + '" href="' + uri + '" data-idx="' + i + '">' +
         '<span class="jsh-title">' + title + '</span>' +
         '<span class="jsh-uri">' + uri + '</span>' +
         '<span class="jsh-snippet">' + snippet + '</span>' +
@@ -87,36 +53,21 @@
     panel.innerHTML = html;
     panel.style.display = 'block';
     activeIdx = 0;
-    inp.setAttribute('aria-expanded', 'true');
-    updateActiveDescendant(inp);
-    announceResult(results.length);
   }
 
   function setup(inp){
     if (!inp) return;
-    // ARIA 属性
-    inp.setAttribute('role', 'combobox');
-    inp.setAttribute('aria-autocomplete', 'list');
-    inp.setAttribute('aria-expanded', 'false');
-    inp.setAttribute('aria-label', '搜索文章');
-    inp.setAttribute('aria-controls', 'jhd-search-results');
-    inp.setAttribute('autocomplete', 'off');
-
     inp.addEventListener('input', function(){
       positionPanel(inp);
-      doSearch(this.value.trim(), inp);
+      doSearch(this.value.trim());
     });
     inp.addEventListener('focus', function(){
       positionPanel(inp);
-      if (this.value.trim().length >= 2) doSearch(this.value.trim(), inp);
+      if (this.value.trim().length >= 2) doSearch(this.value.trim());
     });
     inp.addEventListener('keydown', function(e){
       var items = panel.querySelectorAll('.jsh-item');
-      if (e.key === 'Escape') {
-        panel.style.display = 'none';
-        inp.setAttribute('aria-expanded', 'false');
-        return;
-      }
+      if (e.key === 'Escape') { panel.style.display = 'none'; return; }
       if (e.key === 'Enter') {
         e.preventDefault();
         var sel = panel.querySelector('.jsh-item.active');
@@ -128,20 +79,12 @@
         activeIdx += e.key === 'ArrowDown' ? 1 : -1;
         if (activeIdx < 0) activeIdx = items.length - 1;
         if (activeIdx >= items.length) activeIdx = 0;
-        items.forEach(function(el, i){
-          var isActive = i === activeIdx;
-          el.classList.toggle('active', isActive);
-          el.setAttribute('aria-selected', isActive ? 'true' : 'false');
-        });
-        if (items[activeIdx]) items[activeIdx].scrollIntoView({block:'nearest'});
-        updateActiveDescendant(inp);
+        items.forEach(function(el, i){ el.classList.toggle('active', i === activeIdx); });
+        items[activeIdx] && items[activeIdx].scrollIntoView({block:'nearest'});
       }
     });
     inp.addEventListener('blur', function(){
-      setTimeout(function(){
-        panel.style.display = 'none';
-        inp.setAttribute('aria-expanded', 'false');
-      }, 200);
+      setTimeout(function(){ panel.style.display = 'none'; }, 200);
     });
   }
 
@@ -176,8 +119,6 @@
   document.addEventListener('click', function(e){
     if (!e.target.closest('.search') && !e.target.closest('.jsh-panel')) {
       panel.style.display = 'none';
-      if (input) input.setAttribute('aria-expanded', 'false');
-      if (mobileInput) mobileInput.setAttribute('aria-expanded', 'false');
     }
   });
 
