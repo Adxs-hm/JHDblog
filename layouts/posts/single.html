@@ -92,12 +92,46 @@
             {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
         </div>
 
-        {{- partial "post-navigation.html" . -}}
+        {{- /* 🔑 上下文导航：上一篇 / 下一篇 + 返回 */ -}}
+        <nav class="post-navigation">
+            {{- /* 上一篇 / 下一篇 */ -}}
+            <div class="post-navigation-links">
+                {{- with .PrevInSection -}}
+                <a href="{{ .RelPermalink }}" class="post-nav-prev">← {{ .Title | emojify }}</a>
+                {{- else -}}
+                <span></span>
+                {{- end -}}
+                {{- with .NextInSection -}}
+                <a href="{{ .RelPermalink }}" class="post-nav-next">{{ .Title | emojify }} →</a>
+                {{- else -}}
+                <span></span>
+                {{- end -}}
+            </div>
+            {{- /* 返回导航 */ -}}
+            <div class="post-navigation-return">
+                {{- $isProject := false -}}
+                {{- range .Params.categories -}}
+                    {{- if eq . "项目" -}}{{- $isProject = true -}}{{- end -}}
+                {{- end -}}
+                {{- if $isProject -}}
+                <a href="/projects/" class="post-nav-back">← 返回项目列表</a>
+                {{- else -}}
+                <a href="/articles/" class="post-nav-back">← 返回文章列表</a>
+                {{- end -}}
+                <a href="/posts/" class="post-nav-all">所有记录 →</a>
+            </div>
+        </nav>
+
+        {{- /* Webmention 互动 */ -}}
+        {{- partial "webmentions.html" . -}}
+
+        {{- /* giscus 评论 */ -}}
+        {{- partial "comments.html" . -}}
 
         {{- /* Footer */ -}}
         {{- partial "single/footer.html" . -}}
 
-        {{- /* Comment */ -}}
+        {{- /* Comment (theme-builtin) */ -}}
         {{- partial "comment.html" . -}}
     </article>
 {{- end -}}

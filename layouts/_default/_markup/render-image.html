@@ -1,0 +1,28 @@
+{{- /* 图片渲染钩子：WebP 转换 + srcset + lazy loading */ -}}
+{{- $src := .Destination | safeURL -}}
+{{- $alt := .Text | plainify -}}
+{{- $title := .Title -}}
+{{- $isExternal := or (strings.HasPrefix $src "http://") (strings.HasPrefix $src "https://") -}}
+{{- if $isExternal -}}
+  <img src="{{ $src }}" alt="{{ $alt }}" {{ with $title }}title="{{ . }}"{{ end }} loading="lazy" decoding="async">
+{{- else -}}
+  {{- $img := .Page.Resources.GetMatch $src -}}
+  {{- if $img -}}
+    {{- $webp := $img.Resize (printf "%dx webp q85" $img.Width) -}}
+    {{- $w480 := $img.Resize "480x webp q80" -}}
+    {{- $w720 := $img.Resize "720x webp q80" -}}
+    {{- $w1080 := $img.Resize "1080x webp q80" -}}
+    <img
+      src="{{ $w720.RelPermalink }}"
+      srcset="{{ $w480.RelPermalink }} 480w, {{ $w720.RelPermalink }} 720w, {{ $w1080.RelPermalink }} 1080w"
+      sizes="(max-width: 600px) 480px, (max-width: 900px) 720px, 1080px"
+      alt="{{ $alt }}"
+      {{ with $title }}title="{{ . }}"{{ end }}
+      loading="lazy"
+      decoding="async"
+      width="{{ $w720.Width }}"
+      height="{{ $w720.Height }}">
+  {{- else -}}
+    <img src="{{ $src }}" alt="{{ $alt }}" {{ with $title }}title="{{ . }}"{{ end }} loading="lazy" decoding="async">
+  {{- end -}}
+{{- end -}}

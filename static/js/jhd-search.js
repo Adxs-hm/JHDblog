@@ -11,6 +11,8 @@
     var dd = document.createElement('div');
     dd.id = 'jhd-search-results';
     dd.className = 'jhd-search-panel';
+    dd.setAttribute('role', 'listbox');
+    dd.setAttribute('aria-label', '搜索结果');
     dd.style.display = 'none';
     document.body.appendChild(dd);
     return dd;
@@ -33,7 +35,7 @@
     if (!fuse || query.length < 2) { panel.style.display = 'none'; return; }
     var results = fuse.search(query).slice(0, 10);
     if (!results.length) {
-      panel.innerHTML = '<div class="jsh-empty">没有找到结果</div>';
+      panel.innerHTML = '<div class="jsh-empty" role="option" aria-selected="false">没有找到结果</div>';
       panel.style.display = 'block';
       return;
     }
@@ -44,7 +46,7 @@
       var uri = item.uri || '';
       var snippet = (item.content || '').substring(0, 120);
       snippet = highlight(snippet, query);
-      html += '<a class="jsh-item' + (i===0?' active':'') + '" href="' + uri + '" data-idx="' + i + '">' +
+      html += '<a class="jsh-item' + (i===0?' active':'') + '" href="' + uri + '" data-idx="' + i + '" role="option" aria-selected="' + (i===0?'true':'false') + '">' +
         '<span class="jsh-title">' + title + '</span>' +
         '<span class="jsh-uri">' + uri + '</span>' +
         '<span class="jsh-snippet">' + snippet + '</span>' +
@@ -57,6 +59,11 @@
 
   function setup(inp){
     if (!inp) return;
+    inp.setAttribute('role', 'combobox');
+    inp.setAttribute('aria-autocomplete', 'list');
+    inp.setAttribute('aria-label', '搜索文章');
+    inp.setAttribute('aria-expanded', 'false');
+    inp.setAttribute('autocomplete', 'off');
     inp.addEventListener('input', function(){
       positionPanel(inp);
       doSearch(this.value.trim());
@@ -79,7 +86,11 @@
         activeIdx += e.key === 'ArrowDown' ? 1 : -1;
         if (activeIdx < 0) activeIdx = items.length - 1;
         if (activeIdx >= items.length) activeIdx = 0;
-        items.forEach(function(el, i){ el.classList.toggle('active', i === activeIdx); });
+        items.forEach(function(el, i){
+          var isActive = i === activeIdx;
+          el.classList.toggle('active', isActive);
+          el.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
         items[activeIdx] && items[activeIdx].scrollIntoView({block:'nearest'});
       }
     });

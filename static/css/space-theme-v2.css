@@ -2,11 +2,63 @@
    JHD 星空主题 · Ultimate FX v6
    鼠标视差 · 光影追随 · 渐变文字 · 滚动入场 · 轨道环线
    银河光带 · 链接展开 · 卡片辉光 · 星际粒子 · 星座装饰
-   反白框 · 锐利标题 · 毛玻璃 · 深色全局
+   反白框 · 锐利标题 · 毛玻璃 · 深色全局 · 双模式
    ============================================================ */
 
 /* ============================================================
-   0. 全局反白框 —— 强制所有区域深色透明
+   0. 双模式 CSS 变量（亮色默认 / 深色覆盖）
+   ============================================================ */
+:root {
+  --bg-deep: #f5f5f8;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: rgba(255, 255, 255, 0.95);
+  --text-primary: #1a1a2e;
+  --text-body: #2a3048;
+  --text-secondary: #5a6080;
+  --gold: #8a6d20;
+  --gold-dim: #6a5018;
+  --purple: #6040a0;
+  --purple-dim: #483078;
+  --ice: #3070a0;
+  --ice-dim: #285878;
+  --rose: #a05060;
+  --border-subtle: rgba(100, 110, 140, 0.15);
+  --border-glow: rgba(140, 110, 30, 0.4);
+  --glow-gold: 0 0 20px rgba(140,110,30,0.15);
+  --glow-purple: 0 0 28px rgba(96,64,160,0.1);
+  --font-sans: "PingFang SC","Microsoft YaHei","Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --font-mono: "JetBrains Mono","Fira Code","Consolas",monospace;
+  --ease: cubic-bezier(0.4,0,0.2,1);
+}
+
+[theme="dark"] {
+  --bg-deep: #0a0c1e;
+  --bg-card: rgba(16, 20, 44, 0.62);
+  --bg-card-hover: rgba(20, 26, 54, 0.78);
+  --text-primary: #e0e6f6;
+  --text-body: #c0cce4;
+  --text-secondary: #8698bc;
+  --gold: #c8b478;
+  --gold-dim: #a89450;
+  --purple: #a080d8;
+  --purple-dim: #7a60b0;
+  --ice: #80b8d8;
+  --ice-dim: #5a90b0;
+  --rose: #d898a0;
+  --border-subtle: rgba(120, 150, 200, 0.14);
+  --border-glow: rgba(200, 180, 120, 0.3);
+  --glow-gold: 0 0 20px rgba(200,180,120,0.28);
+  --glow-purple: 0 0 28px rgba(160,128,216,0.2);
+}
+
+/* 深色模式下星空特效可见 */
+[theme="dark"] body::before,
+[theme="dark"] body::after,
+[theme="dark"] .wrapper::before { display: block; }
+body::before, body::after, .wrapper::before { display: none; }
+
+/* ============================================================
+   0.1 全局反白框 —— 强制所有区域深色透明
    ============================================================ */
 /* 覆盖 LoveIt 可能产生的任何白色/浅色背景（排除搜索面板本身） */
 #mask,
@@ -191,32 +243,6 @@
   color: var(--text-body) !important;
   background: transparent !important;
   border-color: rgba(160, 128, 216, 0.25) !important;
-}
-
-/* ============================================================
-   0.1 CSS 变量
-   ============================================================ */
-:root {
-  --bg-deep: #0a0c1e;
-  --bg-card: rgba(16, 20, 44, 0.62);
-  --bg-card-hover: rgba(20, 26, 54, 0.78);
-  --text-primary: #e0e6f6;
-  --text-body: #c0cce4;
-  --text-secondary: #8698bc;
-  --gold: #c8b478;
-  --gold-dim: #a89450;
-  --purple: #a080d8;
-  --purple-dim: #7a60b0;
-  --ice: #80b8d8;
-  --ice-dim: #5a90b0;
-  --rose: #d898a0;
-  --border-subtle: rgba(120, 150, 200, 0.14);
-  --border-glow: rgba(200, 180, 120, 0.3);
-  --glow-gold: 0 0 20px rgba(200,180,120,0.28);
-  --glow-purple: 0 0 28px rgba(160,128,216,0.2);
-  --font-sans: "PingFang SC","Microsoft YaHei","Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  --font-mono: "JetBrains Mono","Fira Code","Consolas",monospace;
-  --ease: cubic-bezier(0.4,0,0.2,1);
 }
 
 /* ============================================================

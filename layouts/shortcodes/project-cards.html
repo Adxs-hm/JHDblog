@@ -1,0 +1,33 @@
+{{- /* 项目卡片网格 — 从 data/projects.yaml 自动渲染 */ -}}
+{{- $projects := .Site.Data.projects -}}
+{{- if $projects -}}
+  {{- range $section := $projects -}}
+    <h2>{{ $section.section }}</h2>
+    <div class="projects-grid">
+    {{- range $item := $section.items -}}
+      <a class="project-card-link" href="{{ $item.url }}">
+      <div class="project-card">
+        <div class="project-card-left">
+          <span class="project-icon">{{ $item.icon }}</span>
+        </div>
+        <div class="project-card-right">
+          <div class="project-title-row">
+            <span class="project-title">{{ $item.title }}</span>
+            <span class="project-tag">{{ $item.tag }}</span>
+          </div>
+          <p>{{ $item.desc }}</p>
+          <div class="project-meta">
+            {{- range $item.meta -}}
+              <span>{{ . }}</span>
+            {{- end -}}
+            <span class="meta-date">{{ $item.date }}</span>
+          </div>
+        </div>
+      </div>
+      </a>
+    {{- end -}}
+    </div>
+  {{- end -}}
+{{- else -}}
+  <p>暂无项目数据。请在 <code>data/projects.yaml</code> 中添加项目。</p>
+{{- end -}}

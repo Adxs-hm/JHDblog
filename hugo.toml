@@ -58,7 +58,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 # 全局参数
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 [params]
-  defaultTheme = "dark"
+  defaultTheme = "auto"
   dateFormat = "2006-01-02"
   title = "JHD"
   description = "记录每一个完成的成品"
@@ -162,7 +162,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     fraction = true
     fontawesome = true
     linkToMarkdown = true
-    rssFullText = false
+    rssFullText = true
     [params.page.toc]
       enable = true
       keepStatic = false
@@ -209,6 +209,17 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   [params.cookieconsent]
     enable = false
 
+  # giscus 评论系统 (GitHub Discussions) — 替换下方值为实际值后取消注释
+  # [params.giscus]
+  #   repo = "Adxs-hm/Adxs-hm.github.io"
+  #   repoId = ""
+  #   category = "Announcements"
+  #   categoryId = ""
+
+  # Webmention (IndieWeb 社交互动) — 在 webmention.io 注册后填入用户名
+  # [params.webmention]
+  #   username = ""
+
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # 禁用 CSS/HTML 压缩 —— tdewolff/minify 会错误转换 transparent
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -241,6 +252,20 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   [markup.tableOfContents]
     startLevel = 2
     endLevel = 6
+
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# 相关文章推荐
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+[related]
+  threshold = 80
+  includeNewer = true
+  toLower = false
+  [[related.indices]]
+    name = "tags"
+    weight = 80
+  [[related.indices]]
+    name = "categories"
+    weight = 60
 
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # 站点地图

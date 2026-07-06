@@ -11,3 +11,6 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Agent 工作区
+/.agent_workspace/
