@@ -100,7 +100,7 @@
   }
 
   function loadIndex(){
-    fetch('/index.json')
+    fetch(window.JHD_SEARCH_INDEX || '/index.json')
       .then(function(r){ return r.json(); })
       .then(function(d){
         var cleaned = [];

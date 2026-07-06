@@ -112,11 +112,11 @@
                     {{- if eq . "项目" -}}{{- $isProject = true -}}{{- end -}}
                 {{- end -}}
                 {{- if $isProject -}}
-                <a href="/projects/" class="post-nav-back">← 返回项目列表</a>
+                <a href="{{ "projects" | relURL }}/" class="post-nav-back">← 返回项目列表</a>
                 {{- else -}}
-                <a href="/articles/" class="post-nav-back">← 返回文章列表</a>
+                <a href="{{ "articles" | relURL }}/" class="post-nav-back">← 返回文章列表</a>
                 {{- end -}}
-                <a href="/posts/" class="post-nav-all">所有记录 →</a>
+                <a href="{{ "posts" | relURL }}/" class="post-nav-all">所有记录 →</a>
             </div>
         </nav>
 

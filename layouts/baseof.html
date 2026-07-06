@@ -12,9 +12,6 @@
         {{- partial "head/link.html" . -}}
         {{- partial "head/seo.html" . -}}
         {{- partial "jsonld.html" . -}}
-        {{- with .Site.Params.webmention -}}
-        <link rel="webmention" href="https://webmention.io/{{ .username }}/webmention" />
-        {{- end -}}
     </head>
     <body data-header-desktop="{{ .Site.Params.header.desktopMode }}" data-header-mobile="{{ .Site.Params.header.mobileMode }}">
         {{- /* 无障碍：跳转到内容 */ -}}
@@ -59,10 +56,10 @@
 
         {{- partial "assets.html" . -}}
 
-        {{- /* JHD 星空特效引擎 (Hugo Pipes) */ -}}
-        {{- $js := resources.Get "js/main.js" | js.Build | fingerprint -}}
-        <script src="{{ $js.RelPermalink }}" defer></script>
-        {{- /* JHD 搜索组件 */ -}}
-        <script src="/js/jhd-search.js"></script>
+        <!-- JHD 星空特效引擎 -->
+        <script src="{{ "js/space-fx.js" | relURL }}"></script>
+        <!-- JHD 搜索组件 -->
+        <script src="{{ "js/jhd-search.js" | relURL }}"></script>
+        <script>window.JHD_SEARCH_INDEX = "{{ "index.json" | relURL }}";</script>
     </body>
 </html>

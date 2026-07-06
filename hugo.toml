@@ -2,7 +2,7 @@
 # JHD 站点 · 星空行星主题 · Hugo + LoveIt
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-baseURL = "https://Adxs-hm.github.io/"
+baseURL = "https://adxs-hm.github.io/JHDblog/"
 theme = "LoveIt"
 
 # 网站标题
@@ -33,25 +33,25 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     weight = 1
     identifier = "posts"
     name = "文章"
-    url = "/articles/"
+    url = "articles/"
     title = "所有文章记录"
   [[menu.main]]
     weight = 2
     identifier = "projects"
     name = "项目"
-    url = "/projects/"
+    url = "projects/"
     title = "所有项目记录"
   [[menu.main]]
     weight = 3
     identifier = "milestones"
     name = "里程碑"
-    url = "/milestones/"
+    url = "milestones/"
     title = "关键节点与里程碑"
   [[menu.main]]
     weight = 4
     identifier = "about"
     name = "关于"
-    url = "/about/"
+    url = "about/"
     title = "关于 JHD"
 
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -62,7 +62,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   dateFormat = "2006-01-02"
   title = "JHD"
   description = "记录每一个完成的成品"
-  images = ["/images/planet-avatar.svg"]
+  images = ["images/planet-avatar.svg"]
 
   # 作者信息
   [params.author]
@@ -137,7 +137,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     [params.home.profile]
       enable = true
       gravatarEmail = ""
-      avatarURL = "/images/planet-avatar.svg"
+      avatarURL = "images/planet-avatar.svg"
       title = "JHD"
       subtitle = "记录每一个完成的成品 · 在星轨中留下足迹"
       typeit = true
@@ -194,8 +194,8 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 
   # SEO
   [params.seo]
-    image = "/images/planet-avatar.svg"
-    thumbnailUrl = "/images/planet-avatar.svg"
+    image = "images/planet-avatar.svg"
+    thumbnailUrl = "images/planet-avatar.svg"
 
   # CDN
   [params.cdn]
@@ -204,7 +204,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # 自定义 CSS（星空主题）
   [params.page.library]
     [params.page.library.css]
-      spaceTheme = "/css/space-theme-v2.css"
+      spaceTheme = "css/space-theme-v2.css"
 
   [params.cookieconsent]
     enable = false
@@ -279,7 +279,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 # 文章 URL
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 [permalinks]
-  posts = "/posts/:contentbasename/"
+  posts = "posts/:contentbasename/"
 
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # 输出格式
