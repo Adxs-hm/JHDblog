@@ -59,8 +59,8 @@ enableRobotsTXT = true
     category = "Announcements"
     categoryId = "DIC_kwDOTJEk084DAqTy"
 
-  # Webmention (在 webmention.io 注册后填入用户名)
-  # webmention = ""
+  # Webmention (去 webmention.io 用 GitHub 登录后即生效)
+  webmention = "adxs-hm.github.io_jhdblog_"
 
   # 社交图标
   [[params.socialIcons]]
