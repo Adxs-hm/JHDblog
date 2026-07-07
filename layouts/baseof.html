@@ -11,12 +11,8 @@
         {{- partial "head/meta.html" . -}}
         {{- partial "head/link.html" . -}}
         {{- partial "head/seo.html" . -}}
-        {{- partial "jsonld.html" . -}}
     </head>
     <body data-header-desktop="{{ .Site.Params.header.desktopMode }}" data-header-mobile="{{ .Site.Params.header.mobileMode }}">
-        {{- /* 无障碍：跳转到内容 */ -}}
-        <a class="skip-link" href="#content">跳转到内容</a>
-
         {{- $theme := .Site.Params.defaulttheme -}}
         <script>
           const query = window.matchMedia('(prefers-color-scheme: dark)');

@@ -58,7 +58,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 # 全局参数
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 [params]
-  defaultTheme = "auto"
+  defaultTheme = "dark"
   dateFormat = "2006-01-02"
   title = "JHD"
   description = "记录每一个完成的成品"

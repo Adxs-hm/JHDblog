@@ -2,63 +2,11 @@
    JHD 星空主题 · Ultimate FX v6
    鼠标视差 · 光影追随 · 渐变文字 · 滚动入场 · 轨道环线
    银河光带 · 链接展开 · 卡片辉光 · 星际粒子 · 星座装饰
-   反白框 · 锐利标题 · 毛玻璃 · 深色全局 · 双模式
+   反白框 · 锐利标题 · 毛玻璃 · 深色全局
    ============================================================ */
 
 /* ============================================================
-   0. 双模式 CSS 变量（亮色默认 / 深色覆盖）
-   ============================================================ */
-:root {
-  --bg-deep: #f5f5f8;
-  --bg-card: rgba(255, 255, 255, 0.85);
-  --bg-card-hover: rgba(255, 255, 255, 0.95);
-  --text-primary: #1a1a2e;
-  --text-body: #2a3048;
-  --text-secondary: #5a6080;
-  --gold: #8a6d20;
-  --gold-dim: #6a5018;
-  --purple: #6040a0;
-  --purple-dim: #483078;
-  --ice: #3070a0;
-  --ice-dim: #285878;
-  --rose: #a05060;
-  --border-subtle: rgba(100, 110, 140, 0.15);
-  --border-glow: rgba(140, 110, 30, 0.4);
-  --glow-gold: 0 0 20px rgba(140,110,30,0.15);
-  --glow-purple: 0 0 28px rgba(96,64,160,0.1);
-  --font-sans: "PingFang SC","Microsoft YaHei","Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  --font-mono: "JetBrains Mono","Fira Code","Consolas",monospace;
-  --ease: cubic-bezier(0.4,0,0.2,1);
-}
-
-[theme="dark"] {
-  --bg-deep: #0a0c1e;
-  --bg-card: rgba(16, 20, 44, 0.62);
-  --bg-card-hover: rgba(20, 26, 54, 0.78);
-  --text-primary: #e0e6f6;
-  --text-body: #c0cce4;
-  --text-secondary: #8698bc;
-  --gold: #c8b478;
-  --gold-dim: #a89450;
-  --purple: #a080d8;
-  --purple-dim: #7a60b0;
-  --ice: #80b8d8;
-  --ice-dim: #5a90b0;
-  --rose: #d898a0;
-  --border-subtle: rgba(120, 150, 200, 0.14);
-  --border-glow: rgba(200, 180, 120, 0.3);
-  --glow-gold: 0 0 20px rgba(200,180,120,0.28);
-  --glow-purple: 0 0 28px rgba(160,128,216,0.2);
-}
-
-/* 深色模式下星空特效可见 */
-[theme="dark"] body::before,
-[theme="dark"] body::after,
-[theme="dark"] .wrapper::before { display: block; }
-body::before, body::after, .wrapper::before { display: none; }
-
-/* ============================================================
-   0.1 全局反白框 —— 强制所有区域深色透明
+   0. 全局反白框 —— 强制所有区域深色透明
    ============================================================ */
 /* 覆盖 LoveIt 可能产生的任何白色/浅色背景（排除搜索面板本身） */
 #mask,
@@ -243,6 +191,32 @@ body::before, body::after, .wrapper::before { display: none; }
   color: var(--text-body) !important;
   background: transparent !important;
   border-color: rgba(160, 128, 216, 0.25) !important;
+}
+
+/* ============================================================
+   0.1 CSS 变量
+   ============================================================ */
+:root {
+  --bg-deep: #0a0c1e;
+  --bg-card: rgba(16, 20, 44, 0.62);
+  --bg-card-hover: rgba(20, 26, 54, 0.78);
+  --text-primary: #e0e6f6;
+  --text-body: #c0cce4;
+  --text-secondary: #8698bc;
+  --gold: #c8b478;
+  --gold-dim: #a89450;
+  --purple: #a080d8;
+  --purple-dim: #7a60b0;
+  --ice: #80b8d8;
+  --ice-dim: #5a90b0;
+  --rose: #d898a0;
+  --border-subtle: rgba(120, 150, 200, 0.14);
+  --border-glow: rgba(200, 180, 120, 0.3);
+  --glow-gold: 0 0 20px rgba(200,180,120,0.28);
+  --glow-purple: 0 0 28px rgba(160,128,216,0.2);
+  --font-sans: "PingFang SC","Microsoft YaHei","Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --font-mono: "JetBrains Mono","Fira Code","Consolas",monospace;
+  --ease: cubic-bezier(0.4,0,0.2,1);
 }
 
 /* ============================================================
@@ -1184,74 +1158,6 @@ button:active, .btn:active, .fixed-button:active {
 @media (min-width: 1200px) {
   .single .container, .page.archive .container { max-width: 800px; }
   .content p, .single-content p { max-width: 70ch; }
-}
-
-/* ============================================================
-   23. 文章导航（替代内联样式）
-   ============================================================ */
-.post-navigation {
-  margin-top: 2.5rem; padding-top: 1.5rem;
-  border-top: 1px solid rgba(100,140,220,0.15);
-}
-.post-navigation-links {
-  display: flex; justify-content: space-between; flex-wrap: wrap;
-  gap: 1rem; margin-bottom: 1.2rem;
-}
-.post-navigation-return {
-  display: flex; justify-content: space-between; flex-wrap: wrap;
-  gap: 1rem;
-}
-.post-nav-prev, .post-nav-next {
-  color: #8a9cc0; font-weight: 400; text-decoration: none;
-  transition: color 0.2s var(--ease);
-}
-.post-nav-prev:hover, .post-nav-next:hover { color: #c0d4f4; }
-.post-nav-next { text-align: right; }
-.post-nav-back {
-  color: #f0c060; font-weight: 500; text-decoration: none;
-  transition: text-shadow 0.2s var(--ease);
-}
-.post-nav-back:hover { text-shadow: 0 0 10px rgba(240,192,96,0.4); }
-.post-nav-all {
-  color: #8a9cc0; font-weight: 400; text-decoration: none;
-  transition: color 0.2s var(--ease);
-}
-.post-nav-all:hover { color: #c0d4f4; }
-
-/* ============================================================
-   24. 无障碍增强
-   ============================================================ */
-/* skip-to-content 链接 */
-.skip-link {
-  position: absolute; top: -100px; left: 1rem;
-  background: rgba(200, 180, 120, 0.95); color: #0a0c1e;
-  padding: 0.6rem 1.2rem; border-radius: 0 0 8px 8px;
-  font-weight: 700; font-size: 0.9rem; text-decoration: none;
-  z-index: 9999; transition: top 0.2s var(--ease);
-}
-.skip-link:focus {
-  top: 0;
-}
-
-/* 全局焦点指示器 */
-:focus-visible {
-  outline: 2px solid rgba(200, 180, 120, 0.8) !important;
-  outline-offset: 2px;
-  border-radius: 3px;
-}
-a:focus-visible {
-  color: var(--gold) !important;
-  text-shadow: 0 0 8px rgba(200, 180, 120, 0.4);
-}
-.post-card:focus-visible, .project-card:focus-visible,
-.archive-item:focus-visible, .single-card:focus-visible {
-  border-color: var(--border-glow) !important;
-  box-shadow: 0 0 20px rgba(200, 180, 120, 0.3);
-  transform: translateY(-3px);
-}
-button:focus-visible, .btn:focus-visible,
-.fixed-button:focus-visible {
-  box-shadow: 0 0 16px rgba(200, 180, 120, 0.4);
 }
 
 /* 打印优化 */

@@ -24,8 +24,4 @@ draft: false
 
 ---
 
-{{< project-cards >}}
-
----
-
 > 🌟 *更多项目正在轨道上运行中……*
