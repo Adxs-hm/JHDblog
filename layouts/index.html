@@ -1,0 +1,38 @@
+{{- define "main" }}
+  {{- if .Content }}
+  <div class="post-content md-content home-content">
+    {{ .Content }}
+  </div>
+  {{- end }}
+
+  <hr class="section-divider">
+
+  {{- /* 项目精选 */ -}}
+  <section class="home-featured">
+    <h2 class="home-section-title">✦ 项目精选</h2>
+    <div class="featured-grid">
+      {{- $projects := where .Site.RegularPages "Section" "posts" | first 6 }}
+      {{- range $p := $projects }}
+      <a class="featured-card" href="{{ $p.Permalink }}">
+        <span class="featured-name">{{ $p.Title }}</span>
+        <span class="featured-desc">{{ $p.Params.description | default $p.Summary | truncate 60 }}</span>
+      </a>
+      {{- end }}
+    </div>
+    <div class="home-section-more">
+      <a href="{{ "posts" | relURL }}" class="jhd-btn-primary">查看全部项目 →</a>
+      <a href="{{ "articles" | relURL }}" class="jhd-btn-ghost">阅读文章 →</a>
+    </div>
+  </section>
+
+  {{- /* 评论区 */ -}}
+  <section class="home-comments" id="comments">
+    <div class="comments-header">
+      <h2 class="comments-title">✦ 留言交流</h2>
+      <p class="comments-desc">欢迎留下你的想法、建议或反馈。评论由 GitHub Discussions 驱动，点击下方按钮用 GitHub 账号登录即可参与讨论。</p>
+    </div>
+    <div class="comments-box">
+      {{- partial "comments.html" . }}
+    </div>
+  </section>
+{{- end }}

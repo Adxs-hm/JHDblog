@@ -1,0 +1,74 @@
+{{- /* PWA */ -}}
+<link rel="manifest" href="{{ "manifest.json" | relURL }}">
+<meta name="theme-color" content="#050812" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f0f0f0" media="(prefers-color-scheme: light)">
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('{{ "sw.js" | relURL }}');
+  }
+</script>
+
+{{- /* Security */ -}}
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://giscus.app https://webmention.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://webmention.io; frame-src https://giscus.app; frame-ancestors 'none';">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+
+{{- /* Performance */ -}}
+<link rel="dns-prefetch" href="https://giscus.app">
+<link rel="dns-prefetch" href="https://webmention.io">
+<link rel="preconnect" href="https://giscus.app" crossorigin>
+<link rel="preconnect" href="https://webmention.io" crossorigin>
+
+{{- /* Webmention IndieWeb */ -}}
+{{- with .Site.Params.webmention }}
+<link rel="webmention" href="https://webmention.io/{{ . }}/webmention" />
+{{- end }}
+
+{{- /* JSON-LD 结构化数据 */ -}}
+{{- if .IsHome -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ .Site.Title }},
+  "description": {{ .Site.Params.description }},
+  "url": {{ .Site.BaseURL }},
+  "author": {
+    "@type": "Person",
+    "name": {{ .Site.Params.author }}
+  }
+}
+</script>
+{{- else if .IsPage -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ .Title }},
+  "description": {{ .Params.description }},
+  "datePublished": {{ .PublishDate.Format "2006-01-02T15:04:05-07:00" }},
+  {{- with .Lastmod }}
+  "dateModified": {{ .Format "2006-01-02T15:04:05-07:00" }},
+  {{- end }}
+  "author": { "@type": "Person", "name": {{ .Site.Params.author }} },
+  "url": {{ .Permalink }},
+  {{- with .Params.images }}
+  "image": {{ (index . 0) | absURL }},
+  {{- else }}
+  {{- $img := .Resources.GetMatch "{*cover*,*feature*,*thumbnail*}" }}
+  {{- with $img }}
+  "image": {{ .Permalink }},
+  {{- else }}
+  "image": {{ (index .Site.Params.images 0) | absURL }},
+  {{- end }}
+  {{- end }}
+  {{- with .Params.tags }}
+  "keywords": {{ delimit . ", " }},
+  {{- end }}
+  "wordCount": {{ .WordCount }},
+  "inLanguage": "zh-CN"
+}
+</script>
+{{- end -}}

@@ -1,280 +1,115 @@
-# ============================================================
-# Blender 作品展示博客 · Hugo + LoveIt 主题配置
-# ============================================================
+baseURL = "https://adxs-hm.github.io/JHDblog/"
+theme = "PaperMod"
+title = "JHD"
 
-baseURL = "https://Adxs-hm.github.io/"
-theme = "LoveIt"
-
-# 网站标题
-title = "DDMer の Blender 作品集"
-
-# 语言设置
-defaultContentLanguage = "zh-cn"
-locale = "zh-CN"
 hasCJKLanguage = true
-copyright = ""
-
-# 基础功能
-enableRobotsTXT = true
 enableEmoji = true
-ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
+enableRobotsTXT = true
+mainSections = ["posts", "articles"]
 
-# 分页
 [pagination]
-  disableAliases = false
   pagerSize = 10
-  path = "page"
 
-# ============================================================
-# 导航菜单
-# ============================================================
-[menu]
-  [[menu.main]]
-    weight = 1
-    identifier = "works"
-    name = "作品集"
-    url = "/works/"
-    title = "Blender 3D 作品展示"
-  [[menu.main]]
-    weight = 2
-    identifier = "tutorials"
-    name = "教程"
-    url = "/tutorials/"
-    title = "Blender 制作教程"
-  [[menu.main]]
-    weight = 3
-    identifier = "notes"
-    name = "心得笔记"
-    url = "/notes/"
-    title = "创作心得与经验分享"
-  [[menu.main]]
-    weight = 4
-    identifier = "roadmap"
-    name = "发展路线"
-    url = "/roadmap/"
-    title = "技能发展路线图"
-  [[menu.main]]
-    weight = 5
-    identifier = "about"
-    name = "关于我"
-    url = "/about/"
-    title = "关于我"
-
-# ============================================================
-# 全局参数
-# ============================================================
-[params]
-  defaultTheme = "auto"
-  dateFormat = "2006-01-02"
-  title = "DDMer の Blender 作品集"
-  description = "Blender 3D 作品展示 · 制作教程 · 创作心得 · 技能成长路线"
-  images = ["/images/avatar.svg"]
-
-  # 作者信息
-  [params.author]
-    name = "DDMer"
-    email = ""
-    link = ""
-
-  # 头部导航栏
-  [params.header]
-    desktopMode = "fixed"
-    mobileMode = "auto"
-    [params.header.title]
-      logo = ""
-      name = "DDMer の小站"
-      pre = "<i class='fas fa-cube' aria-hidden='true'></i>"
-      post = ""
-      typeit = false
-
-  # 页脚
-  [params.footer]
-    enable = true
-    custom = ""
-    hugo = true
-    copyright = true
-    author = true
-    since = 2025
-    icp = ""
-    license = '<a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
-
-  # 文章列表
-  [params.section]
-    paginate = 20
-    dateFormat = "01-02"
-    rss = 10
-
-  [params.list]
-    paginate = 20
-    dateFormat = "01-02"
-    rss = 10
-
-  # 应用图标
-  [params.app]
-    title = "DDMer"
-    noFavicon = false
-    svgFavicon = ""
-    themeColor = "#1a1a2e"
-    iconColor = "#e94560"
-    tileColor = "#0f3460"
-
-  # 搜索
-  [params.search]
-    enable = true
-    type = "fuse"
-    contentLength = 4000
-    placeholder = "搜索文章、教程、作品..."
-    maxResultLength = 10
-    snippetLength = 30
-    highlightTag = "em"
-    absoluteURL = false
-    [params.search.fuse]
-      isCaseSensitive = false
-      minMatchCharLength = 2
-      findAllMatches = false
-      location = 0
-      threshold = 0.3
-      distance = 100
-      ignoreLocation = false
-
-  # 首页配置
-  [params.home]
-    rss = 10
-    [params.home.profile]
-      enable = true
-      gravatarEmail = ""
-      avatarURL = "/images/avatar.svg"
-      title = "DDMer"
-      subtitle = "Blender 3D 艺术家 · 用几何与光影构建世界"
-      typeit = true
-      social = true
-      disclaimer = ""
-    [params.home.posts]
-      enable = true
-      paginate = 6
-
-  # 社交链接
-  [params.social]
-    GitHub = "Adxs-hm"
-    Bilibili = ""
-    Email = ""
-    RSS = true
-
-  # 文章页面配置
-  [params.page]
-    hiddenFromHomePage = false
-    hiddenFromSearch = false
-    twemoji = false
-    # 🔑 关键：启用灯箱！作品展示必备
-    lightgallery = true
-    ruby = true
-    fraction = true
-    fontawesome = true
-    linkToMarkdown = true
-    rssFullText = false
-    # 目录
-    [params.page.toc]
-      enable = true
-      keepStatic = false
-      auto = true
-    # 代码块
-    [params.page.code]
-      copy = true
-      maxShownLines = 50
-      [params.page.code.render]
-        goat = true
-        mermaid = true
-    # 数学公式（关闭，不需要）
-    [params.page.math]
-      enable = false
-    # 分享
-    [params.page.share]
-      enable = true
-      X = true
-      Facebook = true
-      Linkedin = true
-      Weibo = true
-      Telegram = true
-    # 评论（关闭，保持简洁）
-    [params.page.comment]
-      enable = false
-
-  # 打字机动画
-  [params.typeit]
-    speed = 100
-    cursorSpeed = 1000
-    cursorChar = "|"
-    duration = -1
-
-  # SEO
-  [params.seo]
-    image = "/images/avatar.svg"
-    thumbnailUrl = "/images/avatar.svg"
-
-  # 不使用 CDN（国内访问更快）
-  [params.cdn]
-    data = ""
-
-  # 不使用 Cookie 弹窗
-  [params.cookieconsent]
-    enable = false
-
-# ============================================================
-# Markdown 解析（允许 HTML，可嵌入 Sketchfab）
-# ============================================================
-[markup]
-  [markup.highlight]
-    anchorLineNos = false
-    codeFences = true
-    guessSyntax = false
-    lineNos = false
-    lineNumbersInTable = true
-    noClasses = true
-  [markup.goldmark]
-    [markup.goldmark.extensions]
-      definitionList = true
-      footnote = true
-      linkify = true
-      strikethrough = true
-      table = true
-      taskList = true
-      typographer = true
-    [markup.goldmark.renderer]
-      unsafe = true   # 允许嵌入 HTML/Sketchfab iframe
-  [markup.tableOfContents]
-    startLevel = 2
-    endLevel = 6
-
-# ============================================================
-# 站点地图
-# ============================================================
-[sitemap]
-  changefreq = "weekly"
-  filename = "sitemap.xml"
-  priority = 0.5
-
-# ============================================================
-# 文章 URL（直接使用文件名，不包含日期前缀）
-# ============================================================
-[permalinks]
-  posts = ":contentbasename"
-
-# ============================================================
-# 输出格式
-# ============================================================
 [outputs]
   home = ["HTML", "RSS", "JSON"]
-  page = ["HTML"]
-  section = ["HTML", "RSS"]
-  taxonomy = ["HTML", "RSS"]
 
-# ============================================================
-# 中文语言配置
-# ============================================================
-[languages]
-  [languages.zh-cn]
-    weight = 1
-    locale = "zh-CN"
-    label = "简体中文"
-    hasCJKLanguage = true
-    copyright = "本站内容采用 CC BY-NC 4.0 许可协议"
+[params]
+  env = "production"
+  description = "记录每一个完成的成品 · 在星轨中留下足迹"
+  author = "JHD"
+  images = ["images/planet-avatar.svg"]
+  defaultTheme = "dark"
+
+  [params.assets]
+    favicon = "images/planet-avatar.svg"
+    favicon16x16 = "images/planet-avatar.svg"
+    favicon32x32 = "images/planet-avatar.svg"
+    apple_touch_icon = "images/planet-avatar.svg"
+    safari_pinned_tab = "images/planet-avatar.svg"
+    theme_color = "#050812"
+  dateFormat = "2006-01-02"
+  ShowReadingTime = true
+  ShowWordCount = true
+  ShowToc = true
+  TocOpen = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowPostNavLinks = true
+  ShowShareButtons = true
+  ShowPageNums = true
+  ShowRelatedPosts = true
+  disableSpecial1stPost = false
+
+  # 首页：content/_index.md 的自定义 Hero HTML 通过 list.html 的 .Content 渲染
+  # 文章列表紧随其后（由 PaperMod list.html 控制）
+
+  # giscus 评论 — 填入 categoryId 后把 comments 改为 true
+  comments = true
+  [params.giscus]
+    repo = "Adxs-hm/JHDblog"
+    repoId = "R_kgDOTJEk0w"
+    category = "Announcements"
+    categoryId = "DIC_kwDOTJEk084DAqTy"
+
+  # Webmention (去 webmention.io 用 GitHub 登录后即生效)
+  webmention = "adxs-hm.github.io_jhdblog_"
+
+  # 社交图标
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/Adxs-hm"
+
+  [params.fuseOpts]
+    isCaseSensitive = false
+    distance = 100
+    threshold = 0.25
+    minMatchCharLength = 2
+    ignoreLocation = true
+    keys = ["title", "permalink", "summary", "content"]
+
+  [params.label]
+    text = "JHD"
+
+[[menu.main]]
+  name = "文章"
+  url = "articles"
+  weight = 1
+[[menu.main]]
+  name = "项目"
+  url = "posts"
+  weight = 2
+[[menu.main]]
+  name = "里程碑"
+  url = "milestones"
+  weight = 3
+[[menu.main]]
+  name = "关于"
+  url = "about"
+  weight = 4
+[[menu.main]]
+  name = "搜索"
+  url = "search"
+  weight = 5
+
+[languages.zh-cn]
+  label = "简体中文"
+  weight = 1
+  [languages.zh-cn.taxonomies]
+    category = "categories"
+    tag = "tags"
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.highlight]
+    noClasses = false
+    codeFences = true
+    guessSyntax = true
+    lineNos = false
+    tabWidth = 4
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = false
+
+# RSS 全文 — PaperMod 默认输出全文，无需额外配置

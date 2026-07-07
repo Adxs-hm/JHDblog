@@ -1,0 +1,27 @@
+{{- /* giscus 评论 — GitHub Discussions 驱动 */ -}}
+{{- with .Site.Params.giscus -}}
+<div class="giscus" style="margin:0;padding:0;border:none;min-height:320px">
+  <script src="https://giscus.app/client.js"
+    data-repo="{{ .repo }}"
+    data-repo-id="{{ .repoId }}"
+    data-category="{{ .category }}"
+    data-category-id="{{ .categoryId }}"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="transparent_dark"
+    data-lang="zh-CN"
+    data-loading="eager"
+    crossorigin="anonymous"
+    async>
+  </script>
+  <noscript>
+    <p style="color:var(--text-muted);text-align:center;padding:2rem">
+      评论需要启用 JavaScript 驱动。<br>
+      <a href="https://github.com/{{ .repo }}/discussions" target="_blank" rel="noopener" style="color:var(--gold)">→ 前往 GitHub Discussions 留言</a>
+    </p>
+  </noscript>
+</div>
+{{- end -}}

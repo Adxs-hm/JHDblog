@@ -1,0 +1,49 @@
+# ============================================================
+# 周度安全扫描
+# Gitleaks 密钥检测 + 外部链接有效性检查
+# 每周一 8:00 UTC 自动执行，也支持手动触发和 push 触发
+# ============================================================
+
+name: Weekly Security Scan
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'   # 每周一 8:00 UTC
+  push:
+    branches: [main]
+  workflow_dispatch:       # 允许手动触发
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: 🔍 Gitleaks — 密钥与敏感信息扫描
+        uses: gitleaks/gitleaks-action@v1
+
+  lychee-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v5
+        with:
+          submodules: false
+
+      - name: ⚙️ Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: 🔨 Build Hugo site
+        run: hugo --minify
+
+      - name: 🔗 Lychee — 外部链接有效性检查
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: --accept 200,403,429 --no-progress './public/**/*.html'
+        continue-on-error: true
