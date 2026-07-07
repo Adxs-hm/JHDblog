@@ -1,112 +1,59 @@
-# ============================================================
-# JHD 博客 · Hugo PaperMod 主题
-# ============================================================
-
 baseURL = "https://adxs-hm.github.io/JHDblog/"
 theme = "PaperMod"
-
 title = "JHD"
-copyright = "© 2026 JHD"
-enableRobotsTXT = true
-enableEmoji = true
-hasCJKLanguage = true
 
-# 首页仅显示 posts section
-mainsections = ["posts"]
+hasCJKLanguage = true
+enableEmoji = true
+enableRobotsTXT = true
 
 [pagination]
   pagerSize = 10
 
-[minify]
-  disableCSS = false
-  disableHTML = false
-  disableJS = false
-  disableXML = true
-
-# 搜索需要 JSON 输出
 [outputs]
   home = ["HTML", "RSS", "JSON"]
 
-# ============================================================
-# 全局参数
-# ============================================================
 [params]
   env = "production"
   description = "记录每一个完成的成品 · 在星轨中留下足迹"
   author = "JHD"
-  keywords = ["个人博客", "项目记录", "Hugo", "游戏开发", "世界观设定"]
-
-  # 主题
   defaultTheme = "dark"
-  disableThemeToggle = false
-  disableScrollToTop = false
-
-  # 日期格式
   dateFormat = "2006-01-02"
-
-  # 功能
   ShowReadingTime = true
   ShowWordCount = true
-  ShowShareButtons = true
-  ShowPostNavLinks = true
+  ShowToc = true
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
-  ShowRssButtonInSectionTermList = true
+  ShowPostNavLinks = true
+  ShowShareButtons = false
   ShowPageNums = true
-  ShowToc = true
-  TocOpen = true
 
-  # 个人资料首页模式
   [params.profileMode]
     enabled = true
     title = "JHD"
     subtitle = "记录每一个完成的成品 · 在星轨中留下足迹"
     imageUrl = "images/planet-avatar.svg"
-    imageTitle = "JHD 行星头像"
     imageWidth = 140
     imageHeight = 140
-    buttons:
-      [[params.profileMode.buttons]]
-        name = "文章"
-        url = "articles"
-      [[params.profileMode.buttons]]
-        name = "项目"
-        url = "projects"
-      [[params.profileMode.buttons]]
-        name = "归档"
-        url = "archives"
-      [[params.profileMode.buttons]]
-        name = "关于"
-        url = "about"
+    [[params.profileMode.buttons]]
+      name = "文章"
+      url = "articles"
+    [[params.profileMode.buttons]]
+      name = "项目"
+      url = "projects"
+    [[params.profileMode.buttons]]
+      name = "关于"
+      url = "about"
 
-  # 社交链接
-  [[params.socialIcons]]
-    name = "github"
-    url = "https://github.com/Adxs-hm"
-
-  # 首页标签
-  [params.label]
-    text = "JHD"
-    iconSVG = ""
-
-  # 封面图片
-  [params.cover]
-    linkFullImages = true
-    responsiveImages = true
-
-  # Fuse.js 搜索
   [params.fuseOpts]
     isCaseSensitive = false
-    shouldSort = true
-    location = 0
     distance = 1000
     threshold = 0.3
     minMatchCharLength = 2
     keys = ["title", "permalink", "summary", "content"]
 
-# ============================================================
-# 菜单
-# ============================================================
+  [params.label]
+    text = "JHD"
+
 [[menu.main]]
   name = "文章"
   url = "articles"
@@ -124,31 +71,19 @@ mainsections = ["posts"]
   url = "about"
   weight = 4
 [[menu.main]]
-  name = "归档"
-  url = "archives"
-  weight = 5
-[[menu.main]]
   name = "搜索"
   url = "search"
-  weight = 6
+  weight = 5
 
-# ============================================================
-# 中文语言
-# ============================================================
 [languages.zh-cn]
   languageName = "简体中文"
   weight = 1
-  taxonomies = { category = "categories", tag = "tags" }
+  [languages.zh-cn.taxonomies]
+    category = "categories"
+    tag = "tags"
 
-# ============================================================
-# Markdown
-# ============================================================
 [markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
+  [markup.goldmark.renderer]
+    unsafe = true
   [markup.highlight]
     noClasses = false
-  [markup.tableOfContents]
-    startLevel = 2
-    endLevel = 6
