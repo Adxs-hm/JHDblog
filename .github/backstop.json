@@ -1,0 +1,26 @@
+{
+  "id": "jhd_visual_regression",
+  "viewports": [
+    { "label": "phone", "width": 375, "height": 812 },
+    { "label": "tablet", "width": 1024, "height": 768 },
+    { "label": "desktop", "width": 1440, "height": 900 }
+  ],
+  "scenarios": [
+    { "label": "Home", "url": "https://adxs-hm.github.io/JHDblog/", "delay": 2000, "misMatchThreshold": 1.5 },
+    { "label": "Projects", "url": "https://adxs-hm.github.io/JHDblog/posts/", "delay": 1000, "misMatchThreshold": 1.5 },
+    { "label": "Article", "url": "https://adxs-hm.github.io/JHDblog/articles/aoe4-fun-match/", "delay": 1000, "misMatchThreshold": 1.5 },
+    { "label": "Post with TOC", "url": "https://adxs-hm.github.io/JHDblog/posts/site-launch/", "delay": 1000, "misMatchThreshold": 1.5 },
+    { "label": "About", "url": "https://adxs-hm.github.io/JHDblog/about/", "delay": 1000, "misMatchThreshold": 1.5 },
+    { "label": "Milestones", "url": "https://adxs-hm.github.io/JHDblog/milestones/", "delay": 1000, "misMatchThreshold": 1.5 },
+    { "label": "Search", "url": "https://adxs-hm.github.io/JHDblog/search/", "delay": 1000, "misMatchThreshold": 1.5 }
+  ],
+  "paths": {
+    "bitmaps_reference": ".backstop/bitmaps_reference",
+    "bitmaps_test": ".backstop/bitmaps_test",
+    "html_report": ".backstop/html_report",
+    "ci_report": ".backstop/ci_report"
+  },
+  "report": ["CI"],
+  "engine": "playwright",
+  "engineOptions": { "browser": "chromium" }
+}

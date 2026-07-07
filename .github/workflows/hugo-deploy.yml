@@ -1,6 +1,6 @@
 # ============================================================
-# Hugo 博客自动部署到 GitHub Pages
-# 每次 push 到 main 分支自动触发
+# JHD Blog · 质量门禁 + 自动部署
+# push main → 验证 → 构建 → 部署
 # ============================================================
 
 name: Deploy Hugo Site
@@ -8,40 +8,58 @@ name: Deploy Hugo Site
 on:
   push:
     branches: [main]
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  # ── 阶段 1：构建验证 ──
+  validate:
     runs-on: ubuntu-latest
-
-    # 赋予 GITHUB_TOKEN 写入权限
-    permissions:
-      contents: write
-
     steps:
-      # 1. 检出代码
       - name: 📥 Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # 2. 安装 Hugo Extended
       - name: ⚙️ Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: 'latest'
           extended: true
 
-      # 3. 构建站点
-      - name: 🔨 Build
-        run: hugo
+      - name: 🔍 Hugo Build Check
+        run: hugo --minify
 
-      # 4. 部署到 gh-pages 分支
+      - name: 📏 HTML Size Check
+        run: |
+          SIZE=$(du -sb public/ | cut -f1)
+          if [ $SIZE -gt 50000000 ]; then echo "BUILD TOO LARGE: $SIZE bytes"; exit 1; fi
+          echo "Build size: $((SIZE / 1024)) KB"
+
+  # ── 阶段 2：部署 ──
+  deploy:
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: ⚙️ Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: 🔨 Build
+        run: hugo --minify
+
       - name: 🚀 Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
-          # 保留提交历史（可选）
           force_orphan: true

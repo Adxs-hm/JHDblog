@@ -1,0 +1,39 @@
+{
+  "budget": {
+    "googleWebVitals": {
+      "largestContentfulPaint": 2500,
+      "firstContentfulPaint": 1800,
+      "cumulativeLayoutShift": 0.1,
+      "totalBlockingTime": 200
+    },
+    "timings": {
+      "SpeedIndex": 3000,
+      "FirstVisualChange": 2000,
+      "FullyLoaded": 5000
+    },
+    "requests": {
+      "total": 30,
+      "javascript": 5,
+      "css": 3,
+      "font": 3,
+      "httpErrors": 0
+    },
+    "transferSize": {
+      "total": 600000,
+      "html": 50000,
+      "javascript": 150000,
+      "css": 80000,
+      "image": 300000,
+      "font": 100000
+    },
+    "thirdParty": {
+      "requests": 8,
+      "transferSize": 150000
+    },
+    "score": {
+      "performance": 85,
+      "bestpractice": 85,
+      "accessibility": 90
+    }
+  }
+}

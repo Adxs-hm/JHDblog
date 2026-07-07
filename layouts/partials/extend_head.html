@@ -8,6 +8,13 @@
   }
 </script>
 
+{{- /* Security & Performance */ -}}
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://giscus.app https://webmention.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://webmention.io; frame-src https://giscus.app;">
+<link rel="dns-prefetch" href="https://giscus.app">
+<link rel="dns-prefetch" href="https://webmention.io">
+<link rel="preconnect" href="https://giscus.app" crossorigin>
+<link rel="preconnect" href="https://webmention.io" crossorigin>
+
 {{- /* Webmention IndieWeb */ -}}
 {{- with .Site.Params.webmention }}
 <link rel="webmention" href="https://webmention.io/{{ . }}/webmention" />
