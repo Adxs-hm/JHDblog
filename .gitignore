@@ -14,6 +14,9 @@ Thumbs.db
 
 # 本地脚本
 dev.bat
+dev.log
+dev.ps1
+hugo.exe
 
 # Agent 工作区
 /.agent_workspace/
