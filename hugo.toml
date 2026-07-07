@@ -44,6 +44,19 @@ enableRobotsTXT = true
       name = "关于"
       url = "about"
 
+  # giscus 评论 — 在 GitHub 开启 Discussions 后填入
+  comments = false
+  # [params.giscus]
+  #   repo = "Adxs-hm/JHDblog"
+  #   repoId = ""
+  #   category = "Announcements"
+  #   categoryId = ""
+
+  # 社交图标
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/Adxs-hm"
+
   [params.fuseOpts]
     isCaseSensitive = false
     distance = 1000

@@ -1,0 +1,21 @@
+{{- /* giscus 评论 — GitHub Discussions 驱动 */ -}}
+{{- with .Site.Params.giscus -}}
+<div class="giscus" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+  <script src="https://giscus.app/client.js"
+    data-repo="{{ .repo }}"
+    data-repo-id="{{ .repoId }}"
+    data-category="{{ .category }}"
+    data-category-id="{{ .categoryId }}"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+  </script>
+</div>
+{{- end -}}

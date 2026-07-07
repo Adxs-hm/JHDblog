@@ -132,3 +132,28 @@ a:hover {
 @media print {
   .dark { --theme: #fff; --entry: #fff; --content: #222; }
 }
+
+/* === Profile 按钮 === */
+.profile .buttons a {
+  background: rgba(200, 180, 120, 0.1);
+  border: 1px solid rgba(200, 180, 120, 0.25);
+  color: var(--primary);
+  border-radius: 24px;
+  padding: 0.5rem 1.5rem;
+  transition: all 0.2s ease;
+}
+.profile .buttons a:hover {
+  background: rgba(200, 180, 120, 0.2);
+  border-color: rgba(200, 180, 120, 0.5);
+  box-shadow: 0 0 20px rgba(200, 180, 120, 0.2);
+  transform: translateY(-1px);
+}
+
+/* === 页脚社交图标 === */
+.social-icons a {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.social-icons a:hover {
+  transform: translateY(-2px);
+  color: var(--primary);
+}
