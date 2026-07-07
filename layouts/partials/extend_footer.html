@@ -2,12 +2,18 @@
 <a class="skip-link" href="#main-content">跳到内容</a>
 
 <script>
-/* ═══════ 注入流星 + 渐晕 + main-content id ═══════ */
+/* ═══════ 注入深空元素 + main-content id ═══════ */
 (function(){
   var main=document.querySelector('main.main');if(main)main.id='main-content';
-  var s1=document.createElement('div');s1.className='shooting-star';document.body.appendChild(s1);
-  var s2=document.createElement('div');s2.className='shooting-star';document.body.appendChild(s2);
-  var v=document.createElement('div');v.className='vignette';document.body.appendChild(v);
+  var els=[
+    {c:'galaxy-core'},
+    {c:'nebula'},
+    {c:'shooting-star'},{c:'shooting-star'},{c:'shooting-star'},
+    {c:'vignette'}
+  ];
+  els.forEach(function(e){
+    var d=document.createElement('div');d.className=e.c;document.body.appendChild(d);
+  });
 })();
 
 /* ═══════ 卡片光影追踪 ═══════ */
