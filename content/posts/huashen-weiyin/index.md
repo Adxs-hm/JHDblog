@@ -4,7 +4,6 @@ date: 2026-06-30T12:36:14+08:00
 description: "原创都市奇幻 SillyTavern 设定包——资质平平的主角、毒舌 AI 系统、五阶段分支剧情"
 tags: ["都市奇幻", "SillyTavern", "角色扮演"]
 categories: ["项目"]
-image: ""
 draft: false
 ---
 

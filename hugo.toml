@@ -1,324 +1,154 @@
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-# JHD 站点 · 星空行星主题 · Hugo + LoveIt
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# ============================================================
+# JHD 博客 · Hugo PaperMod 主题
+# ============================================================
 
 baseURL = "https://adxs-hm.github.io/JHDblog/"
-theme = "LoveIt"
+theme = "PaperMod"
 
-# 网站标题
 title = "JHD"
-
-# 语言设置
-defaultContentLanguage = "zh-cn"
-locale = "zh-CN"
-hasCJKLanguage = true
-copyright = ""
-
-# 基础功能
+copyright = "© 2026 JHD"
 enableRobotsTXT = true
 enableEmoji = true
-ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
+hasCJKLanguage = true
 
-# 分页
+# 首页仅显示 posts section
+mainsections = ["posts"]
+
 [pagination]
-  disableAliases = false
   pagerSize = 10
-  path = "page"
 
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-# 导航菜单
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[menu]
-  [[menu.main]]
-    weight = 1
-    identifier = "posts"
-    name = "文章"
-    url = "articles/"
-    title = "所有文章记录"
-  [[menu.main]]
-    weight = 2
-    identifier = "projects"
-    name = "项目"
-    url = "projects/"
-    title = "所有项目记录"
-  [[menu.main]]
-    weight = 3
-    identifier = "milestones"
-    name = "里程碑"
-    url = "milestones/"
-    title = "关键节点与里程碑"
-  [[menu.main]]
-    weight = 4
-    identifier = "about"
-    name = "关于"
-    url = "about/"
-    title = "关于 JHD"
+[minify]
+  disableCSS = false
+  disableHTML = false
+  disableJS = false
+  disableXML = true
 
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# 搜索需要 JSON 输出
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+# ============================================================
 # 全局参数
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# ============================================================
 [params]
   env = "production"
-  defaultTheme = "dark"
-  dateFormat = "2006-01-02"
-  title = "JHD"
   description = "记录每一个完成的成品 · 在星轨中留下足迹"
+  author = "JHD"
   keywords = ["个人博客", "项目记录", "Hugo", "游戏开发", "世界观设定"]
-  images = ["images/planet-avatar.svg"]
 
-  # 作者信息
-  [params.author]
-    name = "JHD"
-    email = ""
-    link = ""
+  # 主题
+  defaultTheme = "dark"
+  disableThemeToggle = false
+  disableScrollToTop = false
 
-  # 头部导航栏
-  [params.header]
-    desktopMode = "fixed"
-    mobileMode = "auto"
-    [params.header.title]
-      logo = ""
-      name = "JHD"
-      pre = "<span class='planet-icon'>🪐</span>"
-      post = ""
-      typeit = false
+  # 日期格式
+  dateFormat = "2006-01-02"
 
-  # 页脚
-  [params.footer]
-    enable = true
-    custom = '<span style="font-size:0.78rem;color:#6a80a0;">本站所有内容为原创或基于个人创作整理。如有与其他作品相似之处，纯属巧合。</span>'
-    hugo = true
-    copyright = true
-    author = true
-    since = 2026
-    icp = ""
-    license = ""
+  # 功能
+  ShowReadingTime = true
+  ShowWordCount = true
+  ShowShareButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowRssButtonInSectionTermList = true
+  ShowPageNums = true
+  ShowToc = true
+  TocOpen = true
 
-  # 文章列表
-  [params.section]
-    paginate = 20
-    dateFormat = "01-02"
-    rss = 10
-
-  [params.list]
-    paginate = 20
-    dateFormat = "01-02"
-    rss = 10
-
-  # 应用图标
-  [params.app]
+  # 个人资料首页模式
+  [params.profileMode]
+    enabled = true
     title = "JHD"
-    noFavicon = false
-    svgFavicon = ""
-    themeColor = "#0a0a1a"
-    iconColor = "#e9b847"
-    tileColor = "#0d0d2b"
-
-  # 搜索
-  [params.search]
-    enable = true
-    type = "fuse"
-    contentLength = 4000
-    placeholder = "搜索记录..."
-    maxResultLength = 10
-    snippetLength = 30
-    highlightTag = "em"
-    absoluteURL = false
-    [params.search.fuse]
-      isCaseSensitive = false
-      minMatchCharLength = 2
-      findAllMatches = false
-      location = 0
-      threshold = 0.3
-      distance = 100
-      ignoreLocation = false
-
-  # 首页配置
-  [params.home]
-    rss = 10
-    [params.home.profile]
-      enable = true
-      gravatarEmail = ""
-      avatarURL = "images/planet-avatar.svg"
-      title = "JHD"
-      subtitle = "记录每一个完成的成品 · 在星轨中留下足迹"
-      typeit = true
-      social = true
-      disclaimer = ""
-    [params.home.posts]
-      enable = true
-      paginate = 6
+    subtitle = "记录每一个完成的成品 · 在星轨中留下足迹"
+    imageUrl = "images/planet-avatar.svg"
+    imageTitle = "JHD 行星头像"
+    imageWidth = 140
+    imageHeight = 140
+    buttons:
+      [[params.profileMode.buttons]]
+        name = "文章"
+        url = "articles"
+      [[params.profileMode.buttons]]
+        name = "项目"
+        url = "projects"
+      [[params.profileMode.buttons]]
+        name = "归档"
+        url = "archives"
+      [[params.profileMode.buttons]]
+        name = "关于"
+        url = "about"
 
   # 社交链接
-  [params.social]
-    GitHub = "Adxs-hm"
-    Email = ""
-    Twitter = ""
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/Adxs-hm"
 
-  # 文章页面配置
-  [params.page]
-    hiddenFromHomePage = false
-    hiddenFromSearch = false
-    twemoji = false
-    lightgallery = true
-    ruby = true
-    fraction = true
-    fontawesome = true
-    linkToMarkdown = true
-    rssFullText = true
-    [params.page.toc]
-      enable = true
-      keepStatic = false
-      auto = true
-    [params.page.code]
-      copy = true
-      maxShownLines = 50
-      [params.page.code.render]
-        goat = true
-        mermaid = true
-    [params.page.math]
-      enable = false
-    [params.page.share]
-      enable = true
-      X = true
-      Facebook = true
-      Linkedin = true
-      Weibo = true
-      Telegram = true
-    [params.page.comment]
-      enable = false
+  # 首页标签
+  [params.label]
+    text = "JHD"
+    iconSVG = ""
 
-  # 打字机动画
-  [params.typeit]
-    speed = 80
-    cursorSpeed = 1000
-    cursorChar = "|"
-    duration = -1
+  # 封面图片
+  [params.cover]
+    linkFullImages = true
+    responsiveImages = true
 
-  # SEO
-  [params.seo]
-    image = "images/planet-avatar.svg"
-    thumbnailUrl = "images/planet-avatar.svg"
+  # Fuse.js 搜索
+  [params.fuseOpts]
+    isCaseSensitive = false
+    shouldSort = true
+    location = 0
+    distance = 1000
+    threshold = 0.3
+    minMatchCharLength = 2
+    keys = ["title", "permalink", "summary", "content"]
 
-  # CDN
-  [params.cdn]
-    data = ""
+# ============================================================
+# 菜单
+# ============================================================
+[[menu.main]]
+  name = "文章"
+  url = "articles"
+  weight = 1
+[[menu.main]]
+  name = "项目"
+  url = "projects"
+  weight = 2
+[[menu.main]]
+  name = "里程碑"
+  url = "milestones"
+  weight = 3
+[[menu.main]]
+  name = "关于"
+  url = "about"
+  weight = 4
+[[menu.main]]
+  name = "归档"
+  url = "archives"
+  weight = 5
+[[menu.main]]
+  name = "搜索"
+  url = "search"
+  weight = 6
 
-  # 自定义 CSS（星空主题）
-  [params.page.library]
-    [params.page.library.css]
-      spaceTheme = "css/space-theme-v2.css"
+# ============================================================
+# 中文语言
+# ============================================================
+[languages.zh-cn]
+  languageName = "简体中文"
+  weight = 1
+  taxonomies = { category = "categories", tag = "tags" }
 
-  [params.cookieconsent]
-    enable = false
-
-  # giscus 评论系统 (GitHub Discussions) — 替换下方值为实际值后取消注释
-  # [params.giscus]
-  #   repo = "Adxs-hm/Adxs-hm.github.io"
-  #   repoId = ""
-  #   category = "Announcements"
-  #   categoryId = ""
-
-  # Webmention (IndieWeb 社交互动) — 在 webmention.io 注册后填入用户名
-  # [params.webmention]
-  #   username = ""
-
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-# 禁用 CSS/HTML 压缩 —— tdewolff/minify 会错误转换 transparent
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[minify]
-  disableCSS = true
-  disableHTML = true
-
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-# Markdown 解析
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# ============================================================
+# Markdown
+# ============================================================
 [markup]
-  [markup.highlight]
-    anchorLineNos = false
-    codeFences = true
-    guessSyntax = false
-    lineNos = false
-    lineNumbersInTable = true
-    noClasses = true
   [markup.goldmark]
-    [markup.goldmark.extensions]
-      definitionList = true
-      footnote = true
-      linkify = true
-      strikethrough = true
-      table = true
-      taskList = true
-      typographer = true
     [markup.goldmark.renderer]
       unsafe = true
+  [markup.highlight]
+    noClasses = false
   [markup.tableOfContents]
     startLevel = 2
     endLevel = 6
-
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-# 相关文章推荐
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[related]
-  threshold = 80
-  includeNewer = true
-  toLower = false
-  [[related.indices]]
-    name = "tags"
-    weight = 80
-  [[related.indices]]
-    name = "categories"
-    weight = 60
-
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-# 站点地图
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[sitemap]
-  changefreq = "weekly"
-  filename = "sitemap.xml"
-  priority = 0.5
-
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-# 文章 URL
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[permalinks]
-  posts = "posts/:contentbasename/"
-
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-# 输出格式
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[outputs]
-  home = ["HTML", "RSS", "JSON"]
-  page = ["HTML"]
-  section = ["HTML", "RSS"]
-  taxonomy = ["HTML", "RSS"]
-
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-# 中文语言配置
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[languages]
-  [languages.zh-cn]
-    weight = 1
-    locale = "zh-CN"
-    label = "简体中文"
-    hasCJKLanguage = true
-    copyright = ""
-
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-# 来自参考项目 (PaperMod/Stack/HugoBlox) 的 SEO 优化
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
-# 站点验证 (PaperMod)
-[params.analytics.google]
-  SiteVerificationTag = ""
-[params.analytics.bing]
-  SiteVerificationTag = ""
-
-# Schema.org 发布者 (PaperMod)
-[params.schema]
-  publisherType = "Person"
-
-# 图标资源 (PaperMod)
-[params.assets]
-  favicon = "favicon.ico"
-  theme_color = "#0a0a1a"

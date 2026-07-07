@@ -4,7 +4,6 @@ date: 2026-07-01T00:00:00+08:00
 description: "硬核丧尸末日 SillyTavern 设定包——50万字、5卷19篇、双末日体系、觉醒者生态、积分商店经济学"
 tags: ["丧尸", "末日", "SillyTavern", "角色扮演"]
 categories: ["项目"]
-image: ""
 draft: false
 ---
 

@@ -4,7 +4,6 @@ date: 2026-06-30T10:33:33+08:00
 description: "第一个成品：这个网站本身——从零到一的完整记录"
 tags: ["网站", "里程碑"]
 categories: ["项目"]
-image: ""
 draft: false
 ---
 

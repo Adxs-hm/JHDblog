@@ -4,7 +4,6 @@ date: 2026-06-30T12:36:14+08:00
 description: "以 STD Template Mod 为案例的 RimWorld 1.6 模组开发实战教程——18 个真实 Bug 剖析、XML 字段速查表、贴图管线全流程"
 tags: ["RimWorld", "教程", "Mod", "技术文档"]
 categories: ["项目"]
-image: ""
 draft: false
 ---
 

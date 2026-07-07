@@ -4,7 +4,6 @@ date: 2026-06-30T12:36:14+08:00
 description: "原创科幻宇宙设定——十二席列国、CIL 分级、WDS 武械系统，4,000+ 行设定"
 tags: ["科幻", "世界观", "CLPS"]
 categories: ["项目"]
-image: ""
 draft: false
 ---
 

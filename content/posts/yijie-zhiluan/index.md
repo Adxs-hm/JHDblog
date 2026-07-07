@@ -4,7 +4,6 @@ date: 2026-06-30T12:36:14+08:00
 description: "完全原创黑暗奇幻穿越世界 SillyTavern 设定包——872 年魔法战争、封魔令悖论、21 座城邦、命运轮盘系统"
 tags: ["黑暗奇幻", "SillyTavern", "角色扮演"]
 categories: ["项目"]
-image: ""
 draft: false
 ---
 

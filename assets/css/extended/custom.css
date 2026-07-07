@@ -1,0 +1,20 @@
+/* JHD 自定义金色强调色 */
+:root {
+  --main: #c8b478;
+  --primary: #a080d8;
+  --content: #c0cce4;
+  --theme: #0a0c1e;
+}
+
+.dark {
+  --main: #c8b478;
+  --primary: #a080d8;
+  --content: #c0cce4;
+  --theme: #0a0c1e;
+}
+
+/* 链接悬停金色 */
+a:hover { color: var(--main); }
+
+/* 代码块微调 */
+.post-content pre { border-radius: 10px; }

@@ -9,10 +9,10 @@
 </p>
 
 <p align="center">
-  <a href="https://Adxs-hm.github.io/"><img src="https://img.shields.io/badge/站点-在线-brightgreen?style=flat-square" alt="Site"></a>
+  <a href="https://adxs-hm.github.io/JHDblog/"><img src="https://img.shields.io/badge/站点-在线-brightgreen?style=flat-square" alt="Site"></a>
   <a href="https://github.com/Adxs-hm/Adxs-hm.github.io/actions"><img src="https://img.shields.io/github/actions/workflow/status/Adxs-hm/Adxs-hm.github.io/hugo-deploy.yml?style=flat-square" alt="Deploy"></a>
   <img src="https://img.shields.io/badge/Hugo-0.163.3-ff4088?style=flat-square&logo=hugo" alt="Hugo">
-  <img src="https://img.shields.io/badge/Theme-LoveIt-blue?style=flat-square" alt="Theme">
+  <img src="https://img.shields.io/badge/Theme-PaperMod-blue?style=flat-square" alt="Theme">
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License">
 </p>
 

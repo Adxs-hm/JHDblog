@@ -4,7 +4,6 @@ date: 2026-06-30T12:36:14+08:00
 description: "RimWorld 1.6 纯 XML 失落科技模组——三级递进研究、功能整合设计哲学、零 C# 编译依赖"
 tags: ["RimWorld", "Mod", "XML", "游戏"]
 categories: ["项目"]
-image: ""
 draft: false
 ---
 

@@ -4,7 +4,6 @@ date: 2026-06-30T12:36:14+08:00
 description: "参考 Mod 优先对比法的代码审查——以 6 个已发布 Mod 为基准，12 项待整改清单，三级健康度评分"
 tags: ["RimWorld", "代码审查", "质量评估", "Mod"]
 categories: ["项目"]
-image: ""
 draft: false
 ---
 

@@ -4,8 +4,7 @@ date: 2026-06-30T16:34:56+08:00
 description: "龙罗让四农单农起步，冲车碾城、重投碎堡，lwt 喜提新头衔——英格兰·田亡君"
 tags: ["帝国时代4", "对战", "欢乐局"]
 categories: ["记录"]
-image: ""
-hiddenFromHomePage: true
+hiddenInHomeList: true
 draft: false
 ---
 

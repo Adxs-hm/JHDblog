@@ -4,7 +4,6 @@ date: 2026-06-30T12:36:14+08:00
 description: "经典主神空间无限流 SillyTavern 设定包——~1,000 设定条目、150+ 任务世界、三种叙述者语音模式"
 tags: ["无限流", "SillyTavern", "角色扮演"]
 categories: ["项目"]
-image: ""
 draft: false
 ---
 
