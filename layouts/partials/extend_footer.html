@@ -1,0 +1,46 @@
+<script>
+/* JHD 交互特效 — 卡片光影 + 滚动入场 + 目录高亮 */
+(function() {
+  'use strict';
+
+  /* 卡片光影追随 */
+  document.addEventListener('mousemove', function(e) {
+    document.querySelectorAll('.post-entry, .first-entry').forEach(function(card) {
+      var rect = card.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      if (x > 0 && y > 0 && x < rect.width && y < rect.height) {
+        card.style.setProperty('--glow-x', (x / rect.width * 100).toFixed(0) + '%');
+        card.style.setProperty('--glow-y', (y / rect.height * 100).toFixed(0) + '%');
+      }
+    });
+  });
+
+  /* 滚动入场 */
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.post-content h2, .post-content h3, .post-content blockquote, .post-content pre, .post-content table').forEach(function(el) {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+
+  /* 回到顶部平滑滚动 */
+  var topBtn = document.getElementById('top-link');
+  if (topBtn) {
+    topBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+})();
+</script>
