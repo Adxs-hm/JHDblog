@@ -1,0 +1,25 @@
+{{- /* macOS 风格代码块：窗口按钮 + 语言标签 + 长代码折叠 */ -}}
+{{- $lang := .Type | default "text" -}}
+{{- $lines := split .Inner "\n" -}}
+{{- $lineCount := len $lines -}}
+{{- $isLong := gt $lineCount 16 -}}
+
+<div class="code-block-wrapper{{ if $isLong }} is-foldable{{ end }}">
+  <div class="code-block-header">
+    <span class="code-dots">
+      <span class="code-dot dot-red"></span>
+      <span class="code-dot dot-yellow"></span>
+      <span class="code-dot dot-green"></span>
+    </span>
+    <span class="code-lang">{{ $lang }}</span>
+    {{- if $isLong }}
+    <button class="code-fold-btn" onclick="this.closest('.code-block-wrapper').classList.toggle('is-folded')" aria-label="展开/折叠代码">
+      <span class="fold-text">展开</span>
+      <span class="unfold-text">折叠</span>
+    </button>
+    {{- end }}
+  </div>
+  <div class="code-block-body">
+    {{- transform.Highlight .Inner $lang }}
+  </div>
+</div>

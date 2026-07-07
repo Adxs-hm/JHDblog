@@ -30,6 +30,8 @@ mainSections = ["posts"]
   ShowReadingTime = true
   ShowWordCount = true
   ShowToc = true
+  TocOpen = true
+  UseHugoToc = true
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
   ShowPostNavLinks = true
@@ -59,9 +61,10 @@ mainSections = ["posts"]
 
   [params.fuseOpts]
     isCaseSensitive = false
-    distance = 1000
-    threshold = 0.3
+    distance = 100
+    threshold = 0.25
     minMatchCharLength = 2
+    ignoreLocation = true
     keys = ["title", "permalink", "summary", "content"]
 
   [params.label]

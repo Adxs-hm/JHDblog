@@ -1,0 +1,19 @@
+{
+  "name": "JHD · 星轨",
+  "short_name": "JHD",
+  "description": "记录每一个完成的成品 · 在星轨中留下足迹",
+  "start_url": "/JHDblog/",
+  "scope": "/JHDblog/",
+  "display": "standalone",
+  "background_color": "#0a0c1e",
+  "theme_color": "#0a0c1e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/JHDblog/images/planet-avatar.svg",
+      "sizes": "200x200",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

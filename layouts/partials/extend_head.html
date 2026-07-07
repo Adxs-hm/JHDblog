@@ -1,3 +1,13 @@
+{{- /* PWA */ -}}
+<link rel="manifest" href="{{ "manifest.json" | relURL }}">
+<meta name="theme-color" content="#0a0c1e" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f0f0f0" media="(prefers-color-scheme: light)">
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('{{ "sw.js" | relURL }}');
+  }
+</script>
+
 {{- /* Webmention IndieWeb */ -}}
 {{- with .Site.Params.webmention }}
 <link rel="webmention" href="https://webmention.io/{{ . }}/webmention" />
@@ -26,8 +36,26 @@
   "headline": {{ .Title }},
   "description": {{ .Params.description }},
   "datePublished": {{ .PublishDate.Format "2006-01-02T15:04:05-07:00" }},
+  {{- with .Lastmod }}
+  "dateModified": {{ .Format "2006-01-02T15:04:05-07:00" }},
+  {{- end }}
   "author": { "@type": "Person", "name": {{ .Site.Params.author }} },
-  "url": {{ .Permalink }}
+  "url": {{ .Permalink }},
+  {{- with .Params.images }}
+  "image": {{ (index . 0) | absURL }},
+  {{- else }}
+  {{- $img := .Resources.GetMatch "{*cover*,*feature*,*thumbnail*}" }}
+  {{- with $img }}
+  "image": {{ .Permalink }},
+  {{- else }}
+  "image": {{ (index .Site.Params.images 0) | absURL }},
+  {{- end }}
+  {{- end }}
+  {{- with .Params.tags }}
+  "keywords": {{ delimit . ", " }},
+  {{- end }}
+  "wordCount": {{ .WordCount }},
+  "inLanguage": "zh-CN"
 }
 </script>
 {{- end -}}
