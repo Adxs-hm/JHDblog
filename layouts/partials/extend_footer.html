@@ -2,14 +2,17 @@
 <a class="skip-link" href="#main-content">跳到内容</a>
 
 <script>
-/* ═══════ 注入深空元素 + main-content id ═══════ */
+/* ═══════ 注入深空天体 + main-content id ═══════ */
 (function(){
   var main=document.querySelector('main.main');if(main)main.id='main-content';
   var els=[
     {c:'galaxy-core'},
     {c:'nebula'},
     {c:'shooting-star'},{c:'shooting-star'},{c:'shooting-star'},
-    {c:'vignette'}
+    {c:'vignette'},
+    {c:'celestial-sun'},
+    {c:'celestial-blackhole'},
+    {c:'celestial-planet'}
   ];
   els.forEach(function(e){
     var d=document.createElement('div');d.className=e.c;document.body.appendChild(d);

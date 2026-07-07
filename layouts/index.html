@@ -1,0 +1,33 @@
+{{- define "main" }}
+  {{- if .Content }}
+  <div class="post-content md-content home-content">
+    {{ .Content }}
+  </div>
+  {{- end }}
+
+  {{- /* 项目精选 */ -}}
+  <section class="home-featured">
+    <h2 class="home-section-title">✦ 项目精选</h2>
+    <div class="featured-grid">
+      {{- $projects := where .Site.RegularPages "Section" "posts" | first 6 }}
+      {{- range $projects }}
+      <a class="featured-card" href="{{ .Permalink }}">
+        <span class="featured-name">{{ .Title }}</span>
+        <span class="featured-desc">{{ .Params.description | default .Summary | truncate 60 }}</span>
+      </a>
+      {{- end }}
+    </div>
+    <div class="home-section-more">
+      <a href="{{ "posts" | relURL }}" class="jhd-btn-primary">查看全部项目 →</a>
+      <a href="{{ "articles" | relURL }}" class="jhd-btn-ghost">阅读文章 →</a>
+    </div>
+  </section>
+
+  {{- /* 评论区 */ -}}
+  {{- if .Site.Params.comments }}
+  <section class="home-comments" id="comments">
+    <h2 class="home-section-title">✦ 留言交流</h2>
+    {{- partial "comments.html" . }}
+  </section>
+  {{- end }}
+{{- end }}

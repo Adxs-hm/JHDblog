@@ -24,7 +24,17 @@ description: "记录每一个完成的成品 · 在星轨中留下足迹"
       <span class="jhd-share-divider">·</span>
       <a href="index.xml" class="jhd-share-link">RSS 订阅</a>
       <span class="jhd-share-divider">·</span>
-      <span class="jhd-share-text">分享到</span>
+      <a href="#comments" class="jhd-share-link">留言交流</a>
     </div>
   </div>
 </div>
+
+---
+
+## 🪐 关于本站
+
+这个站点是我所有**已完成项目**的统一入口。每个项目都是一颗独立的星球——有完整的文档、截图和说明。本站本身也是第一个被记录的成品。
+
+**涵盖领域**：RimWorld Mod 开发 · SillyTavern AI 角色扮演设定 · 硬科幻世界观构建 · 网站开发
+
+**内容规模**：10 个已完成项目 · 4 个创作领域 · 累计产出 2.2MB+ 纯文本内容

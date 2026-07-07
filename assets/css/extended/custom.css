@@ -104,6 +104,68 @@ body::after{content:'';position:fixed;inset:-200px;z-index:0;pointer-events:none
 .vignette{pointer-events:none;position:fixed;inset:0;z-index:0;
   background:radial-gradient(ellipse 50% 45% at 50% 40%,transparent 35%,rgba(2,5,16,.85) 100%)}
 
+/* ── CELESTIAL BODIES ── */
+/* sun — top-right, warm orange glow */
+.celestial-sun{position:fixed;z-index:1;pointer-events:none;
+  top:8%;right:5%;width:160px;height:160px;
+  background:
+    radial-gradient(circle 50px at 50% 50%,rgba(255,230,180,.9),rgba(255,180,60,.4) 40%,rgba(255,120,20,.08) 70%,transparent);
+  border-radius:50%;
+  box-shadow:0 0 80px rgba(255,160,30,.25),0 0 200px rgba(255,120,20,.1),0 0 400px rgba(255,100,10,.04);
+  animation:sun-pulse 6s ease-in-out infinite,drift-mid 180s linear infinite alternate}
+@keyframes sun-pulse{0%,100%{box-shadow:0 0 80px rgba(255,160,30,.25),0 0 200px rgba(255,120,20,.1)}
+  50%{box-shadow:0 0 120px rgba(255,180,40,.4),0 0 280px rgba(255,140,30,.18),0 0 500px rgba(255,100,10,.06)}}
+/* sun corona ring */
+.celestial-sun::after{content:'';position:absolute;inset:-30px;border-radius:50%;
+  border:1px solid rgba(255,180,100,.12);animation:or 45s linear infinite}
+
+/* black hole — mid-left, dark core + orange accretion disk */
+.celestial-blackhole{position:fixed;z-index:1;pointer-events:none;
+  top:55%;left:8%;width:200px;height:200px;border-radius:50%;
+  background:
+    radial-gradient(circle 40px at 50% 50%,#000,transparent 60%),
+    conic-gradient(from 0deg,transparent,rgba(200,160,60,.15),rgba(255,200,100,.3),transparent,rgba(200,160,60,.15));
+  transform:rotateX(75deg) scale(1.6,0.4);
+  animation:accretion-spin 12s linear infinite;
+  box-shadow:0 0 60px rgba(200,150,50,.1),0 0 150px rgba(200,150,50,.04)}
+@keyframes accretion-spin{0%{transform:rotateX(75deg) scale(1.6,0.4) rotate(0deg)}
+  100%{transform:rotateX(75deg) scale(1.6,0.4) rotate(360deg)}}
+
+/* orbiting planet */
+.celestial-planet{position:fixed;z-index:1;pointer-events:none;
+  top:30%;left:25%;width:18px;height:18px;border-radius:50%;
+  background:radial-gradient(circle 7px at 35% 35%,rgba(180,210,240,.8),rgba(60,100,160,.5));
+  box-shadow:0 0 12px rgba(100,160,220,.3),-2px -2px 4px rgba(0,0,0,.4)inset;
+  animation:planet-orbit 30s linear infinite}
+@keyframes planet-orbit{
+  0%{transform:translate(0,0) scale(1)}
+  25%{transform:translate(150px,-80px) scale(1.2)}
+  50%{transform:translate(280px,20px) scale(.9)}
+  75%{transform:translate(120px,100px) scale(1.1)}
+  100%{transform:translate(0,0) scale(1)}}
+
+/* home page content headings — softer than article headings */
+.home-content h2{font-size:1.2rem;font-weight:700;color:var(--text-main);border-left:none;padding-left:0;margin:2rem 0 .8rem}
+.home-content h3{color:var(--text-body);border-left:none;padding-left:0}
+.home-content p{color:var(--text-muted);line-height:1.8}
+.home-content strong{color:var(--gold);font-weight:600}
+/* hide the hr before 关于本站 */
+.home-content hr{display:none}
+
+/* ── HOME PAGE SECTIONS ── */
+.home-section-title{font-size:1.15rem;font-weight:700;color:var(--text-main);margin:2.5rem 0 1rem;text-align:center;letter-spacing:.04em}
+.featured-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.7rem;margin-bottom:1rem}
+.featured-card{display:flex;flex-direction:column;gap:.25rem;padding:1rem 1.2rem;
+  background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:12px;
+  text-decoration:none;transition:all .25s ease}
+.featured-card:hover{transform:translateY(-3px);border-color:var(--border-gold);
+  box-shadow:0 8px 32px rgba(0,0,0,.4),0 0 40px rgba(200,180,120,.06)}
+.featured-name{font-size:.95rem;font-weight:700;color:var(--text-main)}
+.featured-desc{font-size:.78rem;color:var(--text-muted);line-height:1.4}
+.home-section-more{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;margin-bottom:2rem}
+.home-comments{margin-bottom:3rem}
+.home-comments .giscus{margin-top:1rem!important;padding-top:1rem!important}
+
 /* ── CONTENT LAYER — fix card clickability ── */
 .main,.page,.post-content,.article{position:relative;z-index:2}
 .nav,.header,header,footer,.footer{position:relative;z-index:3}
@@ -355,6 +417,11 @@ details.toc ul ul{padding-left:.8rem}
   .page-header h1{font-size:1.5rem}
   .code-block-header{padding:.4rem .7rem}.code-block-body .highlight pre{padding:.6rem .8rem}
   .jhd-btn-primary,.jhd-btn-ghost{padding:.5rem 1.4rem;font-size:.82rem}
+  .celestial-sun{width:100px;height:100px;top:5%;right:2%}
+  .celestial-blackhole{width:140px;height:140px;top:60%;left:2%}
+  .celestial-planet{top:40%;left:15%;width:12px;height:12px}
+  .featured-grid{grid-template-columns:1fr}
+  .project-grid{grid-template-columns:1fr}
 }
 @media(max-width:480px){
   .jhd-hero h1{font-size:2rem}.jhd-hero p{font-size:.9rem}
