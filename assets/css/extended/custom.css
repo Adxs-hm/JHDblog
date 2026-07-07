@@ -1,20 +1,134 @@
-/* JHD 自定义金色强调色 */
-:root {
-  --main: #c8b478;
-  --primary: #a080d8;
-  --content: #c0cce4;
-  --theme: #0a0c1e;
-}
+/* ============================================================
+   JHD 自定义主题 — PaperMod 扩展
+   深色星空 + 金色强调 + 中文排版优化
+   ============================================================ */
 
+/* === 深色主题变量 === */
 .dark {
-  --main: #c8b478;
-  --primary: #a080d8;
-  --content: #c0cce4;
   --theme: #0a0c1e;
+  --entry: #111428;
+  --primary: #c8b478;
+  --secondary: #8698bc;
+  --tertiary: #1a1d35;
+  --content: #c0cce4;
+  --border: rgba(200, 180, 120, 0.15);
+  --radius: 12px;
 }
 
-/* 链接悬停金色 */
-a:hover { color: var(--main); }
+/* === 全局 === */
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
 
-/* 代码块微调 */
-.post-content pre { border-radius: 10px; }
+/* === 首页 Profile === */
+.profile {
+  padding: 3rem 0 2rem;
+}
+.profile img {
+  border-radius: 50%;
+  border: 2px solid rgba(200, 180, 120, 0.3);
+  box-shadow: 0 0 40px rgba(200, 180, 120, 0.2), 0 0 80px rgba(160, 128, 216, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.profile img:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 60px rgba(200, 180, 120, 0.4), 0 0 120px rgba(160, 128, 216, 0.2);
+}
+
+/* === 文章卡片 === */
+.post-entry {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.post-entry:hover {
+  transform: translateY(-3px);
+  border-color: rgba(200, 180, 120, 0.35);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* === 链接 === */
+a {
+  color: var(--primary);
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: #f0d890;
+}
+
+/* === 代码块 === */
+.post-content pre {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+.post-content code {
+  color: #f0d890;
+}
+
+/* === 引用块 === */
+.post-content blockquote {
+  border-left: 3px solid rgba(200, 180, 120, 0.5);
+  background: rgba(200, 180, 120, 0.05);
+  border-radius: 0 10px 10px 0;
+  padding: 0.8rem 1.2rem;
+}
+
+/* === 标题 === */
+.post-content h1, .post-content h2 {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+}
+.post-content h1 { color: #e8ecf8; }
+.post-content h2 { color: #dce4f4; }
+.post-content h3 { color: #ccd6ec; }
+
+/* === 表格 === */
+.post-content table {
+  border-radius: 10px;
+  overflow: hidden;
+}
+.post-content th {
+  background: rgba(200, 180, 120, 0.12);
+  color: var(--primary);
+}
+
+/* === 标签 === */
+.post-tags a, .post-categories a {
+  color: #c0a8e0;
+  background: rgba(160, 128, 216, 0.12);
+  border: 1px solid rgba(160, 128, 216, 0.2);
+  border-radius: 20px;
+  padding: 0.2em 0.8em;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+.post-tags a:hover, .post-categories a:hover {
+  color: var(--primary);
+  background: rgba(200, 180, 120, 0.15);
+  border-color: rgba(200, 180, 120, 0.4);
+}
+
+/* === 导航栏 === */
+.nav {
+  backdrop-filter: blur(16px);
+}
+#menu a:hover, #menu .active {
+  color: var(--primary);
+}
+
+/* === 滚动条 === */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--theme); }
+::-webkit-scrollbar-thumb { background: rgba(160, 128, 216, 0.25); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(200, 180, 120, 0.35); }
+
+/* === 选中文字 === */
+::selection {
+  background: rgba(200, 180, 120, 0.25);
+  color: #fff;
+}
+
+/* === 打印 === */
+@media print {
+  .dark { --theme: #fff; --entry: #fff; --content: #222; }
+}
