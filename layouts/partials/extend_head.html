@@ -1,3 +1,8 @@
+{{- /* Webmention IndieWeb */ -}}
+{{- with .Site.Params.webmention }}
+<link rel="webmention" href="https://webmention.io/{{ . }}/webmention" />
+{{- end }}
+
 {{- /* JSON-LD 结构化数据 */ -}}
 {{- if .IsHome -}}
 <script type="application/ld+json">

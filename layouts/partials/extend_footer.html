@@ -43,4 +43,26 @@
     });
   }
 })();
+
+/* Webmention 社交互动加载 */
+(function() {
+  var wm = document.querySelector('.webmentions');
+  if (!wm) return;
+  var target = encodeURIComponent(window.location.href);
+  fetch('https://webmention.io/api/mentions.jf2?target=' + target + '&per-page=20')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      if (!d.children || !d.children.length) { wm.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;">暂无互动</p>'; return; }
+      var html = '<h3 style="font-size:1rem;color:var(--text-secondary);margin-bottom:0.8rem;">Mastodon 互动</h3>';
+      d.children.forEach(function(m) {
+        var avatar = m.author && m.author.photo ? '<img src="'+m.author.photo+'" alt="" style="width:28px;height:28px;border-radius:50%;flex-shrink:0;">' : '';
+        var name = m.author && m.author.name ? m.author.name : '匿名';
+        var type = m['wm-property'] === 'in-reply-to' ? '回复' : m['wm-property'] === 'like-of' ? '点赞' : m['wm-property'] === 'repost-of' ? '转发' : '提及';
+        var text = m.content && m.content.text ? m.content.text.substring(0, 150) : '';
+        html += '<div style="display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;font-size:0.85rem;border-bottom:1px solid var(--border-subtle);">'+avatar+'<div><strong style="color:var(--primary);">'+name+'</strong> <span style="color:var(--text-muted);">'+type+'</span>'+ (text ? '<p style="margin:0.2rem 0 0;color:var(--text-body);">'+text+'</p>' : '') +'</div></div>';
+      });
+      wm.innerHTML = html;
+    })
+    .catch(function() { wm.innerHTML = ''; });
+})();
 </script>

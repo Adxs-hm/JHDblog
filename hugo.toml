@@ -17,6 +17,12 @@ enableRobotsTXT = true
   description = "记录每一个完成的成品 · 在星轨中留下足迹"
   author = "JHD"
   images = ["images/planet-avatar.svg"]
+  assets:
+    favicon = "/images/planet-avatar.svg"
+    favicon16x16 = "/images/planet-avatar.svg"
+    favicon32x32 = "/images/planet-avatar.svg"
+    apple_touch_icon = "/images/planet-avatar.svg"
+    theme_color = "#0a0c1e"
   defaultTheme = "dark"
   dateFormat = "2006-01-02"
   ShowReadingTime = true
@@ -52,6 +58,9 @@ enableRobotsTXT = true
     repoId = "R_kgDOTJEk0w"
     category = "Announcements"
     categoryId = "DIC_kwDOTJEk084DAqTy"
+
+  # Webmention (在 webmention.io 注册后填入用户名)
+  # webmention = ""
 
   # 社交图标
   [[params.socialIcons]]
