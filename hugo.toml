@@ -16,6 +16,7 @@ enableRobotsTXT = true
   env = "production"
   description = "记录每一个完成的成品 · 在星轨中留下足迹"
   author = "JHD"
+  images = ["images/planet-avatar.svg"]
   defaultTheme = "dark"
   dateFormat = "2006-01-02"
   ShowReadingTime = true
@@ -100,3 +101,13 @@ enableRobotsTXT = true
     unsafe = true
   [markup.highlight]
     noClasses = false
+    codeFences = true
+    guessSyntax = true
+    lineNos = false
+    tabWidth = 4
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = false
+
+# RSS 全文 — PaperMod 默认输出全文，无需额外配置
