@@ -1,436 +1,223 @@
-/* ============================================================
-   JHD 星空主题 · PaperMod 扩展
-   深空背景 · 金色星轨 · 卡片光影 · 排版优化
-   ============================================================ */
+/* ═══════════════════════════════════════════
+   JHD · PaperMod · 深空设计系统 v2
+   合并: CSS 伪元素星空 + 完整 Hero 特效
+   ═══════════════════════════════════════════ */
 
-/* ============================================================
-   0. CSS 变量 — 深色主题
-   ============================================================ */
-:root {
-  --bg-deep: #0a0c1e;
-  --bg-card: rgba(16, 20, 44, 0.7);
-  --bg-card-hover: rgba(22, 28, 56, 0.85);
-  --gold: #c8b478;
-  --gold-bright: #f0d890;
-  --purple: #a080d8;
-  --ice: #80b8d8;
-  --text-main: #e0e6f6;
-  --text-body: #c0cce4;
-  --text-muted: #7888a8;
-  --border-subtle: rgba(120, 150, 200, 0.12);
-  --border-gold: rgba(200, 180, 120, 0.2);
+/* ── TOKENS ── */
+:root{
+  --bg-deep:#0a0c1e;--bg-card:rgba(16,20,44,.7);--bg-card-hover:rgba(22,28,56,.85);
+  --gold:#c8b478;--gold-bright:#f0d890;--gold-pale:#b89840;--purple:#a080d8;--ice:#80b8d8;
+  --text-main:#e0e6f6;--text-body:#c0cce4;--text-muted:#7888a8;
+  --border-subtle:rgba(120,150,200,.12);--border-gold:rgba(200,180,120,.2);
+  --ease:cubic-bezier(.33,1,.68,1);
+  --font:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,sans-serif;
+  --mono:"JetBrains Mono","Cascadia Code","Fira Code",Consolas,monospace;
 }
-
-.dark {
-  --theme: var(--bg-deep);
-  --entry: var(--bg-card);
-  --primary: var(--gold);
-  --secondary: var(--text-body);
-  --tertiary: #141830;
-  --content: var(--text-body);
-  --border: var(--border-subtle);
+.dark{
+  --theme:var(--bg-deep);--entry:var(--bg-card);--primary:var(--gold);
+  --secondary:var(--text-body);--tertiary:#141830;--content:var(--text-body);
+  --border:var(--border-subtle);--radius:14px
 }
+body{font-family:var(--font);background:var(--bg-deep);color:var(--text-body);-webkit-font-smoothing:antialiased;overflow-x:hidden;isolation:isolate}
 
-/* ============================================================
-   1. 星空背景 — CSS-only 三层粒子
-   ============================================================ */
-body {
-  background: var(--bg-deep);
-  font-family: "PingFang SC","Microsoft YaHei","Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  isolation: isolate;
-  overflow-x: hidden;
-}
-
-/* 星点层1 — 小而密的快速漂移 */
-body::before {
-  content: '';
-  position: fixed; inset: -100px; z-index: 0; pointer-events: none;
+/* ── STARFIELD (CSS pseudo-elements, no JS) ── */
+body::before{content:'';position:fixed;inset:-100px;z-index:0;pointer-events:none;
   background:
-    radial-gradient(1.5px 1.5px at 5% 8%, rgba(220,230,255,.8), transparent),
-    radial-gradient(1px 1px at 12% 3%, rgba(255,255,255,.6), transparent),
-    radial-gradient(1.8px 1.8px at 18% 15%, rgba(200,220,255,.7), transparent),
-    radial-gradient(1.2px 1.2px at 25% 6%, rgba(255,255,255,.55), transparent),
-    radial-gradient(1.5px 1.5px at 32% 20%, rgba(210,225,255,.75), transparent),
-    radial-gradient(1px 1px at 38% 9%, rgba(255,255,255,.6), transparent),
-    radial-gradient(1.8px 1.8px at 44% 17%, rgba(190,215,255,.65), transparent),
-    radial-gradient(1.3px 1.3px at 50% 5%, rgba(255,255,255,.5), transparent),
-    radial-gradient(1.5px 1.5px at 56% 22%, rgba(220,235,255,.75), transparent),
-    radial-gradient(1px 1px at 62% 11%, rgba(255,255,255,.55), transparent),
-    radial-gradient(1.7px 1.7px at 68% 18%, rgba(200,225,255,.7), transparent),
-    radial-gradient(1.2px 1.2px at 74% 7%, rgba(255,255,255,.5), transparent),
-    radial-gradient(1.5px 1.5px at 80% 20%, rgba(210,220,255,.65), transparent),
-    radial-gradient(1px 1px at 86% 13%, rgba(255,255,255,.6), transparent),
-    radial-gradient(1.8px 1.8px at 92% 8%, rgba(220,230,255,.75), transparent),
-    radial-gradient(1.3px 1.3px at 96% 15%, rgba(255,255,255,.55), transparent);
-  animation: drift-fast 60s linear infinite alternate;
-}
-
-/* 星点层2 — 中号慢速 */
-body::after {
-  content: '';
-  position: fixed; inset: -100px; z-index: 0; pointer-events: none;
+    radial-gradient(1.5px 1.5px at 5% 8%,rgba(220,230,255,.8),transparent),
+    radial-gradient(1px 1px at 12% 3%,rgba(255,255,255,.6),transparent),
+    radial-gradient(1.8px 1.8px at 18% 15%,rgba(200,220,255,.7),transparent),
+    radial-gradient(1.2px 1.2px at 25% 6%,rgba(255,255,255,.55),transparent),
+    radial-gradient(1.5px 1.5px at 32% 20%,rgba(210,225,255,.75),transparent),
+    radial-gradient(1px 1px at 38% 9%,rgba(255,255,255,.6),transparent),
+    radial-gradient(1.8px 1.8px at 44% 17%,rgba(190,215,255,.65),transparent),
+    radial-gradient(1.3px 1.3px at 50% 5%,rgba(255,255,255,.5),transparent),
+    radial-gradient(1.5px 1.5px at 56% 22%,rgba(220,235,255,.75),transparent),
+    radial-gradient(1px 1px at 62% 11%,rgba(255,255,255,.55),transparent),
+    radial-gradient(1.7px 1.7px at 68% 18%,rgba(200,225,255,.7),transparent),
+    radial-gradient(1.2px 1.2px at 74% 7%,rgba(255,255,255,.5),transparent),
+    radial-gradient(1.5px 1.5px at 80% 20%,rgba(210,220,255,.65),transparent),
+    radial-gradient(1px 1px at 86% 13%,rgba(255,255,255,.6),transparent),
+    radial-gradient(1.8px 1.8px at 92% 8%,rgba(220,230,255,.75),transparent),
+    radial-gradient(1.3px 1.3px at 96% 15%,rgba(255,255,255,.55),transparent);
+  animation:drift-fast 60s linear infinite alternate}
+body::after{content:'';position:fixed;inset:-100px;z-index:0;pointer-events:none;
   background:
-    radial-gradient(2.5px 2.5px at 8% 25%, rgba(180,200,240,.5), transparent),
-    radial-gradient(3px 3px at 22% 40%, rgba(200,220,255,.4), transparent),
-    radial-gradient(2px 2px at 35% 15%, rgba(255,255,255,.45), transparent),
-    radial-gradient(3.5px 3.5px at 48% 35%, rgba(180,200,230,.35), transparent),
-    radial-gradient(2.5px 2.5px at 55% 50%, rgba(220,230,255,.45), transparent),
-    radial-gradient(3px 3px at 68% 30%, rgba(200,210,240,.4), transparent),
-    radial-gradient(2px 2px at 75% 55%, rgba(255,255,255,.45), transparent),
-    radial-gradient(3.2px 3.2px at 85% 42%, rgba(190,210,235,.35), transparent),
-    /* 银河光带 */
-    radial-gradient(ellipse 1200px 120px at 50% 45%, rgba(140,120,200,.05), transparent),
-    radial-gradient(ellipse 800px 80px at 50% 48%, rgba(100,140,200,.04), transparent);
-  animation: drift-slow 160s linear infinite alternate;
-}
-
-/* 星云呼吸光晕 */
-.main::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    radial-gradient(2.5px 2.5px at 8% 25%,rgba(180,200,240,.5),transparent),
+    radial-gradient(3px 3px at 22% 40%,rgba(200,220,255,.4),transparent),
+    radial-gradient(2px 2px at 35% 15%,rgba(255,255,255,.45),transparent),
+    radial-gradient(3.5px 3.5px at 48% 35%,rgba(180,200,230,.35),transparent),
+    radial-gradient(2.5px 2.5px at 55% 50%,rgba(220,230,255,.45),transparent),
+    radial-gradient(3px 3px at 68% 30%,rgba(200,210,240,.4),transparent),
+    radial-gradient(2px 2px at 75% 55%,rgba(255,255,255,.45),transparent),
+    radial-gradient(3.2px 3.2px at 85% 42%,rgba(190,210,235,.35),transparent);
+  animation:drift-slow 160s linear infinite alternate}
+.main::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(ellipse 700px 500px at 15% 25%, rgba(90,50,140,.06), transparent),
-    radial-gradient(ellipse 600px 400px at 80% 20%, rgba(40,70,150,.04), transparent),
-    radial-gradient(ellipse 800px 350px at 50% 70%, rgba(60,30,120,.05), transparent);
-  animation: nebula-breathe 20s ease-in-out infinite alternate;
-}
+    radial-gradient(ellipse 700px 500px at 15% 25%,rgba(90,50,140,.06),transparent),
+    radial-gradient(ellipse 600px 400px at 80% 20%,rgba(40,70,150,.04),transparent),
+    radial-gradient(ellipse 800px 350px at 50% 70%,rgba(60,30,120,.05),transparent);
+  animation:nebula-breathe 20s ease-in-out infinite alternate}
+@keyframes drift-fast{0%{transform:translate(0,0)}100%{transform:translate(-40px,30px)}}
+@keyframes drift-slow{0%{transform:translate(0,0)}100%{transform:translate(-80px,50px)}}
+@keyframes nebula-breathe{0%{opacity:.6;transform:scale(1)}100%{opacity:1;transform:scale(1.05)}}
 
-@keyframes drift-fast  { 0% { transform: translate(0,0) } 100% { transform: translate(-40px,30px) } }
-@keyframes drift-slow   { 0% { transform: translate(0,0) } 100% { transform: translate(-80px,50px) } }
-@keyframes nebula-breathe { 0% { opacity: .6; transform: scale(1) } 100% { opacity: 1; transform: scale(1.05) } }
+/* ── SHOOTING STAR (CSS only) ── */
+.shooting-star{position:fixed;z-index:0;pointer-events:none;
+  top:12%;left:55%;width:100px;height:1.5px;
+  background:linear-gradient(90deg,rgba(255,255,255,.9),transparent);
+  box-shadow:0 0 8px rgba(200,220,255,.7),0 0 20px rgba(200,220,255,.3);
+  animation:shoot 3s var(--ease) infinite 8s;opacity:0}
+.shooting-star:nth-child(2){top:25%;left:70%;animation-delay:14s;width:70px}
+@keyframes shoot{0%{transform:translate(0,0) rotate(-25deg);opacity:0}
+  5%{opacity:1}15%{opacity:1}100%{transform:translate(900px,500px) rotate(-25deg);opacity:0}}
 
-/* 内容层在星空之上 */
-.wrapper, .main { position: relative; z-index: 1; }
+/* ── VIGNETTE ── */
+.vignette{pointer-events:none;position:fixed;inset:0;z-index:0;
+  background:radial-gradient(ellipse 60% 50% at 50% 40%,transparent 30%,rgba(10,12,28,.75) 100%)}
 
-/* ============================================================
-   2. 全局排版 — 中文阅读优化
-   ============================================================ */
-.post-content {
-  font-size: 1.05rem;
-  line-height: 1.9;
-  letter-spacing: 0.01em;
-}
-.post-content p { margin-bottom: 1.2rem; }
+/* ── CONTENT LAYER ── */
+.wrapper,.main,.first-entry,.post-entry,.page,.post-content,.article,.entry-content,.entry-header{position:relative;z-index:2}
+.nav,.header,header,footer,.footer{position:relative;z-index:3}
 
-/* 标题左侧金色竖线 */
-.post-content h1 {
-  font-size: 1.7rem; font-weight: 800;
-  margin: 2.5rem 0 1rem;
-  padding-left: 1rem;
-  border-left: 4px solid var(--gold);
-  color: #e8ecf8;
-}
-.post-content h2 {
-  font-size: 1.35rem; font-weight: 700;
-  margin: 2rem 0 0.75rem;
-  padding-left: 0.75rem;
-  border-left: 3px solid rgba(200,180,120,0.5);
-  color: #dce4f4;
-}
-.post-content h3 {
-  font-size: 1.12rem; font-weight: 600;
-  margin: 1.5rem 0 0.5rem;
-  padding-left: 0.5rem;
-  border-left: 2px solid rgba(200,180,120,0.3);
-  color: #ccd6ec;
-}
+/* ── NAV ── */
+.nav,.header{background:rgba(10,12,28,.9)!important;backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border-subtle)}
+#menu a{color:var(--text-muted);font-weight:500;transition:color .2s ease,text-shadow .2s ease;font-size:.85rem;letter-spacing:.04em}
+#menu a:hover,#menu .active{color:var(--gold);text-shadow:0 0 12px rgba(200,180,120,.3)}
+.logo a{font-size:1.15rem;font-weight:800;letter-spacing:.08em;background:linear-gradient(135deg,var(--gold-bright),var(--gold),var(--gold-pale));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-/* ============================================================
-   3. 链接 — 金色悬停下划线展开
-   ============================================================ */
-.post-content a {
-  position: relative;
-  color: var(--gold);
-  text-decoration: none;
-  padding-bottom: 2px;
-  transition: color 0.2s ease;
-}
-.post-content a::after {
-  content: '';
-  position: absolute; bottom: 0; left: 50%;
-  width: 0; height: 1px;
-  background: var(--gold);
-  transition: width 0.3s ease, left 0.3s ease;
-}
-.post-content a:hover { color: var(--gold-bright); }
-.post-content a:hover::after { width: 100%; left: 0; }
+/* ── HERO (custom, from _index.md .Content) ── */
+.jhd-hero{text-align:center;padding:2.5rem 2rem 0}
+.jhd-hero-orbital{position:relative;display:inline-block}
+.jhd-hero-orbital::before,.jhd-hero-orbital::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none}
+.jhd-hero-orbital::before{width:200px;height:200px;border:1px solid rgba(200,180,120,.15);animation:or 20s linear infinite}
+.jhd-hero-orbital::after{width:232px;height:232px;border:1px dashed rgba(160,128,216,.1);animation:or 32s linear infinite reverse}
+@keyframes or{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(360deg)}}
+.jhd-avatar-wrap img{border-radius:50%;border:2px solid rgba(200,180,120,.35);width:150px;height:150px;
+  box-shadow:0 0 40px rgba(200,180,120,.3),0 0 80px rgba(160,128,216,.15),0 0 140px rgba(120,80,180,.08);
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.jhd-avatar-wrap img:hover{transform:scale(1.08);
+  box-shadow:0 0 60px rgba(200,180,120,.5),0 0 100px rgba(160,128,216,.25),0 0 180px rgba(120,80,180,.15)}
+.jhd-hero h1{margin-top:1.4rem;font-size:4rem;font-weight:900;letter-spacing:.08em;
+  background:linear-gradient(160deg,#c8a850,#e8d088 18%,#f8ecb0 35%,#d4b86a 55%,#b89440 75%,#e8d088);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 30px rgba(212,184,106,.35)) drop-shadow(0 2px 4px rgba(0,0,0,.5));
+  animation:breath-glow 4s ease-in-out infinite}
+@keyframes breath-glow{0%,100%{filter:drop-shadow(0 0 30px rgba(212,184,106,.35)) drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+  50%{filter:drop-shadow(0 0 50px rgba(240,210,140,.45)) drop-shadow(0 2px 4px rgba(0,0,0,.5))}}
+.jhd-hero p{margin-top:.6rem;font-size:1.05rem;color:#c0cce8;font-weight:300;letter-spacing:.1em}
+.jhd-hero-btns{margin-top:1.8rem;display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center}
+.jhd-btn-primary,.jhd-btn-ghost{padding:.65rem 2rem;border-radius:28px;font-size:.9rem;font-weight:600;letter-spacing:.05em;text-decoration:none;transition:all .3s var(--ease)}
+.jhd-btn-primary{background:rgba(200,180,120,.08);border:1px solid rgba(200,180,120,.25);color:var(--gold-bright)}
+.jhd-btn-primary:hover{background:rgba(200,180,120,.18);border-color:rgba(200,180,120,.45);box-shadow:0 0 24px rgba(200,180,120,.25);transform:translateY(-2px)}
+.jhd-btn-ghost{border:1px solid rgba(180,200,220,.12);color:var(--text-muted)}
+.jhd-btn-ghost:hover{border-color:rgba(180,200,220,.3);color:var(--text-main);background:rgba(200,210,230,.04)}
 
-/* ============================================================
-   4. 卡片系统 — 毛玻璃 + 光影追随 + 悬停抬起
-   ============================================================ */
-.post-entry {
-  background: var(--bg-card) !important;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid var(--border-subtle) !important;
-  border-radius: 14px !important;
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.post-entry:hover {
-  transform: translateY(-5px);
-  border-color: var(--border-gold) !important;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 60px rgba(140,160,220,0.1);
-}
+/* ── POST CARDS ── */
+.post-entry{background:var(--bg-card)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--border-subtle)!important;border-radius:14px!important;
+  padding:1.5rem 1.8rem;margin-bottom:.8rem;
+  transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;
+  position:relative;overflow:hidden;animation:fadeUpIn .5s ease both}
+.post-entry:nth-child(2){animation-delay:.06s}.post-entry:nth-child(3){animation-delay:.12s}
+.post-entry:nth-child(4){animation-delay:.18s}.post-entry:nth-child(5){animation-delay:.24s}.post-entry:nth-child(6){animation-delay:.3s}
+.post-entry::before{content:'';position:absolute;inset:0;opacity:0;z-index:0;
+  background:radial-gradient(ellipse 400px 200px at var(--mx,50%) var(--my,50%),rgba(200,180,120,.04),transparent 70%);
+  transition:opacity .4s var(--ease)}
+.post-entry:hover::before{opacity:1}.post-entry>*{position:relative;z-index:1}
+.post-entry:hover{transform:translateY(-5px);border-color:var(--border-gold)!important;
+  box-shadow:0 12px 40px rgba(0,0,0,.5),0 0 60px rgba(140,160,220,.1)}
+.first-entry{background:var(--bg-card)!important;backdrop-filter:blur(14px);
+  border:1px solid var(--border-gold)!important;border-radius:16px!important}
+.first-entry:hover{box-shadow:0 16px 48px rgba(0,0,0,.5),0 0 80px rgba(200,180,120,.1)}
+@keyframes fadeUpIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.entry-header h2{font-size:1.12rem;font-weight:700;color:var(--text-main)}
+.post-meta{font-size:.75rem;color:var(--text-muted)}
+.entry-content{font-size:.85rem;color:var(--text-muted);line-height:1.6}
 
-/* 首页第一篇文章特殊样式 */
-.first-entry {
-  background: var(--bg-card) !important;
-  backdrop-filter: blur(14px);
-  border: 1px solid var(--border-gold) !important;
-  border-radius: 16px !important;
-}
-.first-entry:hover {
-  box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 80px rgba(200,180,120,0.1);
-}
+/* ── COVER IMAGE in cards ── */
+.entry-cover img{border-radius:10px;transition:transform .3s var(--ease)}
+.post-entry:hover .entry-cover img{transform:scale(1.03)}
 
-/* ============================================================
-   5. 导航栏 — 毛玻璃
-   ============================================================ */
-.nav, .header {
-  background: rgba(10,12,28,0.9) !important;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid var(--border-subtle);
-}
-#menu a {
-  color: var(--text-muted);
-  font-weight: 500;
-  transition: color 0.2s ease, text-shadow 0.2s ease;
-}
-#menu a:hover, #menu .active {
-  color: var(--gold);
-  text-shadow: 0 0 12px rgba(200,180,120,0.3);
-}
+/* ── CONTENT TYPOGRAPHY ── */
+.post-content{font-size:1.07rem;line-height:1.88;letter-spacing:.012em}
+.post-content p{margin-bottom:1.3rem}
+.post-content h1{font-size:1.7rem;font-weight:800;margin:2.5rem 0 1rem;padding-left:1rem;border-left:4px solid var(--gold);color:#e8ecf8}
+.post-content h2{font-size:1.35rem;font-weight:700;margin:2rem 0 .75rem;padding-left:.75rem;border-left:3px solid rgba(200,180,120,.5);color:#dce4f4}
+.post-content h3{font-size:1.12rem;font-weight:600;margin:1.5rem 0 .5rem;padding-left:.5rem;border-left:2px solid rgba(200,180,120,.3);color:#ccd6ec}
+.post-content a{position:relative;color:var(--gold);text-decoration:none;padding-bottom:2px;transition:color .2s ease}
+.post-content a::after{content:'';position:absolute;bottom:0;left:50%;width:0;height:1px;background:var(--gold);transition:width .3s ease,left .3s ease}
+.post-content a:hover{color:var(--gold-bright)}.post-content a:hover::after{width:100%;left:0}
+.post-content code{font-family:var(--mono);font-size:.9em;background:rgba(160,128,216,.15);color:#f0d890;border-radius:5px;padding:.18em .45em}
+.post-content pre{background:rgba(10,12,28,.9)!important;border:1px solid var(--border-subtle);border-radius:14px;padding:1.4rem 1.6rem;margin:1.6rem 0;overflow-x:auto}
+.post-content pre code{background:transparent;color:#c0d0f0;font-size:.86rem;line-height:1.7;padding:0}
+.post-content blockquote{border-left:3px solid transparent;border-image:linear-gradient(180deg,var(--purple),var(--gold),var(--purple))1;
+  background:rgba(140,120,200,.06);border-radius:0 12px 12px 0;padding:1.3rem 1.6rem;margin:2rem 0;color:#c0d0e0;font-size:.98rem;line-height:1.8}
+.post-content table{width:100%;border-collapse:collapse;margin:1.5rem 0;border:1px solid var(--border-subtle);border-radius:12px;overflow:hidden}
+.post-content th{background:rgba(160,128,216,.12);color:var(--gold);font-weight:700;padding:.85rem 1.1rem;border-bottom:2px solid rgba(200,180,120,.2);text-align:left}
+.post-content td{padding:.7rem 1.1rem;color:var(--text-body);border-bottom:1px solid var(--border-subtle);font-size:.9rem}
+.post-content tr:hover td{background:rgba(120,150,200,.04)}
+.post-content hr{border:none;height:1px;background:linear-gradient(90deg,transparent,rgba(200,180,120,.3),rgba(140,120,200,.25),transparent);margin:3rem 0}
 
-/* ============================================================
-   6. 首页 Profile — 头像光晕 + 轨道环
-   ============================================================ */
-.profile {
-  position: relative;
-  padding: 3.5rem 0 2.5rem;
-}
-.profile img {
-  border-radius: 50%;
-  border: 2px solid rgba(200,180,120,0.35);
-  box-shadow: 0 0 40px rgba(200,180,120,0.3), 0 0 80px rgba(160,128,216,0.15), 0 0 140px rgba(120,80,180,0.08);
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
-}
-.profile img:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 60px rgba(200,180,120,0.5), 0 0 100px rgba(160,128,216,0.25), 0 0 180px rgba(120,80,180,0.15);
-}
-.profile h1 {
-  color: var(--gold) !important;
-  font-weight: 900;
-  text-shadow: 0 0 30px rgba(200,180,120,0.3);
-}
-.profile span {
-  color: var(--text-muted) !important;
-  letter-spacing: 0.08em;
-}
+/* ── TAGS ── */
+.post-tags a{color:#c0a8e0;background:rgba(160,128,216,.12);border:1px solid rgba(160,128,216,.25);border-radius:20px;padding:.2em .8em;font-size:.8rem;transition:all .25s ease}
+.post-tags a:hover{color:var(--gold);background:rgba(200,180,120,.15);border-color:rgba(200,180,120,.45)}
 
-/* Profile 按钮 */
-.profile .buttons a {
-  background: rgba(200,180,120,0.08);
-  border: 1px solid rgba(200,180,120,0.2);
-  color: var(--gold);
-  border-radius: 24px;
-  padding: 0.5rem 1.5rem;
-  transition: all 0.25s ease;
-}
-.profile .buttons a:hover {
-  background: rgba(200,180,120,0.18);
-  border-color: rgba(200,180,120,0.45);
-  box-shadow: 0 0 24px rgba(200,180,120,0.25);
-  transform: translateY(-2px);
-}
+/* ── RELATED POSTS ── */
+.related-posts{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:1.5rem}
+.related-posts .post-entry{margin-bottom:0;padding:1rem 1.3rem}
 
-/* ============================================================
-   7. 代码块 — 深色终端风格
-   ============================================================ */
-.post-content code {
-  background: rgba(160,128,216,0.15);
-  color: #f0d890;
-  border-radius: 5px;
-  padding: 0.18em 0.45em;
-  font-size: 0.9em;
-  font-family: "JetBrains Mono","Fira Code","Consolas",monospace;
-}
-.post-content pre {
-  background: rgba(10,12,28,0.9) !important;
-  border: 1px solid var(--border-subtle);
-  border-radius: 14px;
-  padding: 1.4rem 1.6rem;
-  margin: 1.6rem 0;
-}
-.post-content pre code {
-  background: transparent;
-  color: #c0d0f0;
-  padding: 0;
-  font-size: 0.86rem;
-  line-height: 1.7;
-}
+/* ── PAGINATION ── */
+.pagination a{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:10px;padding:.5rem 1rem;color:var(--text-muted);transition:all .2s ease}
+.pagination a:hover{color:var(--gold);border-color:var(--border-gold);box-shadow:0 0 18px rgba(200,180,120,.2)}
 
-/* ============================================================
-   8. 引用块 — 渐变色左边框
-   ============================================================ */
-.post-content blockquote {
-  border-left: 3px solid transparent;
-  border-image: linear-gradient(to bottom, var(--purple), var(--gold), var(--purple)) 1;
-  background: rgba(140,120,200,0.06);
-  border-radius: 0 12px 12px 0;
-  padding: 1.3rem 1.6rem;
-  margin: 2rem 0;
-  color: #c0d0e0;
-  font-size: 0.98rem;
-  line-height: 1.8;
-}
+/* ── BREADCRUMBS ── */
+.breadcrumbs a{color:var(--text-muted);transition:color .2s}.breadcrumbs a:hover{color:var(--gold)}
 
-/* ============================================================
-   9. 表格 — 深色 + 金色表头
-   ============================================================ */
-.post-content table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1.5rem 0;
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  overflow: hidden;
-}
-.post-content th {
-  background: rgba(160,128,216,0.12);
-  color: var(--gold);
-  font-weight: 700;
-  padding: 0.85rem 1.1rem;
-  border-bottom: 2px solid rgba(200,180,120,0.2);
-  text-align: left;
-}
-.post-content td {
-  padding: 0.7rem 1.1rem;
-  color: var(--text-body);
-  border-bottom: 1px solid var(--border-subtle);
-  font-size: 0.9rem;
-}
-.post-content tr:hover td {
-  background: rgba(120,150,200,0.04);
-}
+/* ── POST NAVIGATION (prev/next) ── */
+.paginav{border:none!important;background:transparent!important;gap:.8rem}
+.paginav a{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:12px;transition:all .2s ease}
+.paginav a:hover{border-color:var(--border-gold);box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.paginav .title{color:var(--text-muted)}
 
-/* ============================================================
-   10. 标签 & 分类徽章
-   ============================================================ */
-.post-tags a {
-  color: #c0a8e0;
-  background: rgba(160,128,216,0.12);
-  border: 1px solid rgba(160,128,216,0.25);
-  border-radius: 20px;
-  padding: 0.2em 0.8em;
-  font-size: 0.8rem;
-  transition: all 0.25s ease;
-}
-.post-tags a:hover {
-  color: var(--gold);
-  background: rgba(200,180,120,0.15);
-  border-color: rgba(200,180,120,0.45);
-  box-shadow: 0 0 14px rgba(200,180,120,0.2);
-}
+/* ── TOC ── */
+details.toc{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:12px;margin-bottom:1.5rem}
+details.toc summary{padding:.6rem 1.2rem;color:var(--text-main);font-weight:600}
+details.toc a{color:var(--text-muted);transition:color .2s ease}details.toc a:hover{color:var(--gold)}
 
-/* ============================================================
-   11. 分割线 — 渐变金
-   ============================================================ */
-.post-content hr {
-  border: none;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(200,180,120,0.3), rgba(140,120,200,0.25), transparent);
-  margin: 3rem 0;
-}
+/* ── CODE COPY button ── */
+.copy-code{background:rgba(160,128,216,.2);border-radius:6px;font-size:.8rem;padding:2px 8px;top:8px;right:8px}
 
-/* ============================================================
-   12. 分页按钮
-   ============================================================ */
-.pagination a {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 10px;
-  padding: 0.5rem 1rem;
-  color: var(--text-muted);
-  transition: all 0.2s ease;
-}
-.pagination a:hover {
-  color: var(--gold);
-  border-color: var(--border-gold);
-  box-shadow: 0 0 18px rgba(200,180,120,0.2);
-}
+/* ── FOOTER ── */
+.footer{background:rgba(10,12,28,.9);border-top:1px solid var(--border-subtle);padding:2.5rem 0!important;font-size:.85rem;color:var(--text-muted);letter-spacing:.04em}
 
-/* ============================================================
-   13. 页脚
-   ============================================================ */
-.footer {
-  background: rgba(10,12,28,0.9);
-  border-top: 1px solid var(--border-subtle);
-  padding: 2.5rem 0 !important;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
+/* ── SOCIAL ICONS ── */
+.social-icons a{color:var(--text-muted);transition:transform .2s ease,color .2s ease;font-size:1.3rem}
+.social-icons a:hover{transform:translateY(-2px);color:var(--gold)}
 
-/* ============================================================
-   14. 社交图标
-   ============================================================ */
-.social-icons a {
-  transition: transform 0.2s ease, color 0.2s ease;
-  color: var(--text-muted);
-}
-.social-icons a:hover {
-  transform: translateY(-2px);
-  color: var(--gold);
-}
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg-deep)}
+::-webkit-scrollbar-thumb{background:rgba(160,128,216,.25);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(200,180,120,.35)}
+::selection{background:rgba(200,180,120,.25);color:#fff}
 
-/* ============================================================
-   15. 滚动条
-   ============================================================ */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-deep); }
-::-webkit-scrollbar-thumb { background: rgba(160,128,216,0.25); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(200,180,120,0.35); }
+/* ── THEME TOGGLE ── */
+[data-theme=dark] .moon{display:none}[data-theme=light] .sun{display:none}
 
-/* ============================================================
-   16. 文字选中
-   ============================================================ */
-::selection { background: rgba(200,180,120,0.25); color: #fff; }
+/* ── SEARCH ── */
+.searchResults li{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:12px;transition:transform .25s ease}
+.searchResults li:hover{transform:translateY(-2px);border-color:var(--border-gold)}
+.searchbox input{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:10px;color:var(--text-main)}
 
-/* ============================================================
-   17. 动画 — 淡入上移
-   ============================================================ */
-@keyframes fadeUpIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .jhd-hero{padding:2rem 1rem 0}.jhd-hero h1{font-size:2.6rem}
+  .jhd-avatar-wrap img{width:110px!important;height:110px!important}
+  .jhd-hero-orbital::before{width:140px;height:140px}.jhd-hero-orbital::after{width:164px;height:164px}
+  .post-content{font-size:.96rem}.post-content h1{font-size:1.35rem}.post-content h2{font-size:1.15rem}
+  .post-entry,.first-entry{padding:1.2rem 1.3rem}
 }
-.post-entry {
-  animation: fadeUpIn 0.5s ease both;
-}
-.post-entry:nth-child(1) { animation-delay: 0s; }
-.post-entry:nth-child(2) { animation-delay: 0.06s; }
-.post-entry:nth-child(3) { animation-delay: 0.12s; }
-.post-entry:nth-child(4) { animation-delay: 0.18s; }
-.post-entry:nth-child(5) { animation-delay: 0.24s; }
-.post-entry:nth-child(6) { animation-delay: 0.30s; }
-
-/* ============================================================
-   18. 响应式
-   ============================================================ */
-@media (max-width: 768px) {
-  .profile { padding: 2rem 0 1.5rem; }
-  .profile img { width: 110px !important; height: 110px !important; }
-  .profile h1 { font-size: 2rem !important; }
-  .post-content { font-size: 0.96rem; }
-  .post-content h1 { font-size: 1.35rem; }
-  .post-content h2 { font-size: 1.15rem; }
-}
-
-/* ============================================================
-   19. 打印
-   ============================================================ */
-@media print {
-  body::before, body::after, .main::before { display: none; }
-  .dark { --theme: #fff; --entry: #fff; --content: #222; }
-  .post-entry, .first-entry { border: 1px solid #ccc !important; box-shadow: none !important; }
+@media print{
+  body::before,body::after,.main::before,.shooting-star,.vignette{display:none}
+  .dark{--theme:#fff;--entry:#fff;--content:#222}
+  .post-entry,.first-entry{border:1px solid #ccc!important;box-shadow:none!important}
 }

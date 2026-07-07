@@ -5,6 +5,7 @@ title = "JHD"
 hasCJKLanguage = true
 enableEmoji = true
 enableRobotsTXT = true
+mainSections = ["posts"]
 
 [pagination]
   pagerSize = 10
@@ -34,23 +35,11 @@ enableRobotsTXT = true
   ShowPostNavLinks = true
   ShowShareButtons = true
   ShowPageNums = true
+  ShowRelatedPosts = true
+  disableSpecial1stPost = false
 
-  [params.profileMode]
-    enabled = true
-    title = "JHD"
-    subtitle = "记录每一个完成的成品 · 在星轨中留下足迹"
-    imageUrl = "images/planet-avatar.svg"
-    imageWidth = 140
-    imageHeight = 140
-    [[params.profileMode.buttons]]
-      name = "文章"
-      url = "articles"
-    [[params.profileMode.buttons]]
-      name = "项目"
-      url = "projects"
-    [[params.profileMode.buttons]]
-      name = "关于"
-      url = "about"
+  # 首页：content/_index.md 的自定义 Hero HTML 通过 list.html 的 .Content 渲染
+  # 文章列表紧随其后（由 PaperMod list.html 控制）
 
   # giscus 评论 — 填入 categoryId 后把 comments 改为 true
   comments = true
@@ -80,7 +69,7 @@ enableRobotsTXT = true
 
 [[menu.main]]
   name = "文章"
-  url = "articles"
+  url = "posts"
   weight = 1
 [[menu.main]]
   name = "项目"
@@ -100,7 +89,7 @@ enableRobotsTXT = true
   weight = 5
 
 [languages.zh-cn]
-  languageName = "简体中文"
+  label = "简体中文"
   weight = 1
   [languages.zh-cn.taxonomies]
     category = "categories"

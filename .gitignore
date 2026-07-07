@@ -1,6 +1,7 @@
 # Hugo 构建产物
 /public/
 /resources/
+.hugo_build.lock
 
 # 系统文件
 .DS_Store
@@ -13,9 +14,8 @@ Thumbs.db
 *.swo
 
 # 本地脚本
-dev.bat
-dev.log
 dev.ps1
+dev.log
 hugo.exe
 
 # Agent 工作区
