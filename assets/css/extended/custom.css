@@ -18,6 +18,7 @@
   --secondary:var(--text-body);--tertiary:#141830;--content:var(--text-body);
   --border:var(--border-subtle);--radius:14px
 }
+html{scroll-behavior:smooth}
 body{font-family:var(--font);background:#020510;color:var(--text-body);-webkit-font-smoothing:antialiased;overflow-x:hidden;isolation:isolate}
 
 /* ── DEEP SPACE STARFIELD ── */
@@ -105,31 +106,37 @@ body::after{content:'';position:fixed;inset:-200px;z-index:0;pointer-events:none
   background:radial-gradient(ellipse 50% 45% at 50% 40%,transparent 35%,rgba(2,5,16,.85) 100%)}
 
 /* ── CELESTIAL BODIES ── */
-/* sun — top-right, warm orange glow */
+/* sun — top-right, realistic solar body */
 .celestial-sun{position:fixed;z-index:1;pointer-events:none;
-  top:8%;right:5%;width:160px;height:160px;
+  top:6%;right:4%;width:140px;height:140px;border-radius:50%;
   background:
-    radial-gradient(circle 50px at 50% 50%,rgba(255,230,180,.9),rgba(255,180,60,.4) 40%,rgba(255,120,20,.08) 70%,transparent);
-  border-radius:50%;
-  box-shadow:0 0 80px rgba(255,160,30,.25),0 0 200px rgba(255,120,20,.1),0 0 400px rgba(255,100,10,.04);
-  animation:sun-pulse 6s ease-in-out infinite,drift-mid 180s linear infinite alternate}
-@keyframes sun-pulse{0%,100%{box-shadow:0 0 80px rgba(255,160,30,.25),0 0 200px rgba(255,120,20,.1)}
-  50%{box-shadow:0 0 120px rgba(255,180,40,.4),0 0 280px rgba(255,140,30,.18),0 0 500px rgba(255,100,10,.06)}}
-/* sun corona ring */
-.celestial-sun::after{content:'';position:absolute;inset:-30px;border-radius:50%;
-  border:1px solid rgba(255,180,100,.12);animation:or 45s linear infinite}
+    radial-gradient(circle 35px at 48% 48%,rgba(255,252,240,1),rgba(255,240,200,.95) 15%,rgba(255,200,80,.7) 35%,rgba(255,150,20,.3) 55%,rgba(255,100,10,.08) 75%,transparent 100%);
+  box-shadow:0 0 60px rgba(255,200,80,.4),0 0 150px rgba(255,150,30,.2),0 0 300px rgba(255,100,10,.08),0 0 500px rgba(255,80,5,.03);
+  animation:sun-pulse 5s ease-in-out infinite,drift-mid 200s linear infinite alternate}
+@keyframes sun-pulse{0%,100%{box-shadow:0 0 60px rgba(255,200,80,.4),0 0 150px rgba(255,150,30,.2)}
+  50%{box-shadow:0 0 100px rgba(255,220,100,.55),0 0 220px rgba(255,170,40,.3),0 0 400px rgba(255,120,20,.12),0 0 600px rgba(255,80,5,.05)}}
+.celestial-sun::after{content:'';position:absolute;inset:-25px;border-radius:50%;
+  border:1.5px solid rgba(255,200,100,.15);animation:or 40s linear infinite}
 
-/* black hole — mid-left, dark core + orange accretion disk */
+/* black hole — left-center, event horizon + bright accretion disk */
 .celestial-blackhole{position:fixed;z-index:1;pointer-events:none;
-  top:55%;left:8%;width:200px;height:200px;border-radius:50%;
+  top:52%;left:6%;width:180px;height:180px;border-radius:50%;
   background:
-    radial-gradient(circle 40px at 50% 50%,#000,transparent 60%),
-    conic-gradient(from 0deg,transparent,rgba(200,160,60,.15),rgba(255,200,100,.3),transparent,rgba(200,160,60,.15));
-  transform:rotateX(75deg) scale(1.6,0.4);
-  animation:accretion-spin 12s linear infinite;
-  box-shadow:0 0 60px rgba(200,150,50,.1),0 0 150px rgba(200,150,50,.04)}
-@keyframes accretion-spin{0%{transform:rotateX(75deg) scale(1.6,0.4) rotate(0deg)}
-  100%{transform:rotateX(75deg) scale(1.6,0.4) rotate(360deg)}}
+    radial-gradient(circle 28px at 50% 50%,#000 0%,#010 60%,transparent 65%),
+    radial-gradient(circle 50px at 50% 50%,transparent 40%,rgba(0,0,0,.9) 55%,transparent 70%);
+  box-shadow:0 0 0 3px rgba(255,180,80,.18),0 0 50px rgba(255,160,40,.15),0 0 120px rgba(255,140,30,.06)}
+/* accretion disk — elliptical glow ring */
+.celestial-blackhole::before{content:'';position:absolute;inset:-20px;border-radius:50%;
+  border:3px solid transparent;
+  border-top-color:rgba(255,200,100,.25);border-right-color:rgba(255,180,60,.15);
+  border-bottom-color:rgba(255,160,40,.1);border-left-color:rgba(200,140,30,.05);
+  animation:accretion-spin 8s linear infinite;
+  filter:blur(1px)}
+.celestial-blackhole::after{content:'';position:absolute;inset:-40px;border-radius:50%;
+  border:2px solid transparent;
+  border-top-color:rgba(255,220,140,.12);border-right-color:rgba(255,180,60,.06);
+  animation:accretion-spin 14s linear infinite reverse}
+@keyframes accretion-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 
 /* orbiting planet */
 .celestial-planet{position:fixed;z-index:1;pointer-events:none;
@@ -145,12 +152,14 @@ body::after{content:'';position:fixed;inset:-200px;z-index:0;pointer-events:none
   100%{transform:translate(0,0) scale(1)}}
 
 /* home page content headings — softer than article headings */
-.home-content h2{font-size:1.2rem;font-weight:700;color:var(--text-main);border-left:none;padding-left:0;margin:2rem 0 .8rem}
-.home-content h3{color:var(--text-body);border-left:none;padding-left:0}
+.home-content h1,.home-content h2,.home-content h3{border-left:none!important;padding-left:0!important}
+.home-content h2{font-size:1.2rem;font-weight:700;color:var(--text-main);margin:2rem 0 .8rem}
+.home-content h3{color:var(--text-body)}
 .home-content p{color:var(--text-muted);line-height:1.8}
 .home-content strong{color:var(--gold);font-weight:600}
-/* hide the hr before 关于本站 */
 .home-content hr{display:none}
+/* hide theme toggle — dark-only site */
+.theme-toggle,.logo-switches{display:none!important}
 
 /* ── HOME PAGE SECTIONS ── */
 .home-section-title{font-size:1.15rem;font-weight:700;color:var(--text-main);margin:2.5rem 0 1rem;text-align:center;letter-spacing:.04em}
@@ -191,8 +200,8 @@ body::after{content:'';position:fixed;inset:-200px;z-index:0;pointer-events:none
 .jhd-hero-orbital::before{width:200px;height:200px;border:1px solid rgba(200,180,120,.15);animation:or 20s linear infinite}
 .jhd-hero-orbital::after{width:232px;height:232px;border:1px dashed rgba(160,128,216,.1);animation:or 32s linear infinite reverse}
 @keyframes or{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(360deg)}}
-.jhd-avatar-wrap img{border-radius:50%;border:2px solid rgba(200,180,120,.35);width:150px;height:150px;
-  box-shadow:0 0 40px rgba(200,180,120,.3),0 0 80px rgba(160,128,216,.15),0 0 140px rgba(120,80,180,.08);
+.jhd-avatar-wrap img{border-radius:50%;border:none;width:150px;height:150px;
+  box-shadow:0 0 50px rgba(200,180,120,.35),0 0 100px rgba(160,128,216,.2),0 0 160px rgba(120,80,180,.1);
   transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
 .jhd-avatar-wrap img:hover{transform:scale(1.08);
   box-shadow:0 0 60px rgba(200,180,120,.5),0 0 100px rgba(160,128,216,.25),0 0 180px rgba(120,80,180,.15)}
