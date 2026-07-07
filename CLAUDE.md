@@ -24,7 +24,7 @@
 ## 目录结构
 
 ```
-blender-blog/
+blog/
 ├── hugo.toml                  # 站点配置（主题、导航、搜索、压缩禁用等）
 ├── archetypes/default.md      # `hugo new` 模板
 ├── assets/
@@ -55,7 +55,7 @@ blender-blog/
 │   ├── articles/single.html   # 文章详情模板（与 posts/single.html 相同）
 │   └── shortcodes/sketchfab.html  # Sketchfab 3D 模型嵌入
 ├── static/
-│   ├── css/space-theme-v2.css # 星空主题 CSS v6（4000+ 行，运行时加载）
+│   ├── css/space-theme-v2.css # 星空主题 CSS v6（1167 行，运行时加载）
 │   ├── images/planet-avatar.svg # 动态行星 SVG 头像
 │   └── js/
 │       ├── space-fx.js        # 星空特效引擎（视差、光影、入场动画、TOC）
@@ -106,7 +106,7 @@ draft: false
 ### 双层 CSS 策略
 
 1. **`assets/css/_custom.scss`** — 编译时注入到 LoveIt SCSS 管线末尾，用 `!important` 覆盖主题默认色值
-2. **`static/css/space-theme-v2.css`** — 运行时加载（通过 `hugo.toml` 的 `params.page.library.css.spaceTheme`），4000+ 行，提供星空粒子背景、轨道装饰、银河光带、卡片辉光等高级视觉效果
+2. **`static/css/space-theme-v2.css`** — 运行时加载（通过 `hugo.toml` 的 `params.page.library.css.spaceTheme`），1167 行，提供星空粒子背景、轨道装饰、银河光带、卡片辉光等高级视觉效果
 
 ### 自定义模板覆盖
 

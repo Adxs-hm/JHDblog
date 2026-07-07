@@ -58,10 +58,11 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 # 全局参数
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 [params]
+  env = "production"
   defaultTheme = "dark"
   dateFormat = "2006-01-02"
   title = "JHD"
-  description = "记录每一个完成的成品"
+  description = "记录每一个完成的成品 · 在星轨中留下足迹"
   images = ["images/planet-avatar.svg"]
 
   # 作者信息
@@ -300,3 +301,33 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     label = "简体中文"
     hasCJKLanguage = true
     copyright = ""
+
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# 来自参考项目 (PaperMod/Stack/HugoBlox) 的 SEO 优化
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+# 站点关键词 (PaperMod)
+[params.keywords]
+  keywords = ["个人博客", "项目记录", "Hugo", "游戏开发", "世界观设定"]
+
+# 站点验证 (PaperMod)
+[params.analytics.google]
+  SiteVerificationTag = ""
+[params.analytics.bing]
+  SiteVerificationTag = ""
+
+# 社交媒体 (PaperMod)
+[params.social]
+  twitter = ""
+
+# Schema.org 发布者 (PaperMod)
+[params.schema]
+  publisherType = "Person"
+
+# 图标资源 (PaperMod)
+[params.assets]
+  favicon = "favicon.ico"
+  theme_color = "#0a0a1a"
+
+# Related Content 优化: categories 权重高于 tags (hugo-theme-stack)
+# 已有 [related] 配置，此处记录参考来源
