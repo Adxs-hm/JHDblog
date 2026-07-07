@@ -1,6 +1,6 @@
 {{- /* giscus 评论 — GitHub Discussions 驱动 */ -}}
 {{- with .Site.Params.giscus -}}
-<div class="giscus" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+<div class="giscus" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle);">
   <script src="https://giscus.app/client.js"
     data-repo="{{ .repo }}"
     data-repo-id="{{ .repoId }}"
@@ -17,5 +17,11 @@
     crossorigin="anonymous"
     async>
   </script>
+  <noscript>
+    <p style="color:var(--text-muted);text-align:center;padding:2rem">
+      评论需要启用 JavaScript 驱动。<br>
+      <a href="https://github.com/{{ .repo }}/discussions" target="_blank" rel="noopener" style="color:var(--gold)">→ 前往 GitHub Discussions 留言</a>
+    </p>
+  </noscript>
 </div>
 {{- end -}}
