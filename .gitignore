@@ -12,5 +12,8 @@ Thumbs.db
 *.swp
 *.swo
 
+# 本地脚本
+dev.bat
+
 # Agent 工作区
 /.agent_workspace/
