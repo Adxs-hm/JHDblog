@@ -24,7 +24,7 @@ enableRobotsTXT = true
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
   ShowPostNavLinks = true
-  ShowShareButtons = false
+  ShowShareButtons = true
   ShowPageNums = true
 
   [params.profileMode]
@@ -44,13 +44,13 @@ enableRobotsTXT = true
       name = "关于"
       url = "about"
 
-  # giscus 评论 — 在 GitHub 开启 Discussions 后填入
-  comments = false
-  # [params.giscus]
-  #   repo = "Adxs-hm/JHDblog"
-  #   repoId = ""
-  #   category = "Announcements"
-  #   categoryId = ""
+  # giscus 评论 — 填入 categoryId 后把 comments 改为 true
+  comments = true
+  [params.giscus]
+    repo = "Adxs-hm/JHDblog"
+    repoId = "R_kgDOTJEk0w"
+    category = "Announcements"
+    categoryId = "DIC_kwDOTJEk084DAqTy"
 
   # 社交图标
   [[params.socialIcons]]
