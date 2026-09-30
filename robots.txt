@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://adxs-hm.github.io/JHDblog/sitemap.xml
