@@ -40,6 +40,17 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--paper);color:var(--ink-2);-webkit-font-smoothing:antialiased;overflow-x:hidden;isolation:isolate}
 
+/* ── 浅色专用强制：无视 localStorage pref-theme / 系统暗色偏好 ──
+   PaperMod 的 JS 会在 localStorage 存有 dark 偏好时强切 data-theme=dark，
+   本站无暗色设计，任何属性下都渲染白银档案浅色。 */
+:root[data-theme="dark"]{
+  --theme:var(--paper);--entry:var(--surface);--primary:var(--ink);
+  --secondary:var(--muted);--tertiary:var(--paper-2);--content:var(--ink-2);
+  --border:var(--hairline);--radius:0;
+  --code-block-bg:var(--surface-2);--code-bg:var(--paper-2);
+  color-scheme:light;
+}
+
 /* ── 背景层（仅两层：半调网点 + 图纸网格，均为静态低透明）── */
 body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;
   background-image:
@@ -285,6 +296,39 @@ details.toc .inner{padding-bottom:.2rem}
 .code-block-wrapper.is-folded .code-block-body::after{opacity:0}
 .code-block-body .highlight{margin:0;border-radius:0;background:transparent!important}
 .code-block-body .highlight pre{padding:.7rem 1rem;margin:0}
+
+/* ── 浅色纸面代码高亮（覆盖主题自带 Catppuccin 暗色板）──
+   金/蓝/绿三色低饱和深色，纸底上清晰，与档案语言一致 */
+.code-block-body .highlight pre.chroma{background:var(--surface-2)!important;color:var(--ink-2)!important}
+.code-block-body .chroma{background:var(--surface-2)!important;color:var(--ink-2)!important}
+.code-block-body .chroma .err{color:#a33a2a}
+.code-block-body .chroma .lnt,.code-block-body .chroma .ln{color:var(--faint)}
+.code-block-body .chroma .hl{background:rgba(165,130,74,.12)}
+.code-block-body .chroma .k,.code-block-body .chroma .kc,.code-block-body .chroma .kd,
+.code-block-body .chroma .kn,.code-block-body .chroma .kp,.code-block-body .chroma .kr,
+.code-block-body .chroma .kt{color:#866631}                       /* 关键字 · 金 */
+.code-block-body .chroma .s,.code-block-body .chroma .s1,.code-block-body .chroma .s2,
+.code-block-body .chroma .sa,.code-block-body .chroma .sb,.code-block-body .chroma .sc,
+.code-block-body .chroma .dl,.code-block-body .chroma .sd,.code-block-body .chroma .se,
+.code-block-body .chroma .sh,.code-block-body .chroma .si,.code-block-body .chroma .sx,
+.code-block-body .chroma .sr,.code-block-body .chroma .ss{color:#3f6b4f}          /* 字符串 · 绿 */
+.code-block-body .chroma .c,.code-block-body .chroma .c1,.code-block-body .chroma .ch,
+.code-block-body .chroma .cm,.code-block-body .chroma .cp,.code-block-body .chroma .cpf,
+.code-block-body .chroma .cs{color:#8f959e;font-style:italic}                     /* 注释 · 灰 */
+.code-block-body .chroma .nf,.code-block-body .chroma .fm{color:#2b5a8a}          /* 函数 · 蓝 */
+.code-block-body .chroma .na,.code-block-body .chroma .nt{color:#2b5a8a}
+.code-block-body .chroma .nc,.code-block-body .chroma .no,.code-block-body .chroma .nd,
+.code-block-body .chroma .ni,.code-block-body .chroma .ne{color:#8a6a2a}          /* 类/名 · 深金 */
+.code-block-body .chroma .m,.code-block-body .chroma .mi,.code-block-body .chroma .mf,
+.code-block-body .chroma .mh,.code-block-body .chroma .il,.code-block-body .chroma .mo{color:#a05a1e}
+.code-block-body .chroma .o,.code-block-body .chroma .ow{color:#6b5a2a}
+.code-block-body .chroma .p{color:var(--ink-2)}
+.code-block-body .chroma .nv,.code-block-body .chroma .vc,.code-block-body .chroma .vg,
+.code-block-body .chroma .vi,.code-block-body .chroma .vm,.code-block-body .chroma .nb,
+.code-block-body .chroma .bp,.code-block-body .chroma .nl{color:#454852}
+.code-block-body .chroma .nl{color:#2b5a8a}
+.code-block-body .chroma .gd{color:#a33a2a}
+.code-block-body .chroma .gi{color:#3f6b4f}
 .code-fold-btn .fold-text{display:inline}.code-fold-btn .unfold-text{display:none}
 .code-block-wrapper.is-folded .fold-text{display:none}.code-block-wrapper.is-folded .unfold-text{display:inline}
 
