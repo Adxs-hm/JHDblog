@@ -1,38 +1,97 @@
 {{- define "main" }}
-  {{- if .Content }}
-  <div class="post-content md-content home-content">
+  {{- /* Hero（content/_index.md 注入）*/ -}}
+  <div class="post-content md-content home-hero">
     {{ .Content }}
   </div>
-  {{- end }}
 
   <hr class="section-divider">
 
-  {{- /* 项目精选 */ -}}
-  <section class="home-featured">
-    <h2 class="home-section-title">✦ 项目精选</h2>
-    <div class="featured-grid">
-      {{- $projects := where .Site.RegularPages "Section" "posts" | first 6 }}
-      {{- range $p := $projects }}
-      <a class="featured-card" href="{{ $p.Permalink }}">
-        <span class="featured-name">{{ $p.Title }}</span>
-        <span class="featured-desc">{{ $p.Params.description | default $p.Summary | truncate 60 }}</span>
+  {{- /* ✦ 设定 · 旗舰世界观（Bento：块尺寸 = 重要性）*/ -}}
+  {{- $lore := where .Site.RegularPages "Section" "lore" -}}
+  {{- with $lore -}}
+  <section class="home-section">
+    <h2 class="home-section-title">设定 · 原创世界观</h2>
+    <div class="bento">
+      {{- range . -}}
+        {{- if .Params.flagship -}}
+        <a class="bento-cell bento-flagship" href="{{ .RelPermalink }}">
+          <span class="cell-kicker">FLAGSHIP · 原创科幻宇宙</span>
+          <span class="cell-title">{{ .Title }}</span>
+          <span class="cell-desc">{{ .Params.description }}</span>
+          {{- with .Params.stats -}}
+          <span class="cell-stats">
+            {{- range $i, $s := . -}}
+              {{- if $i }}<em>·</em>{{ end -}}
+              <strong>{{ $s }}</strong>
+            {{- end -}}
+          </span>
+          {{- end -}}
+          <span class="cell-link">进入宇宙 →</span>
+        </a>
+        {{- else -}}
+        <a class="bento-cell" href="{{ .RelPermalink }}">
+          <span class="cell-kicker">SETTING · 子设定</span>
+          <span class="cell-title">{{ .Title }}</span>
+          <span class="cell-desc">{{ .Params.description }}</span>
+          <span class="cell-link">阅读 →</span>
+        </a>
+        {{- end -}}
+      {{- end -}}
+    </div>
+  </section>
+  {{- end -}}
+
+  {{- /* ✦ 项目 · 完成的成品 */ -}}
+  {{- $posts := where .Site.RegularPages "Section" "posts" -}}
+  {{- with $posts -}}
+  <section class="home-section">
+    <h2 class="home-section-title">项目 · 完成的成品</h2>
+    <div class="bento">
+      {{- range first 3 . -}}
+      <a class="bento-cell" href="{{ .RelPermalink }}">
+        <span class="cell-kicker">PROJECT</span>
+        <span class="cell-title">{{ .Title }}</span>
+        <span class="cell-desc">{{ .Params.description }}</span>
+        <span class="cell-link">查看 →</span>
       </a>
-      {{- end }}
+      {{- end -}}
     </div>
     <div class="home-section-more">
-      <a href="{{ "posts" | relURL }}" class="jhd-btn-primary">查看全部项目 →</a>
-      <a href="{{ "articles" | relURL }}" class="jhd-btn-ghost">阅读文章 →</a>
+      <a href="{{ "posts" | relURL }}" class="jhd-btn-ghost">全部项目 →</a>
+      <a href="{{ "start-here" | relURL }}" class="jhd-btn-ghost">新人入口 →</a>
     </div>
   </section>
+  {{- end -}}
 
-  {{- /* 评论区 */ -}}
-  <section class="home-comments" id="comments">
-    <div class="comments-header">
-      <h2 class="comments-title">✦ 留言交流</h2>
-      <p class="comments-desc">欢迎留下你的想法、建议或反馈。评论由 GitHub Discussions 驱动，点击下方按钮用 GitHub 账号登录即可参与讨论。</p>
-    </div>
-    <div class="comments-box">
-      {{- partial "comments.html" . }}
+  {{- /* ✦ 文章 · 战报与随笔 */ -}}
+  {{- $articles := where .Site.RegularPages "Section" "articles" -}}
+  {{- with $articles -}}
+  <section class="home-section">
+    <h2 class="home-section-title">文章 · 战报与随笔</h2>
+    <ul class="latest-list">
+      {{- range first 5 . -}}
+      <li>
+        <a href="{{ .RelPermalink }}">
+          <span class="latest-title">{{ .Title }}</span>
+          <span class="latest-meta">{{ .Date.Format "2006-01-02" }}</span>
+        </a>
+      </li>
+      {{- end -}}
+    </ul>
+    <div class="home-section-more">
+      <a href="{{ "articles" | relURL }}" class="jhd-btn-ghost">全部文章 →</a>
     </div>
   </section>
+  {{- end -}}
+
+  {{- /* 订阅条 */ -}}
+  <div class="home-subscribe">
+    <span>订阅本站</span>
+    <span class="sub-sep">·</span>
+    <a href="{{ "index.xml" | absURL }}">RSS</a>
+    <span class="sub-sep">·</span>
+    <a href="https://github.com/Adxs-hm" target="_blank" rel="noopener">GitHub</a>
+    <span class="sub-sep">·</span>
+    <span>留言与订阅请至文章页底部</span>
+  </div>
 {{- end }}

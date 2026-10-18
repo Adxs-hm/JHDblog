@@ -4,27 +4,17 @@ description: "记录每一个完成的成品 · 在星轨中留下足迹"
 ---
 
 <div class="jhd-hero">
-  <div class="jhd-hero-orbital">
-    <div class="jhd-avatar-wrap">
-      <img src="images/planet-avatar.svg" alt="JHD" width="150" height="150">
-    </div>
+  <div class="jhd-avatar-wrap">
+    <img src="images/planet-avatar.svg" alt="JHD" width="96" height="96">
   </div>
-  <h1>JHD</h1>
-  <p>记录每一个完成的成品 · 在星轨中留下足迹</p>
+  <div class="jhd-hero-kicker">Deep Space Chronicle</div>
+  <h1>记录每一个完成的成品</h1>
+  <p class="jhd-hero-slogan">在星轨中留下足迹</p>
   <div class="jhd-intro">
-    <p>一个记录成品与灵感的个人站点。这里汇聚了游戏 Mod 开发、AI 角色扮演设定、科幻世界观构建等领域的项目文档，以及偶尔的战报与随笔。</p>
-    <div class="jhd-share-row">
-      <a href="https://github.com/Adxs-hm" target="_blank" rel="noopener" class="jhd-share-link">GitHub</a>
-      <span class="jhd-share-divider">·</span>
-      <a href="#comments" class="jhd-share-link">留言交流 ↓</a>
-    </div>
+    <p>JHD 的作品库——原创科幻世界观设定、游戏模组与站点工程。收录于此的一切，都以完成态存在。</p>
   </div>
-</div>
-
-<div class="home-stats">
-  <span><strong>10</strong> 个项目</span>
-  <span class="hs-dot">·</span>
-  <span><strong>4</strong> 个领域</span>
-  <span class="hs-dot">·</span>
-  <span><strong>2.2MB+</strong> 内容</span>
+  <div class="jhd-hero-cta">
+    <a href="lore/" class="jhd-btn-primary">阅读设定 →</a>
+    <a href="posts/" class="jhd-btn-ghost">浏览项目</a>
+  </div>
 </div>
