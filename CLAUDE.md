@@ -5,47 +5,41 @@
 - Hugo + PaperMod 静态博客，部署于 GitHub Pages
 - 仓库: `Adxs-hm/JHDblog`
 - URL: `https://adxs-hm.github.io/JHDblog/`
-- 设计系统: Deep Space Chronicle v5（深空编年史）——单一金色强调 + 衬线展示 + Bento 层级 + 背景仅两层
+- 设计系统: Silver Archive v6（白银档案）——浅色米白纸底 + 单一哑光金 + JetBrains Mono HUD 语言；血统为明日方舟 UI（网点纸/套印错位/编号档案/警戒条纹）
+- **内容定位**：只收录站点自身的构建档案（jhd-site 旗舰 + site-launch），其他内容已全部删除
 
 ## 关键文件
 
 | 需求 | 文件 |
 |------|------|
-| 站点配置 | `hugo.toml` |
-| 自定义样式 | `assets/css/extended/custom.css`（深空编年史 v5） |
-| 首页布局 | `layouts/index.html`（Hero → 设定 Bento → 项目 Bento → 文章 → 订阅） |
+| 站点配置 | `hugo.toml`（defaultTheme=light，菜单：项目/关于/搜索） |
+| 自定义样式 | `assets/css/extended/custom.css`（白银档案 v6） |
+| 首页布局 | `layouts/index.html`（Hero → 项目 Bento → 索引条 → 订阅） |
 | 首页 Hero | `content/_index.md` |
 | 字体/CSP/JSON-LD | `layouts/partials/extend_head.html` |
-| JS 特效 | `layouts/partials/extend_footer.html`（Ctrl+K + TOC 跟踪 + 入场动画 + webmention） |
-| 系列导航 | `layouts/partials/extend_post_content.html`（按 front matter `series` 串联） |
+| JS 特效 | `layouts/partials/extend_footer.html`（Ctrl+K + TOC 跟踪 + 入场动画 + 页脚 HUD + webmention） |
 | 评论 | `layouts/partials/comments.html`（giscus，仅文章页） |
-| 新文章 | `content/posts|articles|lore/项目名/index.md` |
-| 导航菜单 | `hugo.toml` § `menu.main`（项目/设定/文章/关于/搜索） |
+| 新文章 | `content/posts/项目名/index.md` |
+| 导航菜单 | `hugo.toml` § `menu.main` |
 
-## 内容分区约定
+## 内容约定
 
-| Section | 用途 | 收录标准 |
-|---------|------|---------|
-| `posts/` | 项目——工程成品 | 工具、Mod、站点本身 |
-| `lore/` | 设定——原创世界观 | 完成态世界构建文档，按 `series` 组织 |
-| `articles/` | 文章——战报与随笔 | 轻量、时效性内容 |
-
-- `series: "CLPS 宇宙"` + `weight` → 文章页显示系列导航
-- `flagship: true` → 首页旗舰大卡（跨列 + `stats` 数据点）；全站仅设一个
+- `posts/` 目前只放站点自身档案；新增项目也放这里
+- `flagship: true` → 首页旗舰大卡（金边 + mono 数据行）；全站仅设一个
 - `draft: true` → 草稿，本地可见，线上不可见
 
 ## 构建与预览
 
 - 本地预览: `hugo server -D`
 - 部署: push main → GitHub Actions → gh-pages 分支 → GitHub Pages
-- CSS 修改后需删除 `resources/` 和 `public/` 目录后重建
-- 本地 Hugo Extended 二进制在仓库外 `.tools/hugo.exe`（版本 0.168.0），用于构建验证：
+- 本地 Hugo Extended 二进制：`D:/Desktop/AI工程/博客/.tools/hugo.exe`（0.168.0），构建验证：
   `/d/Desktop/AI工程/博客/.tools/hugo.exe --minify`
 
-## 设计纪律（v5，勿回退）
+## 设计纪律（v6，勿回退）
 
-- 背景只有两层：静态星场 + 星轨光带；不要再加天体/流星/暗角/追踪光效
-- 强调色只有金色 `#c9b26a`；紫色已废弃
-- 动效只允许：头像呼吸、hover 位移、入场渐隐，且必须尊重 prefers-reduced-motion
-- 阴影禁用（头像辉光例外）；层次用 hairline 边框表达
-- 首页不放评论区；数字必须真实（过期数字 = 疏漏信号）
+- 浅色纸底 + 单一哑光金；**不要再加暗色/紫色/第二强调色**
+- 背景只有两层：半调网点 + 图纸网格；不要再加天体/流星/辉光/暗角
+- 阴影禁用；层级靠 1px 银灰细线；直角贯穿（头像/标签胶囊例外）
+- 动效仅白名单：hover 套印框、入场渐隐，必须尊重 prefers-reduced-motion
+- 全站元信息走 JetBrains Mono；标题 Noto Sans SC 900
+- 首页数字/HUD 文案必须真实（BUILD v6 等与实现同步）
