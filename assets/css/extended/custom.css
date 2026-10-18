@@ -175,6 +175,19 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .start-path a:hover{color:var(--gold-deep)}
 .start-path p{margin:.3rem 0 0;font-size:.82rem;color:var(--muted);line-height:1.7}
 
+/* ── SUBSCRIBE ── */
+.sub-kicker{font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.25em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:.5rem}
+.feed-box{border:1px solid var(--hairline-strong);background:var(--surface);padding:1.25rem 1.4rem;margin:1.4rem 0 1.8rem}
+.feed-meta{display:flex;gap:.5rem;margin-bottom:.85rem}
+.feed-tag{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.12em;color:var(--gold-deep);border:1px solid var(--line-gold);padding:.2rem .55rem}
+.feed-url{display:block;font-family:var(--mono);font-size:.85rem;color:var(--ink);background:var(--surface-2);border:1px solid var(--hairline);padding:.8rem .95rem;word-break:break-all;user-select:all}
+.feed-actions{display:flex;align-items:center;gap:1.3rem;margin-top:.95rem;flex-wrap:wrap}
+.copy-btn{font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.1em;padding:.52rem 1.15rem;border:1px solid var(--line-gold);background:transparent;color:var(--gold-deep);cursor:pointer;transition:background .2s var(--ease),color .2s var(--ease)}
+.copy-btn:hover{background:var(--gold);color:#fff}
+.copy-btn.copied{background:var(--gold);color:#fff;border-color:var(--gold)}
+.feed-raw{font-family:var(--mono);font-size:.72rem;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--hairline-strong);padding-bottom:1px}
+.feed-raw:hover{color:var(--gold-deep);border-bottom-color:var(--line-gold)}
+
 /* ── POST LIST（无框档案条目）── */
 .post-entry{display:block;background:transparent!important;backdrop-filter:none;
   border:none!important;border-bottom:1px solid var(--hairline)!important;border-radius:0!important;
