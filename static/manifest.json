@@ -1,12 +1,12 @@
 {
-  "name": "JHD · 星轨",
+  "name": "JHD · 白银档案",
   "short_name": "JHD",
-  "description": "记录每一个完成的成品 · 在星轨中留下足迹",
+  "description": "记录一个网站的建造——这里收录的唯一项目，就是本站自身",
   "start_url": "/JHDblog/",
   "scope": "/JHDblog/",
   "display": "standalone",
-  "background_color": "#050812",
-  "theme_color": "#050812",
+  "background_color": "#f2f1ec",
+  "theme_color": "#f2f1ec",
   "orientation": "portrait-primary",
   "icons": [
     {

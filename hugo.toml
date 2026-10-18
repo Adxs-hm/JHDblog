@@ -5,7 +5,7 @@ title = "JHD"
 hasCJKLanguage = true
 enableEmoji = true
 enableRobotsTXT = true
-mainSections = ["posts", "articles", "lore"]
+mainSections = ["posts"]
 
 [pagination]
   pagerSize = 10
@@ -15,10 +15,10 @@ mainSections = ["posts", "articles", "lore"]
 
 [params]
   env = "production"
-  description = "记录每一个完成的成品 · 在星轨中留下足迹"
+  description = "记录一个网站的建造——这里收录的唯一项目，就是本站自身"
   author = "JHD"
   images = ["images/planet-avatar.svg"]
-  defaultTheme = "dark"
+  defaultTheme = "light"
   dateFormat = "2006-01-02"
 
   [params.assets]
@@ -75,21 +75,13 @@ mainSections = ["posts", "articles", "lore"]
   url = "posts"
   weight = 1
 [[menu.main]]
-  name = "设定"
-  url = "lore"
-  weight = 2
-[[menu.main]]
-  name = "文章"
-  url = "articles"
-  weight = 3
-[[menu.main]]
   name = "关于"
   url = "about"
-  weight = 4
+  weight = 2
 [[menu.main]]
   name = "搜索"
   url = "search"
-  weight = 5
+  weight = 3
 
 [languages.zh-cn]
   label = "简体中文"

@@ -2,10 +2,17 @@
 <a class="skip-link" href="#main-content">跳到内容</a>
 
 <script>
-/* ═══════ main-content id ═══════ */
+/* ═══════ main-content id + Footer HUD 状态行 ═══════ */
 (function(){
   var main=document.querySelector('main.main');
   if(main)main.id='main-content';
+  var f=document.querySelector('footer.footer, .footer');
+  if(f && !f.querySelector('.footer-hud')){
+    var d=document.createElement('div');
+    d.className='footer-hud';
+    d.innerHTML='JHD // SILVER ARCHIVE v6 · HUGO 0.168 EXTENDED · SYSTEMS <b>● NOMINAL</b>';
+    f.appendChild(d);
+  }
 })();
 
 /* ═══════ 键盘快捷键: Ctrl+K 聚焦搜索 ═══════ */

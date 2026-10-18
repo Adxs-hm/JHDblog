@@ -1,7 +1,7 @@
 {{- /* PWA */ -}}
 <link rel="manifest" href="{{ "manifest.json" | relURL }}">
-<meta name="theme-color" content="#04060f" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#f0f0f0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#f2f1ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#f2f1ec" media="(prefers-color-scheme: dark)">
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('{{ "sw.js" | relURL }}');
@@ -15,10 +15,10 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
 
-{{- /* 展示字体：Noto Serif SC（编年史衬线），失败时降级系统衬线 */ -}}
+{{- /* 字体：Noto Sans SC（展示/正文）+ JetBrains Mono（HUD 标签），失败降级系统字体 */ -}}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 {{- /* Performance */ -}}
 <link rel="dns-prefetch" href="https://giscus.app">

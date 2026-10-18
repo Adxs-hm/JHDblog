@@ -6,16 +6,20 @@
 
   <hr class="section-divider">
 
-  {{- /* ✦ 设定 · 旗舰世界观（Bento：块尺寸 = 重要性）*/ -}}
-  {{- $lore := where .Site.RegularPages "Section" "lore" -}}
-  {{- with $lore -}}
+  {{- /* ✦ 项目档案（Bento：块尺寸 = 重要性）*/ -}}
+  {{- $posts := where .Site.RegularPages "Section" "posts" -}}
+  {{- with $posts -}}
   <section class="home-section">
-    <h2 class="home-section-title">设定 · 原创世界观</h2>
+    <h2 class="home-section-title">
+      <span class="kick">PROJECT · 收录项目</span>
+      <span class="cn">项目档案</span>
+      <span class="stripe"></span>
+    </h2>
     <div class="bento">
       {{- range . -}}
         {{- if .Params.flagship -}}
         <a class="bento-cell bento-flagship" href="{{ .RelPermalink }}">
-          <span class="cell-kicker">FLAGSHIP · 原创科幻宇宙</span>
+          <span class="cell-kicker">FLAGSHIP · 旗舰档案</span>
           <span class="cell-title">{{ .Title }}</span>
           <span class="cell-desc">{{ .Params.description }}</span>
           {{- with .Params.stats -}}
@@ -26,14 +30,14 @@
             {{- end -}}
           </span>
           {{- end -}}
-          <span class="cell-link">进入宇宙 →</span>
+          <span class="cell-link">阅读构建档案</span>
         </a>
         {{- else -}}
         <a class="bento-cell" href="{{ .RelPermalink }}">
-          <span class="cell-kicker">SETTING · 子设定</span>
+          <span class="cell-kicker">RECORD · 建造记录</span>
           <span class="cell-title">{{ .Title }}</span>
           <span class="cell-desc">{{ .Params.description }}</span>
-          <span class="cell-link">阅读 →</span>
+          <span class="cell-link">阅读记录</span>
         </a>
         {{- end -}}
       {{- end -}}
@@ -41,57 +45,20 @@
   </section>
   {{- end -}}
 
-  {{- /* ✦ 项目 · 完成的成品 */ -}}
-  {{- $posts := where .Site.RegularPages "Section" "posts" -}}
-  {{- with $posts -}}
-  <section class="home-section">
-    <h2 class="home-section-title">项目 · 完成的成品</h2>
-    <div class="bento">
-      {{- range first 3 . -}}
-      <a class="bento-cell" href="{{ .RelPermalink }}">
-        <span class="cell-kicker">PROJECT</span>
-        <span class="cell-title">{{ .Title }}</span>
-        <span class="cell-desc">{{ .Params.description }}</span>
-        <span class="cell-link">查看 →</span>
-      </a>
-      {{- end -}}
-    </div>
-    <div class="home-section-more">
-      <a href="{{ "posts" | relURL }}" class="jhd-btn-ghost">全部项目 →</a>
-      <a href="{{ "start-here" | relURL }}" class="jhd-btn-ghost">新人入口 →</a>
-    </div>
-  </section>
-  {{- end -}}
-
-  {{- /* ✦ 文章 · 战报与随笔 */ -}}
-  {{- $articles := where .Site.RegularPages "Section" "articles" -}}
-  {{- with $articles -}}
-  <section class="home-section">
-    <h2 class="home-section-title">文章 · 战报与随笔</h2>
-    <ul class="latest-list">
-      {{- range first 5 . -}}
-      <li>
-        <a href="{{ .RelPermalink }}">
-          <span class="latest-title">{{ .Title }}</span>
-          <span class="latest-meta">{{ .Date.Format "2006-01-02" }}</span>
-        </a>
-      </li>
-      {{- end -}}
-    </ul>
-    <div class="home-section-more">
-      <a href="{{ "articles" | relURL }}" class="jhd-btn-ghost">全部文章 →</a>
-    </div>
-  </section>
-  {{- end -}}
+  {{- /* 档案索引条 */ -}}
+  <div class="index-strip">
+    <a class="index-chip" href="{{ "start-here" | relURL }}">◈ 档案索引 <b>START-HERE</b></a>
+    <a class="index-chip" href="{{ "archives" | relURL }}">▤ 时间归档 <b>ARCHIVES</b></a>
+    <a class="index-chip" href="{{ "about" | relURL }}">◉ 关于本站 <b>ABOUT</b></a>
+  </div>
 
   {{- /* 订阅条 */ -}}
   <div class="home-subscribe">
-    <span>订阅本站</span>
-    <span class="sub-sep">·</span>
+    <span class="lbl">SUBSCRIBE · 订阅</span>
     <a href="{{ "index.xml" | absURL }}">RSS</a>
-    <span class="sub-sep">·</span>
+    <span class="sub-sep">/</span>
     <a href="https://github.com/Adxs-hm" target="_blank" rel="noopener">GitHub</a>
-    <span class="sub-sep">·</span>
-    <span>留言与订阅请至文章页底部</span>
+    <span class="sub-sep">/</span>
+    <span>留言请至档案底部</span>
   </div>
 {{- end }}
