@@ -1,6 +1,13 @@
 <!-- Skip-to-content 无障碍链接 -->
 <a class="skip-link" href="#main-content">跳到内容</a>
 
+{{- /* 扫雷页脚本（按页面条件加载；模板内 relURL 适配任意 baseURL）*/ -}}
+{{- with .File -}}
+{{- if eq .Path "minesweeper.md" -}}
+<script src="{{ "js/minesweeper.js" | relURL }}" defer></script>
+{{- end -}}
+{{- end -}}
+
 <script>
 /* ═══════ main-content id + Footer HUD 状态行 ═══════ */
 (function(){

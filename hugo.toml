@@ -84,6 +84,10 @@ mainSections = ["posts"]
   name = "搜索"
   url = "search"
   weight = 3
+[[menu.main]]
+  name = "游戏"
+  url = "minesweeper"
+  weight = 4
 
 [languages.zh-cn]
   label = "简体中文"
