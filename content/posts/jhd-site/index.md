@@ -1,9 +1,11 @@
 ---
 title: "JHD 站点"
 date: 2026-06-30T12:36:13+08:00
-description: "Hugo + PaperMod 深空主题个人站点，深度定制 CSS 与交互，作为所有成品记录的统一入口"
+description: "Hugo + PaperMod 深度定制个人站点——技术架构、设计系统与工程链路全档"
 tags: ["网站", "Hugo", "GitHub Pages"]
 categories: ["项目"]
+flagship: true
+stats: ["Hugo + PaperMod", "GitHub Actions", "GitHub Pages"]
 draft: false
 ---
 
