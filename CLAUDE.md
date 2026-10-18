@@ -43,3 +43,7 @@
 - 动效仅白名单：hover 套印框、入场渐隐，必须尊重 prefers-reduced-motion
 - 全站元信息走 JetBrains Mono；标题 Noto Sans SC 900
 - 首页数字/HUD 文案必须真实（BUILD v6 等与实现同步）
+
+## 已知坑（2026-10-18）
+- PaperMod 的 head.html 会读 localStorage `pref-theme`，用户浏览器可能存有旧版暗色偏好并强切 data-theme=dark；custom.css 已用 `:root[data-theme="dark"]` 浅色强制映射兜底，**修改主题变量时必须同时维护该块**
+- 主题自带 Catppuccin 暗色 chroma 代码高亮板（.chroma 类，静态不随主题切换）；custom.css 的 `.code-block-body .chroma` 系列是浅色纸面板，改代码块样式时勿删
