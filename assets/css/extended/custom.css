@@ -43,6 +43,8 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .main,.post-content,.page{position:relative;z-index:2}
 .nav,.header,footer,.footer{position:relative;z-index:3}
 .post-entry,.first-entry{position:relative;z-index:2}
+/* 暗色专用站点：隐藏主题切换（无浅色设计）*/
+.theme-toggle,.logo-switches{display:none!important}
 .skip-link{position:absolute;top:-100%;left:1rem;z-index:999;padding:.5rem 1rem;background:var(--gold);color:var(--void);border-radius:0 0 8px 8px;font-weight:700;text-decoration:none;transition:top .2s ease}.skip-link:focus{top:0}
 
 /* ── NAVIGATION ── */

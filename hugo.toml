@@ -19,6 +19,7 @@ mainSections = ["posts", "articles", "lore"]
   author = "JHD"
   images = ["images/planet-avatar.svg"]
   defaultTheme = "dark"
+  dateFormat = "2006-01-02"
 
   [params.assets]
     favicon = "images/planet-avatar.svg"
@@ -27,7 +28,6 @@ mainSections = ["posts", "articles", "lore"]
     apple_touch_icon = "images/planet-avatar.svg"
     safari_pinned_tab = "images/planet-avatar.svg"
     theme_color = "#050812"
-  dateFormat = "2006-01-02"
   ShowReadingTime = true
   ShowWordCount = true
   ShowToc = true
