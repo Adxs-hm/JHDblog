@@ -21,13 +21,9 @@ mainSections = ["posts"]
   defaultTheme = "light"
   dateFormat = "2006-01-02"
 
-  [params.assets]
-    favicon = "images/planet-avatar.svg"
-    favicon16x16 = "images/planet-avatar.svg"
-    favicon32x32 = "images/planet-avatar.svg"
-    apple_touch_icon = "images/planet-avatar.svg"
-    safari_pinned_tab = "images/planet-avatar.svg"
-    theme_color = "#f2f1ec"
+  # ⚠ TOML 陷阱：以下键必须写在任何 [params.*] 子表【之前】，
+  # 否则会落入子表（如 params.assets.ShowReadingTime）而静默失效。
+  # 显示开关
   ShowReadingTime = true
   ShowWordCount = true
   ShowToc = true
@@ -40,19 +36,25 @@ mainSections = ["posts"]
   ShowRelatedPosts = true
   disableSpecial1stPost = false
 
-  # 首页：content/_index.md 的自定义 Hero HTML 通过 list.html 的 .Content 渲染
-  # 文章列表紧随其后（由 PaperMod list.html 控制）
-
-  # giscus 评论 — 填入 categoryId 后把 comments 改为 true
+  # giscus 评论（GitHub Discussions 驱动）— single.html 依 .Param "comments" 渲染
   comments = true
+
+  # Webmention (去 webmention.io 用 GitHub 登录后即生效)
+  webmention = "adxs-hm.github.io_jhdblog_"
+
+  [params.assets]
+    favicon = "images/planet-avatar.svg"
+    favicon16x16 = "images/planet-avatar.svg"
+    favicon32x32 = "images/planet-avatar.svg"
+    apple_touch_icon = "images/planet-avatar.svg"
+    safari_pinned_tab = "images/planet-avatar.svg"
+    theme_color = "#f2f1ec"
+
   [params.giscus]
     repo = "Adxs-hm/JHDblog"
     repoId = "R_kgDOTJEk0w"
     category = "Announcements"
     categoryId = "DIC_kwDOTJEk084DAqTy"
-
-  # Webmention (去 webmention.io 用 GitHub 登录后即生效)
-  webmention = "adxs-hm.github.io_jhdblog_"
 
   # 社交图标
   [[params.socialIcons]]
