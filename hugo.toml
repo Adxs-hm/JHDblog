@@ -5,7 +5,7 @@ title = "JHD"
 hasCJKLanguage = true
 enableEmoji = true
 enableRobotsTXT = true
-mainSections = ["posts", "articles"]
+mainSections = ["posts", "articles", "lore"]
 
 [pagination]
   pagerSize = 10
@@ -71,13 +71,17 @@ mainSections = ["posts", "articles"]
     text = "JHD"
 
 [[menu.main]]
-  name = "文章"
-  url = "articles"
-  weight = 1
-[[menu.main]]
   name = "项目"
   url = "posts"
+  weight = 1
+[[menu.main]]
+  name = "设定"
+  url = "lore"
   weight = 2
+[[menu.main]]
+  name = "文章"
+  url = "articles"
+  weight = 3
 [[menu.main]]
   name = "关于"
   url = "about"
