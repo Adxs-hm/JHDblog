@@ -2,38 +2,17 @@
 <a class="skip-link" href="#main-content">跳到内容</a>
 
 <script>
-/* ═══════ 注入深空天体 + main-content id ═══════ */
+/* ═══════ main-content id ═══════ */
 (function(){
-  var main=document.querySelector('main.main');if(main)main.id='main-content';
-  var els=[
-    {c:'galaxy-core'},
-    {c:'nebula'},
-    {c:'shooting-star'},{c:'shooting-star'},{c:'shooting-star'},
-    {c:'vignette'},
-    {c:'celestial-sun'},
-    {c:'celestial-blackhole'},
-    {c:'celestial-planet'}
-  ];
-  els.forEach(function(e){
-    var d=document.createElement('div');d.className=e.c;document.body.appendChild(d);
-  });
+  var main=document.querySelector('main.main');
+  if(main)main.id='main-content';
 })();
-
-/* ═══════ 卡片光影追踪 ═══════ */
-document.querySelectorAll('.post-entry,.first-entry').forEach(function(card){
-  card.addEventListener('mousemove',function(e){
-    var r=card.getBoundingClientRect();
-    card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(0)+'%');
-    card.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(0)+'%');
-    card.classList.add('glow-active');
-  });
-  card.addEventListener('mouseleave',function(){card.classList.remove('glow-active')});
-});
 
 /* ═══════ 键盘快捷键: Ctrl+K 聚焦搜索 ═══════ */
 document.addEventListener('keydown',function(e){
   if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();
-    var s=document.getElementById('searchInput');if(s){s.focus();s.select()}else{location.href='{{ "search" | relURL }}'}
+    var s=document.getElementById('searchInput');
+    if(s){s.focus();s.select()}else{location.href='{{ "search" | relURL }}'}
   }
 });
 
@@ -63,13 +42,23 @@ document.addEventListener('keydown',function(e){
   headings.forEach(function(h){obs.observe(h.el)});
 })();
 
-/* ═══════ 滚动入场 ═══════ */
-var observer=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';observer.unobserve(e.target)}});
-},{threshold:.12});
-document.querySelectorAll('.post-content h2,.post-content h3,.post-content blockquote,.post-content pre,.post-content table').forEach(function(el){
-  el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='opacity .6s ease,transform .6s ease';observer.observe(el);
-});
+/* ═══════ 滚动入场（仅对正文区块，尊重 reduced-motion）══════ */
+(function(){
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.style.opacity='1';e.target.style.transform='translateY(0)';
+        observer.unobserve(e.target);
+      }
+    });
+  },{threshold:.12});
+  document.querySelectorAll('.post-content h2,.post-content h3,.post-content blockquote,.post-content pre,.post-content table').forEach(function(el){
+    el.style.opacity='0';el.style.transform='translateY(16px)';
+    el.style.transition='opacity .6s ease,transform .6s ease';
+    observer.observe(el);
+  });
+})();
 </script>
 
 {{- /* Webmention */ -}}
@@ -77,7 +66,8 @@ document.querySelectorAll('.post-content h2,.post-content h3,.post-content block
 <div class="webmentions" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--hairline);"></div>
 <script>
 (function(){
-  var wm=document.querySelector('.webmentions');if(!wm)return;
+  var wm=document.querySelector('.webmentions');
+  if(!wm)return;
   fetch('https://webmention.io/api/mentions.jf2?target='+encodeURIComponent(location.href)+'&per-page=20')
     .then(function(r){return r.json()}).then(function(d){
       if(!d.children||!d.children.length){wm.style.display='none';return}
@@ -100,7 +90,7 @@ document.querySelectorAll('.post-content h2,.post-content h3,.post-content block
           var a=m.author&&m.author.photo?'<img src="'+m.author.photo+'" style="width:28px;height:28px;border-radius:50%;flex-shrink:0" loading="lazy">':'';
           var n=m.author&&m.author.name?m.author.name:'匿名';
           var txt=m.content&&m.content.text?m.content.text.substring(0,200):'';
-          h+='<div style="display:flex;align-items:flex-start;gap:.6rem;padding:.5rem 0;font-size:.85rem;border-bottom:1px solid var(--hairline)">'+a+'<div><strong style="color:var(--text)">'+n+'</strong>'+(txt?'<p style="margin:.2rem 0 0;color:var(--text-body)">'+txt+'</p>':'')+'</div></div>';
+          h+='<div style="display:flex;align-items:flex-start;gap:.6rem;padding:.5rem 0;font-size:.85rem;border-bottom:1px solid var(--hairline)">'+a+'<div><strong style="color:var(--text)">'+n+(txt?'<p style="margin:.2rem 0 0;color:var(--body)">'+txt+'</p>':'')+'</div></div>';
         });
       }
       wm.innerHTML=h;

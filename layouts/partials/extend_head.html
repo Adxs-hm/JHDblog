@@ -1,6 +1,6 @@
 {{- /* PWA */ -}}
 <link rel="manifest" href="{{ "manifest.json" | relURL }}">
-<meta name="theme-color" content="#050812" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#04060f" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f0f0f0" media="(prefers-color-scheme: light)">
 <script>
   if ('serviceWorker' in navigator) {
@@ -8,12 +8,17 @@
   }
 </script>
 
-{{- /* Security */ -}}
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://giscus.app https://webmention.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://webmention.io; frame-src https://giscus.app; frame-ancestors 'none';">
+{{- /* Security（font-src 放行 Google Fonts）*/ -}}
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://giscus.app https://webmention.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://webmention.io; frame-src https://giscus.app; frame-ancestors 'none';">
 <meta http-equiv="X-Frame-Options" content="DENY">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+
+{{- /* 展示字体：Noto Serif SC（编年史衬线），失败时降级系统衬线 */ -}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet">
 
 {{- /* Performance */ -}}
 <link rel="dns-prefetch" href="https://giscus.app">
