@@ -5,8 +5,8 @@
   "start_url": "/JHDblog/",
   "scope": "/JHDblog/",
   "display": "standalone",
-  "background_color": "#06080a",
-  "theme_color": "#06080a",
+  "background_color": "#f4f3ee",
+  "theme_color": "#f4f3ee",
   "orientation": "portrait-primary",
   "icons": [
     {

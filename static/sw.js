@@ -1,5 +1,5 @@
-// JHD Blog · Service Worker（v7：导航 network-first，静态 cache-first）
-const CACHE = 'jhd-v7';
+// JHD Blog · Service Worker（v8：导航 network-first，静态 cache-first）
+const CACHE = 'jhd-v8';
 const ASSETS = [
   '/JHDblog/',
   '/JHDblog/manifest.json',

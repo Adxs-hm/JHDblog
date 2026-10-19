@@ -1,10 +1,13 @@
 /* ═══════════════════════════════════════════════════════════════
-   JHD · TERMINAL（终端）v7
-   设计系统：纯黑 / 纸白对撞 + 单一青蓝 + 直角 + 拉丁大写 + 等宽 HUD
+   JHD · TERMINAL（终端）v8 · 金/银
+   设计系统：纸白 / 纯黑对撞 + 单一哑光金（强调）+ 银色（结构）
+            + 直角 + 拉丁大写 + 等宽 HUD
    血统：工业终端 UI（半调网点 / 套印错位 / 编号档案 / 警戒条纹）
-        × 工业极简（Dieter Rams 式克制）
-   双主题：data-theme="dark" → TERMINAL（纯黑终端）
-          data-theme 缺失/light → ARCHIVE（档案纸白）
+        × 贵金属档案（v6 Silver Archive 血脉复兴）
+   双主题：data-theme 缺失/light → ARCHIVE（档案纸白 · 主视觉）
+          data-theme="dark" → TERMINAL（纯黑终端 · 次级）
+   金属分工：金 = 唯一强调色（链接/高亮/关键数字/粒子场/扫描线）
+            银 = 结构色（细线/HUD/元信息/边框/网点/网格）
    ═══════════════════════════════════════════════════════════════ */
 
 /* ── 自托管字体（latin 子集，替代 Google Fonts CDN）── */
@@ -14,7 +17,7 @@
 /* JetBrains Mono 可变字体（wght 400–800 单文件，替代静态双档，-25% 体积）*/
 @font-face{font-family:"JetBrains Mono";src:url("/fonts/jetbrainsmono-var.woff2") format("woff2") tech(variations);font-weight:400 800;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21BB,U+2212,U+2215}
 
-/* ── TOKENS · TERMINAL（默认身份主题）──
+/* ── TOKENS · TERMINAL（纯黑终端 · 次级主题）──
    选择器必须与 PaperMod 的 :root[data-theme="dark"] 同特异性（0,2,0），
    且 extended.css 后于主题核心加载 → 同特异性下源序决胜 */
 :root,:root[data-theme="dark"]{
@@ -23,9 +26,9 @@
   --fg:#eef2f4;            /* 纸白 */
   --fg-dim:#96a2ab;        /* 次级 */
   --line:#1d252c;          /* 分隔线 */
-  --accent:#22d3ee;        /* 青蓝 · 仅图形 */
-  --accent-deep:#0e7490;   /* 青蓝深阶 */
-  --accent-ink:#22d3ee;    /* 青蓝 · 文字（对 --bg 10.9:1）*/
+  --accent:#c9a227;        /* 金 · 仅图形（对 --bg 8.1:1）*/
+  --accent-deep:#8a6d1f;   /* 金深阶 */
+  --accent-ink:#c9a227;    /* 金 · 文字（对 --bg 8.1:1）*/
   --warn:#f5b800;          /* 警戒黄 · 仅装饰条纹 */
   --warn-ink:#f5b800;
   --danger:#ff4d5e;        /* 损坏/错误 */
@@ -43,13 +46,13 @@
   --code-block-bg:#0d1117;--code-bg:#0d1117;
   color-scheme:dark;
 }
-/* ── TOKENS · ARCHIVE（档案纸白，承接 v6 纸底血脉）── */
+/* ── TOKENS · ARCHIVE（档案纸白 · 主视觉，v6 纸底血脉复兴）── */
 :root:not([data-theme="dark"]),:root[data-theme="light"]{
   --bg:#f4f3ee;--bg-2:#fbfaf6;--fg:#0d0f12;--fg-dim:#4c545c;
-  --line:#d8d6cc;
-  --accent:#22d3ee;        /* 装饰青（仅图形）*/
-  --accent-deep:#b6ecf3;
-  --accent-ink:#00707f;    /* 文字青（对纸白 4.6:1 · AA）*/
+  --line:#cdd1d8;          /* 银灰细线 */
+  --accent:#a5824a;        /* 哑光金 · 装饰（仅图形）*/
+  --accent-deep:#8a6d1f;   /* 金深阶 */
+  --accent-ink:#7a5c1a;    /* 深金 · 文字（对纸白 5.7:1 · AA）*/
   --warn:#f5b800;--warn-ink:#8a6100;--danger:#c2253a;
   --halftone:rgba(13,15,18,.06);
   --grid:rgba(13,15,18,.04);
@@ -60,7 +63,7 @@
   --code-block-bg:#f6f5f0;--code-bg:#efece3;
   color-scheme:light;
 }
-/* ── 兼容别名：v6 金色命名 → v7 青色令牌（旧区块样式零改动迁移）── */
+/* ── 兼容别名：v6 金色命名 → v8 金令牌（旧区块样式零改动迁移）── */
 :root{
   --paper:var(--bg);--paper-2:var(--bg-2);--surface:var(--bg-2);--surface-2:var(--code-block-bg);
   --ink:var(--fg);--ink-2:var(--fg);--muted:var(--fg-dim);--faint:var(--fg-dim);
@@ -135,12 +138,12 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 /* 粒子 Logo 场 */
 .trm-logo-field{position:relative;width:min(680px,92vw);height:130px;margin:1.6rem auto .4rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
 .trm-logo-field::before{content:attr(data-label);position:absolute;top:6px;left:10px;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.24em;color:var(--fg-dim);text-transform:uppercase}
-.trm-logo-canvas{display:block;width:100%;height:100%;color:var(--accent)}
+.trm-logo-canvas{display:block;width:100%;height:100%;color:var(--accent-ink)}
 /* lite / off 档：粒子场退化为静态展示字（画布不加载）*/
 :root[data-fx="lite"] .trm-logo-canvas,:root[data-fx="off"] .trm-logo-canvas{display:none}
 :root[data-fx="lite"] .trm-logo-field::after,:root[data-fx="off"] .trm-logo-field::after{
   content:attr(data-text);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-display);font-weight:700;font-size:2.6rem;letter-spacing:.22em;color:var(--accent);opacity:.85}
+  font-family:var(--font-display);font-weight:700;font-size:2.6rem;letter-spacing:.22em;color:var(--accent-ink);opacity:.85}
 .jhd-hero-hud{margin-top:1.5rem;display:inline-flex;align-items:center;gap:.55rem;flex-wrap:wrap;justify-content:center;
   font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;color:var(--fg-dim);
   border:1px solid var(--line);padding:.42rem 1rem;background:var(--bg-2)}
@@ -441,7 +444,7 @@ details.toc .inner{padding-bottom:.2rem}
 .code-block-header{display:flex;align-items:center;gap:.5rem;padding:.45rem .9rem;background:var(--code-bg);border-bottom:1px solid var(--line);user-select:none}
 .code-dots{display:flex;gap:5px;flex-shrink:0}
 .code-dot{width:9px;height:9px;border-radius:50%;opacity:.75}
-.dot-red{background:#ff4d5e}.dot-yellow{background:#f5b800}.dot-green{background:#22d3ee}
+.dot-red{background:#ff4d5e}.dot-yellow{background:#f5b800}.dot-green{background:#9db89a}
 .code-lang{font-family:var(--font-mono);font-size:.64rem;color:var(--fg-dim);text-transform:uppercase;letter-spacing:.12em;margin-left:.2rem}
 .code-fold-btn{margin-left:auto;background:none;border:1px solid var(--hairline-strong);color:var(--fg-dim);font-size:.66rem;font-family:var(--font-mono);cursor:pointer;padding:.15rem .5rem;transition:border-color .2s,color .2s}
 .code-fold-btn:hover{color:var(--accent-ink);border-color:var(--accent)}
@@ -452,42 +455,42 @@ details.toc .inner{padding-bottom:.2rem}
 .code-block-wrapper.is-folded .code-block-body::after{opacity:0}
 .code-block-body .highlight{margin:0;background:transparent!important}
 .code-block-body .highlight pre{padding:.7rem 1rem;margin:0}
-/* 代码高亮 · TERMINAL（青蓝板）*/
+/* 代码高亮 · TERMINAL（金板 · 暗）*/
 .code-block-body .chroma{background:var(--code-block-bg)!important;color:#c9d4dc!important}
 .code-block-body .chroma .err{color:#ff4d5e}
 .code-block-body .chroma .lnt,.code-block-body .chroma .ln{color:#3d4a55}
-.code-block-body .chroma .hl{background:rgba(34,211,238,.12)}
+.code-block-body .chroma .hl{background:rgba(201,162,39,.14)}
 .code-block-body .chroma .k,.code-block-body .chroma .kc,.code-block-body .chroma .kd,
 .code-block-body .chroma .kn,.code-block-body .chroma .kp,.code-block-body .chroma .kr,
-.code-block-body .chroma .kt{color:#22d3ee}
+.code-block-body .chroma .kt{color:#d4af37}
 .code-block-body .chroma .s,.code-block-body .chroma .s1,.code-block-body .chroma .s2,
 .code-block-body .chroma .sa,.code-block-body .chroma .sb,.code-block-body .chroma .sc,
 .code-block-body .chroma .dl,.code-block-body .chroma .sd,.code-block-body .chroma .se,
 .code-block-body .chroma .sh,.code-block-body .chroma .si,.code-block-body .chroma .sx,
-.code-block-body .chroma .sr,.code-block-body .chroma .ss{color:#7dd87d}
+.code-block-body .chroma .sr,.code-block-body .chroma .ss{color:#9db89a}
 .code-block-body .chroma .c,.code-block-body .chroma .c1,.code-block-body .chroma .ch,
 .code-block-body .chroma .cm,.code-block-body .chroma .cp,.code-block-body .chroma .cpf,
 .code-block-body .chroma .cs{color:#5c6b78;font-style:italic}
 .code-block-body .chroma .nf,.code-block-body .chroma .fm{color:#e8f0f5}
-.code-block-body .chroma .na,.code-block-body .chroma .nt{color:#9adfe8}
+.code-block-body .chroma .na,.code-block-body .chroma .nt{color:#b9c2cc}
 .code-block-body .chroma .nc,.code-block-body .chroma .no,.code-block-body .chroma .nd,
-.code-block-body .chroma .ni,.code-block-body .chroma .ne{color:#f5b800}
+.code-block-body .chroma .ni,.code-block-body .chroma .ne{color:#e0c56e}
 .code-block-body .chroma .m,.code-block-body .chroma .mi,.code-block-body .chroma .mf,
-.code-block-body .chroma .mh,.code-block-body .chroma .il,.code-block-body .chroma .mo{color:#ffb86c}
-.code-block-body .chroma .o,.code-block-body .chroma .ow{color:#22d3ee}
+.code-block-body .chroma .mh,.code-block-body .chroma .il,.code-block-body .chroma .mo{color:#c9d4dc}
+.code-block-body .chroma .o,.code-block-body .chroma .ow{color:#d4af37}
 .code-block-body .chroma .p{color:#c9d4dc}
 .code-block-body .chroma .nv,.code-block-body .chroma .vc,.code-block-body .chroma .vg,
 .code-block-body .chroma .vi,.code-block-body .chroma .vm,.code-block-body .chroma .nb,
 .code-block-body .chroma .bp,.code-block-body .chroma .nl{color:#c9d4dc}
 .code-block-body .chroma .gd{color:#ff4d5e}
-.code-block-body .chroma .gi{color:#7dd87d}
-/* 代码高亮 · ARCHIVE（纸面深青板，v6 金板迁移）*/
+.code-block-body .chroma .gi{color:#9db89a}
+/* 代码高亮 · ARCHIVE（纸面深金板）*/
 :root:not([data-theme="dark"]) .code-block-body .chroma,
 :root[data-theme="light"] .code-block-body .chroma{background:#f6f5f0!important;color:#26282e!important}
 :root:not([data-theme="dark"]) .code-block-body .chroma .k,:root:not([data-theme="dark"]) .code-block-body .chroma .kc,
 :root:not([data-theme="dark"]) .code-block-body .chroma .kd,:root:not([data-theme="dark"]) .code-block-body .chroma .kn,
 :root:not([data-theme="dark"]) .code-block-body .chroma .kp,:root:not([data-theme="dark"]) .code-block-body .chroma .kr,
-:root:not([data-theme="dark"]) .code-block-body .chroma .kt,:root[data-theme="light"] .code-block-body .chroma .k{color:#00707f}
+:root:not([data-theme="dark"]) .code-block-body .chroma .kt,:root[data-theme="light"] .code-block-body .chroma .k{color:#7a5c1a}
 :root:not([data-theme="dark"]) .code-block-body .chroma .s,:root:not([data-theme="dark"]) .code-block-body .chroma .s1,
 :root:not([data-theme="dark"]) .code-block-body .chroma .s2,:root:not([data-theme="dark"]) .code-block-body .chroma .sa,
 :root:not([data-theme="dark"]) .code-block-body .chroma .sb,:root:not([data-theme="dark"]) .code-block-body .chroma .sc,
@@ -495,7 +498,7 @@ details.toc .inner{padding-bottom:.2rem}
 :root:not([data-theme="dark"]) .code-block-body .chroma .c,:root:not([data-theme="dark"]) .code-block-body .chroma .c1,
 :root:not([data-theme="dark"]) .code-block-body .chroma .cm,:root[data-theme="light"] .code-block-body .chroma .c{color:#8f959e;font-style:italic}
 :root:not([data-theme="dark"]) .code-block-body .chroma .nf,:root:not([data-theme="dark"]) .code-block-body .chroma .fm,
-:root[data-theme="light"] .code-block-body .chroma .nf{color:#2b5a8a}
+:root[data-theme="light"] .code-block-body .chroma .nf{color:#3d4750}
 :root:not([data-theme="dark"]) .code-block-body .chroma .nc,:root:not([data-theme="dark"]) .code-block-body .chroma .no,
 :root:not([data-theme="dark"]) .code-block-body .chroma .nd,:root:not([data-theme="dark"]) .code-block-body .chroma .ne,
 :root[data-theme="light"] .code-block-body .chroma .nc{color:#8a6100}
@@ -565,7 +568,7 @@ details.toc .inner{padding-bottom:.2rem}
 
 /* ── 排版增强（text-wrap：Baseline 2026）── */
 h1,h2,h3,.cell-title,.home-section-title .cn,.post-title{text-wrap:balance}
-.post-content p,.jhd-intro p,.friend-card__motto{text-wrap:pretty}
+.post-content p,.jhd-intro p{text-wrap:pretty}
 
 /* ── VIEW TRANSITIONS（MPA 直角揭页 + 主题切换网点擦过）── */
 @view-transition{navigation:auto}

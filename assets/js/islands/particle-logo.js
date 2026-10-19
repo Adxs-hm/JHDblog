@@ -8,12 +8,12 @@ export default function initParticleLogo(field) {
   const REPEL = 90, EASE = .08, DAMP = .82;
   const text = field.dataset.text || 'TERMINAL';
   let W = 0, H = 0, pts = [], raf = 0, visible = true, lastFrame = 0;
-  let ink = '#22d3ee';
+  let ink = '#c9a227';
   const mouse = { x: -1e4, y: -1e4 };
 
   /* 颜色缓存：避免每帧 getComputedStyle 触发样式重算 */
   function readInk() {
-    ink = getComputedStyle(canvas).color || '#22d3ee';
+    ink = getComputedStyle(canvas).color || '#c9a227';
   }
   new MutationObserver(readInk).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 

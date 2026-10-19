@@ -56,7 +56,7 @@ function boot() {
     document.querySelectorAll('[data-island]').forEach(el => io.observe(el));
   }
 
-  /* ── 专注度组件 + 青蓝扫描线（全站轻量岛屿，full 档直接动态加载）── */
+  /* ── 专注度组件 + 金色扫描线（全站轻量岛屿，full 档直接动态加载）── */
   if (FX === 'full') {
     /* 让出首屏绘制窗口：idle 后再启动持续动效岛屿 */
     const launch = () => {

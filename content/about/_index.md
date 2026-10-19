@@ -19,7 +19,7 @@ draft: false
 |------|-----|
 | 生成器 | Hugo Extended |
 | 主题基底 | PaperMod（深度定制） |
-| 设计系统 | TERMINAL v7 · 终端 |
+| 设计系统 | TERMINAL v8 · 金/银 |
 | 部署 | GitHub Actions → GitHub Pages |
 | 评论 | giscus（GitHub Discussions） |
 | 搜索 | Fuse.js 全文检索 + `Ctrl+K` |

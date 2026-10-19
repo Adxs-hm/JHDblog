@@ -1,5 +1,5 @@
 /* 游戏：TERMINAL · SYSTEM RECOVERY（404 页彩蛋）
-   状态机 BOOT → PLAY → WIN/OVER；接青色数据包修复系统，躲红色损坏包
+   状态机 BOOT → PLAY → WIN/OVER；接住金色数据包修复系统，躲红色损坏包
    键盘可玩（←/→）；prefers-reduced-motion 退化为静态终端日志 */
 const S = { BOOT: 0, PLAY: 1, WIN: 2, OVER: 3 };
 const DUR = 60;
@@ -9,7 +9,7 @@ const LOGS = [
   '> rerouting power to system bus … ok',
   '> cache flushed. integrity 100%',
   '> 系统具备自修复能力。',
-  '> 用 [修复光束] 接住青色数据包，避开红色损坏包',
+  '> 用 [修复光束] 接住金色数据包，避开红色损坏包',
   '> 方向键 ← / → 可移动光束 · 空格开始'
 ];
 const WIN_LOGS = [
@@ -30,6 +30,15 @@ export default function initRecoveryGame(stage) {
   if (!canvas || !logBox) return;
 
   const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 主题感知：金 = --accent-ink（暗金/深金随主题），点阵 = --halftone */
+  const CS = getComputedStyle(document.body);
+  const INK = (CS.getPropertyValue('--accent-ink') || '#c9a227').trim();
+  const DOTS = (CS.getPropertyValue('--halftone') || 'rgba(238,242,244,.05)').trim();
+  function hexA(hex, a) {
+    const n = parseInt(hex.slice(1), 16);
+    return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
+  }
 
   /* ── reduce 档：静态终端日志，无游戏 ── */
   const homeHref = (actions.querySelector('a.rec-btn') || {}).href || '/';
@@ -137,7 +146,7 @@ export default function initRecoveryGame(stage) {
           burst(p.x, beamY, '#ff4d5e');
         } else {
           repair += 8;
-          burst(p.x, beamY, '#22d3ee');
+          burst(p.x, beamY, INK);
         }
         packets.splice(i, 1);
         renderHud();
@@ -157,24 +166,24 @@ export default function initRecoveryGame(stage) {
   function draw() {
     ctx.clearRect(0, 0, W, H);
     /* 背景点阵 */
-    ctx.fillStyle = 'rgba(238,242,244,.05)';
+    ctx.fillStyle = DOTS;
     for (let y = 8; y < H; y += 16) for (let x = 8; x < W; x += 16) ctx.fillRect(x, y, 1.5, 1.5);
     /* 数据包 */
     for (const p of packets) {
-      ctx.fillStyle = p.bad ? '#ff4d5e' : '#22d3ee';
+      ctx.fillStyle = p.bad ? '#ff4d5e' : INK;
       ctx.fillRect(p.x - p.r, p.y - p.r, p.r * 2, p.r * 2);
-      ctx.strokeStyle = p.bad ? 'rgba(255,77,94,.4)' : 'rgba(34,211,238,.4)';
+      ctx.strokeStyle = p.bad ? 'rgba(255,77,94,.4)' : hexA(INK, .4);
       ctx.strokeRect(p.x - p.r - 3, p.y - p.r - 3, p.r * 2 + 6, p.r * 2 + 6);
     }
     /* 修复光束 */
     const beamY = H - 26;
     const g = ctx.createLinearGradient(beam.x - beam.w / 2, 0, beam.x + beam.w / 2, 0);
-    g.addColorStop(0, 'rgba(34,211,238,.15)');
-    g.addColorStop(.5, 'rgba(34,211,238,.85)');
-    g.addColorStop(1, 'rgba(34,211,238,.15)');
+    g.addColorStop(0, hexA(INK, .15));
+    g.addColorStop(.5, hexA(INK, .85));
+    g.addColorStop(1, hexA(INK, .15));
     ctx.fillStyle = g;
     ctx.fillRect(beam.x - beam.w / 2, beamY, beam.w, 3);
-    ctx.fillStyle = 'rgba(34,211,238,.25)';
+    ctx.fillStyle = hexA(INK, .25);
     ctx.fillRect(beam.x - beam.w / 2, beamY + 3, beam.w, 14);
     /* 迸溅 */
     for (const s of sparks) {
@@ -187,12 +196,12 @@ export default function initRecoveryGame(stage) {
 
   function drawIdle() {
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = 'rgba(238,242,244,.05)';
+    ctx.fillStyle = DOTS;
     for (let y = 8; y < H; y += 16) for (let x = 8; x < W; x += 16) ctx.fillRect(x, y, 1.5, 1.5);
-    ctx.strokeStyle = 'rgba(34,211,238,.35)';
+    ctx.strokeStyle = hexA(INK, .35);
     ctx.lineWidth = 1;
     ctx.strokeRect(14, 14, W - 28, H - 28);
-    ctx.fillStyle = 'rgba(34,211,238,.7)';
+    ctx.fillStyle = hexA(INK, .7);
     ctx.font = '11px "JetBrains Mono", monospace';
     ctx.fillText('AWAITING RECOVERY SESSION', 26, 34);
   }

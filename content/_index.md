@@ -20,7 +20,7 @@ description: "本站建造过程的完整档案"
   <div class="jhd-hero-hud">
     <span>STATUS <b class="hud-ok">● ONLINE</b></span>
     <span class="hud-sep">/</span>
-    <span>BUILD <b>v7</b></span>
+    <span>BUILD <b>v8</b></span>
     <span class="hud-sep">/</span>
     <span>REC <b>02</b></span>
     <span class="hud-sep">/</span>

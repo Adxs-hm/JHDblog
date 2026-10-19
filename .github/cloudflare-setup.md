@@ -1,4 +1,4 @@
-# Cloudflare 配置清单（v7 上线时执行）
+# Cloudflare 配置清单（v8 上线时执行）
 
 > GitHub Pages 自带全球 CDN 与 Brotli；前置 Cloudflare（免费档）补三件事：
 > HTTP/3、精细缓存规则、安全响应头。以下为具体操作项。

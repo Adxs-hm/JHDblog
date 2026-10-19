@@ -1,4 +1,4 @@
-/* 岛屿：青蓝扫描线 + 准星光标 overlay（mix-blend-mode: screen，全站单例） */
+/* 岛屿：金色扫描线 + 准星光标 overlay（主题感知：暗色 screen 金带 / 亮色 multiply 深金高光带，全站单例） */
 export default function initScanline() {
   if (matchMedia('(pointer: coarse)').matches) return;
   if (document.getElementById('trm-scanline')) return;
@@ -11,6 +11,14 @@ export default function initScanline() {
   if (!ctx) return;
   const dpr = Math.min(devicePixelRatio || 1, 2);
   let W = 0, H = 0, mx = -999, my = -999, raf = 0, glitchUntil = 0, running = false, lastFrame = 0;
+  /* 主题感知：暗色 = screen 金带；亮色（纸白主视觉）= multiply 深金高光带 */
+  let DARK = true;
+  function readTheme() {
+    DARK = document.documentElement.dataset.theme === 'dark';
+    cv.style.mixBlendMode = DARK ? 'screen' : 'multiply';
+  }
+  readTheme();
+  new MutationObserver(readTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
   function size() {
     W = innerWidth; H = innerHeight;
@@ -30,15 +38,16 @@ export default function initScanline() {
     lastFrame = t;
     ctx.clearRect(0, 0, W, H);
     ctx.globalCompositeOperation = 'lighter';
-    /* 扫描线：鼠标 y 为中心的青蓝横带 */
+    /* 扫描线：鼠标 y 为中心的金色横带（暗金 #c9a227 / 深金 #7a5c1a）*/
+    const ink = DARK ? 'rgba(201,162,39,' : 'rgba(122,92,26,';
     const g = ctx.createLinearGradient(0, my - 40, 0, my + 40);
-    g.addColorStop(0, 'rgba(34,211,238,0)');
-    g.addColorStop(.5, 'rgba(34,211,238,.14)');
-    g.addColorStop(1, 'rgba(34,211,238,0)');
+    g.addColorStop(0, ink + '0)');
+    g.addColorStop(.5, ink + (DARK ? '.14)' : '.08)'));
+    g.addColorStop(1, ink + '0)');
     ctx.fillStyle = g;
     ctx.fillRect(0, my - 40, W, 80);
     /* 准星 */
-    ctx.strokeStyle = 'rgba(34,211,238,.8)';
+    ctx.strokeStyle = ink + (DARK ? '.8)' : '.5)');
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(mx - 9, my); ctx.lineTo(mx - 3, my);
@@ -49,10 +58,9 @@ export default function initScanline() {
     /* 故障横条（2% 指针事件触发，持续 120ms）*/
     if (t < glitchUntil) {
       const y = Math.random() * H, h = 2 + Math.random() * 6;
-      ctx.fillStyle = 'rgba(34,211,238,.35)';
+      ctx.fillStyle = ink + (DARK ? '.35)' : '.18)');
       ctx.fillRect(0, y, W, h);
     }
-    raf = requestAnimationFrame(tick);
   }
   function start() { if (!running) { running = true; raf = requestAnimationFrame(tick); } }
   function stop() { if (running) { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; } }

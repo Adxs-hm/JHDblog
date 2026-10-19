@@ -18,7 +18,7 @@ mainSections = ["posts"]
   description = "记录一个网站的建造——这里收录的唯一项目，就是本站自身"
   author = "JHD"
   images = ["images/planet-avatar.svg"]
-  defaultTheme = "auto"
+  defaultTheme = "light"
   dateFormat = "2006-01-02"
 
   # ⚠ TOML 陷阱：以下键必须写在任何 [params.*] 子表【之前】，
@@ -48,7 +48,7 @@ mainSections = ["posts"]
     favicon32x32 = "images/planet-avatar.svg"
     apple_touch_icon = "images/planet-avatar.svg"
     safari_pinned_tab = "images/planet-avatar.svg"
-    theme_color = "#06080a"
+    theme_color = "#f4f3ee"
 
   [params.giscus]
     repo = "Adxs-hm/JHDblog"

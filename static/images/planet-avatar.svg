@@ -1,18 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 200" width="200" height="200">
   <defs>
-    <!-- 行星本体：深蓝 → 近黑（浅色纸底上成立，暗底上借金边可见）-->
+    <!-- 行星本体：亮银 → 石墨（纸白主视觉上成立，暗底上借金边可见）-->
     <radialGradient id="planetGrad" cx="38%" cy="34%" r="58%">
-      <stop offset="0%" stop-color="#3a6ea8"/>
-      <stop offset="28%" stop-color="#1e4480"/>
-      <stop offset="62%" stop-color="#10254e"/>
-      <stop offset="88%" stop-color="#070f28"/>
-      <stop offset="100%" stop-color="#040a1c"/>
+      <stop offset="0%" stop-color="#b9bec7"/>
+      <stop offset="28%" stop-color="#7d838d"/>
+      <stop offset="62%" stop-color="#4a4f57"/>
+      <stop offset="88%" stop-color="#23272d"/>
+      <stop offset="100%" stop-color="#14171b"/>
     </radialGradient>
 
-    <!-- 大气边缘光（亮侧金青辉光）-->
+    <!-- 大气边缘光（亮侧金银辉光）-->
     <radialGradient id="atmoGrad" cx="50%" cy="50" r="50%">
-      <stop offset="82%" stop-color="rgba(120,170,230,0)"/>
-      <stop offset="92%" stop-color="rgba(150,190,240,.28)"/>
+      <stop offset="82%" stop-color="rgba(185,190,199,0)"/>
+      <stop offset="92%" stop-color="rgba(200,205,212,.28)"/>
       <stop offset="98%" stop-color="rgba(200,170,110,.45)"/>
       <stop offset="100%" stop-color="rgba(200,170,110,0)"/>
     </radialGradient>
@@ -136,13 +136,13 @@
 
   <!-- 表面纹理（低对比云带 + 高地）-->
   <g opacity=".22">
-    <ellipse cx="82" cy="82" rx="26" ry="10" fill="#6fa8e8" transform="rotate(-14,82,82)"/>
-    <ellipse cx="114" cy="112" rx="20" ry="7" fill="#3a6ea8" transform="rotate(10,114,112)"/>
-    <ellipse cx="90" cy="106" rx="12" ry="5" fill="#8fc0f0" transform="rotate(-6,90,106)"/>
-    <ellipse cx="106" cy="74" rx="16" ry="6" fill="#4a80b8" transform="rotate(8,106,74)"/>
-    <circle cx="74" cy="98" r="2.6" fill="#a8d0f8"/>
-    <circle cx="118" cy="88" r="3.2" fill="#a8d0f8"/>
-    <circle cx="94" cy="120" r="1.8" fill="#c8e0f8"/>
+    <ellipse cx="82" cy="82" rx="26" ry="10" fill="#aab0b9" transform="rotate(-14,82,82)"/>
+    <ellipse cx="114" cy="112" rx="20" ry="7" fill="#7d838d" transform="rotate(10,114,112)"/>
+    <ellipse cx="90" cy="106" rx="12" ry="5" fill="#c9ced6" transform="rotate(-6,90,106)"/>
+    <ellipse cx="106" cy="74" rx="16" ry="6" fill="#6b7178" transform="rotate(8,106,74)"/>
+    <circle cx="74" cy="98" r="2.6" fill="#d4d9df"/>
+    <circle cx="118" cy="88" r="3.2" fill="#d4d9df"/>
+    <circle cx="94" cy="120" r="1.8" fill="#e2e6eb"/>
   </g>
 
   <!-- 环在行星上的投影（裁剪在行星盘 ∩ 屏幕下半，偏移背光方向）-->
@@ -169,7 +169,7 @@
   </g>
 
   <!-- 大气边缘 -->
-  <circle cx="100" cy="100" r="55.5" fill="none" stroke="rgba(150,190,240,.35)" stroke-width="1"/>
+  <circle cx="100" cy="100" r="55.5" fill="none" stroke="rgba(200,205,212,.35)" stroke-width="1"/>
   <circle cx="100" cy="100" r="56" fill="url(#atmoGrad)"/>
 
   <!-- 亮侧高光 -->
