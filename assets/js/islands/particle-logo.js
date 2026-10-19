@@ -6,7 +6,7 @@ export default function initParticleLogo(field) {
   if (!ctx) return;
   const dpr = Math.min(devicePixelRatio || 1, 2);
   const REPEL = 90, EASE = .08, DAMP = .82;
-  const text = field.dataset.text || 'RHODES';
+  const text = field.dataset.text || 'TERMINAL';
   let W = 0, H = 0, pts = [], raf = 0, visible = true, lastFrame = 0;
   let ink = '#22d3ee';
   const mouse = { x: -1e4, y: -1e4 };

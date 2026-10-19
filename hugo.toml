@@ -77,21 +77,17 @@ mainSections = ["posts"]
   url = "posts"
   weight = 1
 [[menu.main]]
-  name = "友链"
-  url = "friends"
-  weight = 2
-[[menu.main]]
   name = "关于"
   url = "about"
-  weight = 3
+  weight = 2
 [[menu.main]]
   name = "搜索"
   url = "search"
-  weight = 4
+  weight = 3
 [[menu.main]]
   name = "游戏"
   url = "minesweeper"
-  weight = 5
+  weight = 4
 
 [languages.zh-cn]
   label = "简体中文"

@@ -19,7 +19,7 @@ async def main():
             await page.wait_for_timeout(1200)
             info = await page.evaluate("""() => {
                 const d = document.documentElement;
-                const canvas = document.querySelector('.ak-logo-canvas');
+                const canvas = document.querySelector('.trm-logo-canvas');
                 return {
                     fx: d.dataset.fx || null,
                     theme: d.dataset.theme || null,
@@ -28,8 +28,8 @@ async def main():
                     revealTotal: document.querySelectorAll('[data-reveal]').length,
                     logoCanvas: !!canvas,
                     canvasSize: canvas ? [canvas.width, canvas.height] : null,
-                    sanity: !!document.querySelector('.ak-sanity'),
-                    scanline: !!document.querySelector('#ak-scanline'),
+                    sanity: !!document.querySelector('.trm-focus'),
+                    scanline: !!document.querySelector('#trm-scanline'),
                     friendCards: document.querySelectorAll('.friend-card').length,
                     fxToggle: !!document.querySelector('.fx-toggle'),
                     navveil: !!document.querySelector('#ak-navveil'),

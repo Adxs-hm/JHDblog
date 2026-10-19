@@ -23,7 +23,7 @@
 {{- /* v7：AVIF / WebP 双格式 + srcset + LQIP 渐进占位 */ -}}
 {{- $processable := in (slice "jpg" "jpeg" "png" "tif" "bmp" "gif" "webp") $cover.MediaType.SubType }}
 {{- if (and $processable $responsiveImages $prod hugo.IsExtended) -}}
-<figure class="entry-cover ak-cover">
+<figure class="entry-cover trm-cover">
   {{- $sizes := (slice "480" "720" "1080" "1500") -}}
   {{- $lqip := $cover.Fill "20x12 webp q20" -}}
   <picture style="background:url(data:image/webp;base64,{{ base64Encode (readFile $lqip.Name) }}) center/cover">
@@ -52,11 +52,11 @@
       alt="{{ $alt }}">
   </picture>
 {{- else }}{{/* Unprocessable image or responsive images disabled */}}
-<figure class="entry-cover ak-cover">
+<figure class="entry-cover trm-cover">
   <img {{ if $.IsSingle }}fetchpriority="high"{{ end }} loading="{{ $loading }}" decoding="async" src="{{ $imgdl }}" alt="{{ $alt }}" width="{{ $cover.Width }}" height="{{ $cover.Height }}">
 {{- end }}
 {{- else }}
-<figure class="entry-cover ak-cover">
+<figure class="entry-cover trm-cover">
   {{- /* For absolute urls and external links, no img processing here */}}
   <img {{ if $.IsSingle }}fetchpriority="high"{{ end }} loading="{{ $loading }}" decoding="async" src="{{ $imgdl }}" alt="{{ $alt }}">
 {{- end }}

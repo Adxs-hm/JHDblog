@@ -1,9 +1,9 @@
 /* 岛屿：青蓝扫描线 + 准星光标 overlay（mix-blend-mode: screen，全站单例） */
 export default function initScanline() {
   if (matchMedia('(pointer: coarse)').matches) return;
-  if (document.getElementById('ak-scanline')) return;
+  if (document.getElementById('trm-scanline')) return;
   const cv = document.createElement('canvas');
-  cv.id = 'ak-scanline';
+  cv.id = 'trm-scanline';
   cv.setAttribute('aria-hidden', 'true');
   cv.style.cssText = 'position:fixed;inset:0;z-index:70;pointer-events:none;mix-blend-mode:screen';
   document.body.appendChild(cv);

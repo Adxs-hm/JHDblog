@@ -4,10 +4,10 @@ description: "记录一个网站的建造——这里收录的唯一项目，就
 ---
 
 <div class="jhd-hero">
-  <div class="jhd-hero-kicker">RHODES TERMINAL · 罗德岛终端</div>
-  <h1 class="ak-split">记录一个网站的建造</h1>
-  <div class="ak-logo-field" data-island="particle-logo" data-text="RHODES" data-label="SYS.LOGO // PARTICLE FIELD">
-    <canvas class="ak-logo-canvas"></canvas>
+  <div class="jhd-hero-kicker">TERMINAL · 终端协议</div>
+  <h1 class="trm-split">记录一个网站的建造</h1>
+  <div class="trm-logo-field" data-island="particle-logo" data-text="TERMINAL" data-label="SYS.LOGO // PARTICLE FIELD">
+    <canvas class="trm-logo-canvas"></canvas>
   </div>
   <p class="jhd-hero-slogan">这里收录的唯一项目，就是本站自身</p>
   <div class="jhd-intro">

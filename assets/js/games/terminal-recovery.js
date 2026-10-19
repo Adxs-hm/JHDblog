@@ -1,42 +1,42 @@
-/* 游戏：PRTS · TERMINAL RECOVERY（404 页彩蛋）
+/* 游戏：TERMINAL · SYSTEM RECOVERY（404 页彩蛋）
    状态机 BOOT → PLAY → WIN/OVER；接青色数据包修复系统，躲红色损坏包
    键盘可玩（←/→）；prefers-reduced-motion 退化为静态终端日志 */
 const S = { BOOT: 0, PLAY: 1, WIN: 2, OVER: 3 };
 const DUR = 60;
 
 const LOGS = [
-  '> PRTS kernel panic @ 0x7f3a … page table entry missing',
-  '> rerouting power to terminal bus … ok',
-  '> sanity buffer flushed. integrity 100%',
-  '> 博士，终端会自愈的。大概。',
+  '> terminal kernel panic @ 0x7f3a … page table entry missing',
+  '> rerouting power to system bus … ok',
+  '> cache flushed. integrity 100%',
+  '> 终端会自愈的。大概。',
   '> 用 [修复光束] 接住青色数据包，避开红色损坏包',
   '> 方向键 ← / → 可移动光束 · 空格开始'
 ];
 const WIN_LOGS = [
   '> system integrity 100% · all sectors nominal',
-  '> PRTS: 页面恢复完成——但你要找的文档确实不存在。',
-  '> 已为你生成返回罗德岛的导航信标。'
+  '> 恢复完成——但你要找的页面确实不存在。',
+  '> 已为你生成返回首页的导航信标。'
 ];
 const OVER_LOGS = [
-  '> integrity critical … terminal falling back to archive index',
-  '> PRTS: 修复失败。但失败也是数据。'
+  '> integrity critical … falling back to archive index',
+  '> 修复失败。但失败也是数据。'
 ];
 
-export default function initPrtsGame(stage) {
+export default function initRecoveryGame(stage) {
   const canvas = stage.querySelector('canvas');
-  const hud = stage.querySelector('.prts-hud');
-  const logBox = document.querySelector('.prts-log');
-  const actions = stage.querySelector('.prts-actions');
+  const hud = stage.querySelector('.rec-hud');
+  const logBox = document.querySelector('.rec-log');
+  const actions = stage.querySelector('.rec-actions');
   if (!canvas || !logBox) return;
 
   const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ── reduce 档：静态终端日志，无游戏 ── */
-  const homeHref = (actions.querySelector('a.prts-btn') || {}).href || '/';
+  const homeHref = (actions.querySelector('a.rec-btn') || {}).href || '/';
   if (REDUCED) {
     canvas.style.display = 'none';
     logBox.textContent = LOGS.join('\n');
-    actions.innerHTML = '<a class="prts-btn" href="' + homeHref + '">‹ GO BACK · 返回首页</a>';
+    actions.innerHTML = '<a class="rec-btn" href="' + homeHref + '">‹ GO BACK · 返回首页</a>';
     return;
   }
 
@@ -54,7 +54,7 @@ export default function initPrtsGame(stage) {
   let state = S.BOOT;
   let repair = 0, integrity = 100, timeLeft = DUR;
   let best = 0;
-  try { best = parseInt(localStorage.getItem('jhd:prts-best') || '0', 10) || 0; } catch (e) {}
+  try { best = parseInt(localStorage.getItem('jhd:rec-best') || '0', 10) || 0; } catch (e) {}
   let packets = [], sparks = [], beam = { x: 0, w: 90 };
   let last = 0, raf = 0;
   const keys = { left: false, right: false };
@@ -73,7 +73,7 @@ export default function initPrtsGame(stage) {
     packets = []; sparks = []; beam.x = W / 2;
     state = S.PLAY;
     renderHud();
-    log(['> recovery session started · good luck, doctor']);
+    log(['> recovery session started · good luck']);
     actions.innerHTML = '';
     last = performance.now();
     if (!raf) raf = requestAnimationFrame(loop);
@@ -84,12 +84,12 @@ export default function initPrtsGame(stage) {
     const pct = Math.max(0, Math.min(100, Math.round(repair)));
     if (pct > best) {
       best = pct;
-      try { localStorage.setItem('jhd:prts-best', String(best)); } catch (e) {}
+      try { localStorage.setItem('jhd:rec-best', String(best)); } catch (e) {}
     }
     log(win ? WIN_LOGS : OVER_LOGS);
     actions.innerHTML =
-      '<button type="button" class="prts-btn" data-act="again">RETRY ></button>' +
-      '<a class="prts-btn" href="' + homeHref + '">‹ GO BACK · 返回首页</a>';
+      '<button type="button" class="rec-btn" data-act="again">RETRY ></button>' +
+      '<a class="rec-btn" href="' + homeHref + '">‹ GO BACK · 返回首页</a>';
     actions.querySelector('[data-act="again"]').addEventListener('click', reset);
     renderHud();
   }
@@ -218,7 +218,7 @@ export default function initPrtsGame(stage) {
     if (e.key === 'ArrowLeft') { keys.left = true; e.preventDefault(); }
     if (e.key === 'ArrowRight') { keys.right = true; e.preventDefault(); }
     if ((e.key === ' ' || e.key === 'Enter') && state !== S.PLAY) {
-      const btn = actions.querySelector('.prts-btn:not([href])');
+      const btn = actions.querySelector('.rec-btn:not([href])');
       if (btn) { e.preventDefault(); btn.click(); }
     }
   });
@@ -234,8 +234,8 @@ export default function initPrtsGame(stage) {
   /* ── BOOT 态 ── */
   renderHud();
   log(LOGS);
-  actions.innerHTML = '<button type="button" class="prts-btn" data-act="start">START RECOVERY ></button>' +
-    '<a class="prts-btn" href="/JHDblog/">‹ GO BACK · 返回首页</a>';
+  actions.innerHTML = '<button type="button" class="rec-btn" data-act="start">START RECOVERY ></button>' +
+    '<a class="rec-btn" href="' + homeHref + '">‹ GO BACK · 返回首页</a>';
   actions.querySelector('[data-act="start"]').addEventListener('click', reset);
   drawIdle();
 }

@@ -17,7 +17,7 @@
   if(f && !f.querySelector('.footer-hud')){
     var d=document.createElement('div');
     d.className='footer-hud';
-    d.innerHTML='JHD // RHODES TERMINAL v7 · HUGO 0.168 EXTENDED · SYSTEMS <b>● NOMINAL</b>';
+    d.innerHTML='JHD // TERMINAL v7 · HUGO 0.168 EXTENDED · SYSTEMS <b>● NOMINAL</b>';
     f.appendChild(d);
   }
 })();
@@ -80,19 +80,11 @@ document.addEventListener('keydown',function(e){
 })();
 </script>
 
-{{- /* ═══ v7 交互层：三个按页分包（esbuild + minify + fingerprint）═══
-     bundle.js  全站核心（零依赖：reveal/计数/逐字/扫描线/徽章/理智）
-     friends.js 仅友链页（GSAP Flip + Draggable）
-     game.js    仅 404 页（PRTS 小游戏）*/ -}}
+{{- /* ═══ v7 交互层：两个按页分包（esbuild + minify + fingerprint）═══
+     bundle.js  全站核心（零依赖：reveal/计数/逐字/扫描线/徽章/专注度）
+     game.js    仅 404 页（终端修复小游戏）*/ -}}
 {{- $js := resources.Get "js/main.js" | js.Build (dict "targetPath" "js/bundle.js" "minify" true) | fingerprint -}}
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous" defer></script>
-
-{{- with .File -}}
-{{- if eq .Path "friends.md" -}}
-{{- $fj := resources.Get "js/friends-entry.js" | js.Build (dict "targetPath" "js/friends.js" "minify" true) | fingerprint -}}
-<script src="{{ $fj.RelPermalink }}" integrity="{{ $fj.Data.Integrity }}" crossorigin="anonymous" defer></script>
-{{- end -}}
-{{- end -}}
 
 {{- if eq .Kind "404" -}}
 {{- $gj := resources.Get "js/game-entry.js" | js.Build (dict "targetPath" "js/game.js" "minify" true) | fingerprint -}}

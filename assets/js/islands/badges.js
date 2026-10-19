@@ -1,9 +1,9 @@
 /* 岛屿：阅读进度徽章 —— 手写滚动进度 + localStorage 持久化（零依赖） */
 const RACK = [
-  { at: .25, id: 'scout',    name: '前线侦察',   desc: '阅读进度 25%' },
-  { at: .5,  id: 'operator', name: '正式干员',   desc: '阅读进度 50%' },
-  { at: .75, id: 'elite',    name: '资深术师',   desc: '阅读进度 75%' },
-  { at: 1,   id: 'warden',   name: '终末观察员', desc: '全文读完' }
+  { at: .25, id: 'first', name: '初读',   desc: '阅读进度 25%' },
+  { at: .5,  id: 'half',  name: '渐入',   desc: '阅读进度 50%' },
+  { at: .75, id: 'deep',  name: '深耕',   desc: '阅读进度 75%' },
+  { at: 1,   id: 'full',  name: '通读',   desc: '全文读完' }
 ];
 const KEY = 'jhd:badges';
 
@@ -13,11 +13,11 @@ export default function initBadges(track) {
   try { got = new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); } catch (e) {}
 
   const bar = document.createElement('div');
-  bar.className = 'ak-progress-bar';
+  bar.className = 'trm-progress-bar';
   track.appendChild(bar);
 
   const toast = document.createElement('div');
-  toast.className = 'ak-badge-toast';
+  toast.className = 'trm-badge-toast';
   toast.setAttribute('role', 'status');
   toast.setAttribute('aria-live', 'polite');
   document.body.appendChild(toast);

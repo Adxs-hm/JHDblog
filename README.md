@@ -1,14 +1,14 @@
 <div align="center">
 
-<img src="static/images/planet-avatar.svg" width="120" alt="JHD · 白银档案">
+<img src="static/images/planet-avatar.svg" width="120" alt="JHD · 终端">
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=15&duration=2800&pause=900&color=B08D4E&center=true&vCenter=true&width=600&lines=%3E+JHD+%2F%2F+SILVER+ARCHIVE+v6%3B%3E+HUGO+0.168+EXTENDED+%C2%B7+PAPERMOD%3B%3E+STATUS+%E2%97%8F+ONLINE+%C2%B7+SYSTEMS+NOMINAL" alt="Typing SVG">
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=15&duration=2800&pause=900&color=22D3EE&center=true&vCenter=true&width=600&lines=%3E+JHD+%2F%2F+TERMINAL+v7%3B%3E+HUGO+0.168+EXTENDED+%C2%B7+PAPERMOD%3B%3E+STATUS+%E2%97%8F+ONLINE+%C2%B7+SYSTEMS+NOMINAL" alt="Typing SVG">
 
-**记录一个网站的建造 —— 这里收录的唯一项目，就是本站自身。**
+**记录一个网站的建造 —— 这里收录的唯一项目，就是站自身。**
 
-<a href="https://adxs-hm.github.io/JHDblog/"><img src="https://img.shields.io/badge/%E7%AB%99%E7%82%B9-%E5%9C%A8%E7%BA%BF-3f6b4f?style=flat-square" alt="站点"></a>
+<a href="https://adxs-hm.github.io/JHDblog/"><img src="https://img.shields.io/badge/%E7%AB%99%E7%82%B9-%E5%9C%A8%E7%BA%BF-0e7490?style=flat-square" alt="站点"></a>
 <a href="https://github.com/Adxs-hm/JHDblog/actions/workflows/hugo-deploy.yml"><img src="https://img.shields.io/github/actions/workflow/status/Adxs-hm/JHDblog/hugo-deploy.yml?style=flat-square&label=%E9%83%A8%E7%BD%B2" alt="部署状态"></a>
-<img src="https://img.shields.io/badge/Hugo-0.168.0-a5824a?style=flat-square&logo=hugo&logoColor=white" alt="Hugo">
+<img src="https://img.shields.io/badge/Hugo-0.168.0-0e7490?style=flat-square&logo=hugo&logoColor=white" alt="Hugo">
 <img src="https://img.shields.io/badge/Theme-PaperMod-26282e?style=flat-square" alt="Theme">
 <img src="https://img.shields.io/badge/License-MIT-787c86?style=flat-square" alt="License">
 
@@ -20,32 +20,30 @@
 
 JHD 是一座只归档**自身建造过程**的个人站——设计系统、构建管线、每一次改版，都是被收录的档案，不追逐流量内容。
 
-当前版本 **Silver Archive v6（白银档案）**：明日方舟 UI 的平面语言 × 银金高级感。米白纸底、银灰细线、单一哑光金，全部元信息以等宽字体呈现，像一座持续运行中的档案终端。
+当前版本 **TERMINAL v7（终端）**：纯黑/纸白对撞 + 单一青蓝 + 直角 + 拉丁大写 + 等宽 HUD。双主题（终端黑/档案纸白），全部元信息以等宽字体呈现，像一座持续运行中的终端。
 
 **在线** → <https://adxs-hm.github.io/JHDblog/>
 
-## `REC/02` · 设计系统 · Silver Archive v6
+## `REC/02` · 设计系统 · TERMINAL v7
 
-> 设计纪律：浅色纸底 + 单一哑光金；细线不阴影；直角贯穿；动效白名单。
+> 设计纪律：纯黑/纸白 + 单一青蓝；细线不阴影；直角贯穿；动效全门控。
 
 | 令牌 | 值 | 角色 |
 |---|---|---|
-| `--paper` | `#f2f1ec` | 纸底 · 全局背景 |
-| `--surface` | `#fbfbf8` | 卡片面 |
-| `--ink` | `#26282e` | 标题文字 |
-| `--ink-2` | `#454852` | 正文 |
-| `--muted` | `#787c86` | 元信息 |
-| `--gold` | `#a5824a` | 唯一强调色（面积 < 5%） |
-| `--gold-deep` | `#866631` | 强调深阶 · 代码关键字 |
-| `--hairline` | `#d8d6cc` | 1px 银灰细线 |
+| `--bg` | `#06080a` / `#f4f3ee` | 终端黑 / 档案纸白（双主题） |
+| `--fg` | `#eef2f4` / `#0d0f12` | 纸白 / 墨黑 |
+| `--accent` | `#22d3ee` | 唯一强调色（仅图形） |
+| `--accent-ink` | `#22d3ee` / `#00707f` | 强调文字色（纸底档 4.6:1 · AA） |
+| `--line` | `#1d252c` / `#d8d6cc` | 1px 细线 |
+| `--halftone` / `--grid` | 双主题各一 | 背景两层质感 |
 
-- **字体**：Noto Sans SC 900 展示标题 + 400/500/700 正文；JetBrains Mono 承载全部元信息（编号 / 状态 / 日期 / 数据）
-- **背景仅两层**：半调网点（网点纸）+ 56px 图纸网格，静态低透明，无第三层
-- **档案语言**：`REC/01–03` 编号、`STATUS ● ONLINE / BUILD v6` HUD 状态条、45° 金色警戒条纹
-- **套印错位**：卡片 hover 浮出金色第二印框——错位印刷的数字化
-- **细线不阴影**：层级全部由 1px 银灰细线承担，零投影，直角贯穿（头像 / 标签胶囊除外）
-- **动效白名单**：hover 套印框、入场渐隐；尊重 `prefers-reduced-motion`
-- **浅色强制**：即使浏览器存有旧版暗色偏好，也经 `:root[data-theme="dark"]` 令牌映射强制浅色（v6.1 修复）
+- **字体**：Chakra Petch（拉丁展示，自托管子集）+ JetBrains Mono（全部元信息）+ 系统中文栈（PingFang SC / 微软雅黑，零下载）
+- **背景仅两层**：半调网点 + 56px 图纸网格，静态低透明，无第三层
+- **档案语言**：`REC/01–03` 编号、`STATUS ● ONLINE / BUILD v7` HUD 状态条、45° 青蓝警戒条纹
+- **套印错位**：卡片 hover 浮出青色第二印框——错位印刷的数字化
+- **细线不阴影**：层级全部由 1px 细线承担，零投影，直角贯穿（头像 / 标签胶囊除外）
+- **动效门控**：`data-fx` 四级（full/lite/off/hc），save-data 与 prefers-reduced-motion 自动降级
+- **双主题**：PaperMod `auto` 机制（`pref-theme`），head 内联脚本首帧前应用，无 FOUC
 
 ## `REC/03` · 技术栈
 
@@ -54,20 +52,28 @@ JHD 是一座只归档**自身建造过程**的个人站——设计系统、构
 | 静态生成 | Hugo Extended 0.168.0（CI: latest extended） |
 | 主题 | [PaperMod](https://github.com/adityatelange/hugo-PaperMod)（本地副本，`layouts/` + `assets/` 扩展） |
 | 部署 | GitHub Pages（`gh-pages` 分支） |
-| CI/CD | GitHub Actions：构建验证 → 体量门禁 → 部署 |
+| CI/CD | GitHub Actions：构建验证 → 体量门禁 → 部署；Lighthouse 预算门禁（独立工作流） |
 | 搜索 | Fuse.js（PaperMod 内置）+ `Ctrl/⌘ + K` |
 | 评论 | giscus（GitHub Discussions） |
-| 字体 | Noto Sans SC + JetBrains Mono（Google Fonts） |
+| 字体 | Chakra Petch + JetBrains Mono 自托管 latin 子集；中文系统栈 |
 | 样式 | `assets/css/extended/custom.css` —— 唯一样式源 |
+| 交互层 | `assets/js/main.js`（零依赖核心）+ `game-entry.js`（仅 404），esbuild 按页分包 |
 
 ## `REC/04` · 目录结构
 
 ```
 JHDblog/
-├── hugo.toml                          # 站点配置（浅色强制 / 主区 posts）
-├── assets/css/extended/custom.css     # 白银档案 v6 设计系统（唯一样式源）
+├── hugo.toml                          # 站点配置（auto 主题 / 主区 posts）
+├── assets/
+│   ├── css/extended/custom.css        # TERMINAL v7 设计系统（唯一样式源）
+│   └── js/
+│       ├── main.js                    # 核心入口（零依赖）
+│       ├── game-entry.js              # 404 游戏入口
+│       ├── islands/                   # particle-logo / scanline / badges / focus
+│       ├── games/terminal-recovery.js # 404 终端修复游戏
+│       └── vendor/gsap/               # GSAP 3.13 ESM（备用，当前无页面引用）
 ├── content/
-│   ├── _index.md                      # 首页 Hero（价值主张 + HUD 状态条）
+│   ├── _index.md                      # 首页 Hero（粒子 Logo 场 + HUD 状态条）
 │   ├── about/_index.md                # 关于页：站点参数表 + 运行计时器
 │   ├── archives.md                    # 归档页
 │   ├── search.md                      # 搜索页（Fuse.js）
@@ -77,19 +83,24 @@ JHDblog/
 │       └── site-launch/               #   JHD 站点上线记录
 ├── layouts/
 │   ├── index.html                     # 首页（Hero → Bento → 索引条 → 订阅）
-│   ├── _markup/render-codeblock.html  # 浅色纸面代码块
+│   ├── 404.html                       # 404 终端恢复协议（游戏彩蛋）
+│   ├── _markup/render-codeblock.html  # 代码块
 │   └── partials/
 │       ├── comments.html              # giscus 评论
-│       ├── extend_head.html           # 字体 + CSP + JSON-LD + PWA
-│       ├── extend_footer.html         # 页脚 HUD + Ctrl+K + 入场动效
-│       └── extend_post_content.html   # 占位（无系列结构）
+│       ├── cover.html                 # 封面图 AVIF/WebP/LQIP 管线
+│       ├── extend_head.html           # 字体 + CSP + data-fx 决策 + JSON-LD
+│       ├── extend_footer.html         # JS 分包 + Ctrl+K + TOC + webmention
+│       └── extend_post_content.html   # 阅读进度轨道
 ├── static/
+│   ├── fonts/                         # 自托管 woff2  latin 子集（5 个）
 │   ├── images/planet-avatar.svg       # 动态行星（连续环 + 环上卫星 + 线框经线）
 │   ├── manifest.json                  # PWA
 │   └── sw.js                          # Service Worker
-├── .github/workflows/
-│   ├── hugo-deploy.yml                # 构建验证 + 体量门禁 + Pages 部署
-│   └── security-scan.yml              # 安全扫描
+├── .github/
+│   ├── workflows/                     # 部署 + Lighthouse 门禁 + 安全扫描
+│   ├── budget.json                    # 性能预算（LCP 1500ms / 总量 500KB）
+│   ├── lighthouserc.json              # LHCI 配置
+│   └── cloudflare-setup.md            # 边缘网络配置清单
 └── themes/PaperMod/                   # 主题（本地副本，随仓库分发）
 ```
 
@@ -121,5 +132,5 @@ draft: true
 ---
 
 <div align="center">
-<sub>JHD // SILVER ARCHIVE v6 · HUGO 0.168.0 EXTENDED · PAPERMOD · MIT</sub>
+<sub>JHD // TERMINAL v7 · HUGO 0.168.0 EXTENDED · PAPERMOD · MIT</sub>
 </div>

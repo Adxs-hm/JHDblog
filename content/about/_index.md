@@ -21,7 +21,7 @@ draft: false
 |------|-----|
 | 生成器 | Hugo Extended |
 | 主题基底 | PaperMod（深度定制） |
-| 设计系统 | 白银档案 v6 · Silver Archive |
+| 设计系统 | TERMINAL v7 · 终端 |
 | 部署 | GitHub Actions → GitHub Pages |
 | 评论 | giscus（GitHub Discussions） |
 | 搜索 | Fuse.js 全文检索 + `Ctrl+K` |

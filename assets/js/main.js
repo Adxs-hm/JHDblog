@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════
-   JHD · RHODES TERMINAL v7 — main.js（核心入口 · 零依赖）
+   JHD · TERMINAL v7 — main.js（核心入口 · 零依赖）
    职责：FX 门控 / 岛屿加载器 / 手写机械感动效 / 转场兜底 / 特效开关
-   约定：GSAP 不进主包——复杂编排（Flip/Draggable）走 friends-entry.js 按页加载；
+   约定：重交互按页分包（如 404 游戏走 game-entry.js），不进主包；
          首页/文章页的 reveal、计数、逐字入场全部用 IO + CSS transition 实现。
    ═══════════════════════════════════════════════════════════════ */
 
@@ -40,8 +40,8 @@ function boot() {
     'particle-logo': () => import('./islands/particle-logo.js'),
     'scanline':      () => import('./islands/scanline.js'),
     'badges':        () => import('./islands/badges.js'),
-    'sanity':        () => import('./islands/sanity.js')
-    /* friends / prts-game 不走主包：见 extend_footer 的按页分包 */
+    'focus':         () => import('./islands/focus.js')
+    /* rec-game 不走主包：见 extend_footer 的 404 按页分包 */
   };
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) {
@@ -56,11 +56,11 @@ function boot() {
     document.querySelectorAll('[data-island]').forEach(el => io.observe(el));
   }
 
-  /* ── 理智组件 + 青蓝扫描线（全站轻量岛屿，full 档直接动态加载）── */
+  /* ── 专注度组件 + 青蓝扫描线（全站轻量岛屿，full 档直接动态加载）── */
   if (FX === 'full') {
     /* 让出首屏绘制窗口：idle 后再启动持续动效岛屿 */
     const launch = () => {
-      import('./islands/sanity.js').then(m => m.default && m.default());
+      import('./islands/focus.js').then(m => m.default && m.default());
       if (matchMedia('(pointer: fine)').matches) {
         import('./islands/scanline.js').then(m => m.default && m.default());
       }
@@ -121,7 +121,7 @@ function boot() {
 
   /* ── Hero 标题逐字入场（手写 split，full 档 + 桌面）── */
   if (!REDUCED && FX === 'full' && matchMedia('(min-width: 768px)').matches) {
-    document.querySelectorAll('.ak-split').forEach(el => {
+    document.querySelectorAll('.trm-split').forEach(el => {
       const text = el.textContent;
       el.textContent = '';
       el.setAttribute('aria-label', text);
@@ -140,7 +140,7 @@ function boot() {
   /* ── 转场兜底：不支持 View Transitions 的浏览器（Firefox）── */
   if (!document.startViewTransition) {
     const veil = document.createElement('div');
-    veil.id = 'ak-navveil';
+    veil.id = 'trm-navveil';
     document.body.appendChild(veil);
     document.addEventListener('click', (e) => {
       const a = e.target.closest && e.target.closest('a[href]');

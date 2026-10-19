@@ -1,12 +1,12 @@
 {
-  "name": "JHD · 白银档案",
+  "name": "JHD · 终端",
   "short_name": "JHD",
   "description": "记录一个网站的建造——这里收录的唯一项目，就是本站自身",
   "start_url": "/JHDblog/",
   "scope": "/JHDblog/",
   "display": "standalone",
-  "background_color": "#f2f1ec",
-  "theme_color": "#f2f1ec",
+  "background_color": "#06080a",
+  "theme_color": "#06080a",
   "orientation": "portrait-primary",
   "icons": [
     {
