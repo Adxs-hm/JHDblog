@@ -22,8 +22,9 @@
 | 字体/CSP/系统脚本 | `layouts/partials/extend_head.html`（自托管 woff2 子集 + data-fx 决策 + JSON-LD） |
 | 交互层入口 | `layouts/partials/extend_footer.html`（js.Build 按页分包 + Ctrl+K/TOC/复制/webmention） |
 | 核心 JS | `assets/js/main.js`（零依赖：FX 门控/岛屿加载/reveal/计数/逐字/转场兜底/特效开关） |
-| 岛屿模块 | `assets/js/islands/{particle-logo,scanline,badges,sanity}.js` |
+| 岛屿模块 | `assets/js/islands/{particle-logo,scanline,badges,focus}.js` |
 | 游戏 | `assets/js/games/terminal-recovery.js`（入口 `assets/js/game-entry.js`，仅 404） |
+| 字体 | `static/fonts/`：Chakra Petch 静态三档 + JetBrains Mono 可变字体单文件（wght 400–800） |
 | 封面图管线 | `layouts/partials/cover.html`（AVIF/WebP picture + srcset + LQIP + fetchpriority） |
 | 性能预算 | `.github/budget.json` + `.github/lighthouserc.json` + `.github/workflows/lighthouse.yml` |
 | Cloudflare 配置 | `.github/cloudflare-setup.md` |
@@ -33,7 +34,7 @@
 ## v7 技术架构（2026-10-19 落地）
 
 - **两 JS 分包**（`js.Build (dict "minify" true) "js/xxx.js"` + fingerprint，defer）：
-  `bundle.js` 全站核心 9.7KB（零依赖）；`game.js` 仅 404 页（终端修复游戏 5.6KB）。GSAP 已 vendor 至 `assets/js/vendor/gsap/`（3.13 ESM）备用，当前无页面引用（CI 无 npm 步骤，禁改 import 裸包名）
+  `bundle.js` 全站核心 9.7KB（零依赖）；`game.js` 仅 404 页（终端修复游戏 5.6KB）。无第三方运行时依赖（GSAP vendor 已于 2026-10-19 删除，见 git 历史 23e26a1；CI 无 npm 步骤）
 - **FX 四级门控** `data-fx`：full/lite/off/hc。head 内联脚本首帧前决策（save-data、2g/3g、prefers-reduced-motion → lite）；页脚 `.fx-toggle` 循环切换并持久化 `jhd:fx`；off 档 main.js 只挂开关不 boot（不加 `.js` 类，内容不预隐藏）
 - **reveal 用滚动几何管线**（getBoundingClientRect），**禁用 IO 触发 [data-reveal]**——clip-path 初始态会把 IO 交叠矩形裁成零面积（ratio 0 永不过阈值，已踩坑）
 - **PaperMod 特异性坑**：`:root[data-theme="dark"]` 为 (0,2,0)，我的令牌块必须同特异性且后加载（extended 在 core 后）；`.list` 类首页 body 会被 PaperMod 用 `--code-bg` 做底，已用 `.list{background:var(--bg)}` 覆盖
@@ -65,6 +66,13 @@
 - 首页数字/HUD 文案必须真实（BUILD v7 / REC 02 / SINCE 与实现同步）
 - **全站（含代码标识符/类名/注释）禁止出现任何第三方 IP 直指名称**——设计只取语言，不挂名
 - 未经同意不收录第三方站点信息（友链下线教训）
+
+## 演进阈值（记录备用，不急着做）
+
+- **搜索**：Fuse.js 舒适区 ~500 页。内容 ≥100 篇或 index.json gz >300KB 时切 Pagefind（Rust→WASM 分片索引，post-build 一步接入）
+- **WCAG 2.2 AA**：法定基准（EAA 2025-06 起 / ADA）。扫雷格子 17px < 2.5.8 的 24px 属游戏核心目标（Essential exception 论证范围），已记录备审；新增交互需过 2.4.11 Focus Not Obscured
+- **OKLCH 迁移**：色彩函数已 Baseline，hex 体系稳定后可迁 oklch（需全量视觉回归）
+- **优化研究报告**：`../文档/JHD架构优化研究报告-v7.1.md`（P1/P2 排期：CSS 滚动驱动动画替换 scrollFire、chroma 官方板、@layer、OG 图构建时生成、Cloudflare Web Analytics）
 
 ## 已知坑（2026-10-19 更新）
 
