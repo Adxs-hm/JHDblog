@@ -1,15 +1,15 @@
 ---
 title: "订阅"
 url: "/subscribe"
-description: "通过 RSS 订阅 JHD 的建造档案"
+description: "通过 RSS 订阅本站更新"
 comments: false
 ---
 
 <div class="sub-kicker">SUBSCRIBE · 订阅</div>
 
-## 订阅这座档案馆
+## 订阅
 
-JHD 不定期更新——每一次重构、每一篇新档案落稿，RSS 都会第一时间告诉你。Feed 全文输出，在阅读器里直接读完，不必跳回网页。
+本站不定期更新。Feed 全文输出，新档案可在阅读器内直接阅读。
 
 <div class="feed-box">
   <div class="feed-meta">
@@ -24,25 +24,25 @@ JHD 不定期更新——每一次重构、每一篇新档案落稿，RSS 都会
   </div>
 </div>
 
-## 在阅读器里添加
+## 阅读器配置
 
-任选一个阅读器，粘贴上面的地址即可。
+任选阅读器，填入上述地址。
 
 | 阅读器 | 平台 | 说明 |
 |---|---|---|
 | Feedly | Web · iOS · Android | 搜索 `adxs-hm.github.io` 或粘贴地址 |
-| Inoreader | Web · iOS · Android | 功能全面的老牌阅读器 |
-| NetNewsWire | macOS · iOS | 免费开源，Apple 生态首选 |
-| Reeder | iOS · macOS | 付费，设计精致 |
-| Follow | iOS · Android · Web | 新一代阅读器，支持社交时间线 |
-| FreshRSS | 自托管 | 开源自建，数据在自己手里 |
+| Inoreader | Web · iOS · Android | 功能完整 |
+| NetNewsWire | macOS · iOS | 免费开源，Apple 平台 |
+| Reeder | iOS · macOS | 付费 |
+| Follow | iOS · Android · Web | 支持社交时间线 |
+| FreshRSS | 自托管 | 开源自建 |
 
-## 几个问题
+## 常见问题
 
-**RSS 是什么？** 一种网站更新通知格式。把上面的地址加进阅读器，本站发布新档案时你的阅读器就会自动收到，不必逐个网站查看。
+**RSS 是什么？** 一种网站更新通知格式。将订阅地址加入阅读器后，新内容自动送达。
 
-**更新频率？** 不定期。这座档案馆只记录真实发生的建造——有值得存档的进展时才更新，没有固定的时间表。
+**更新频率？** 不定期。仅在产生值得记录的进展时更新。
 
-**能在网页上留言吗？** 可以。每篇档案底部都有评论区，由 GitHub Discussions 驱动，用 GitHub 账号即可留言。
+**能否在网页留言？** 可以。评论区位于每篇档案底部，由 GitHub Discussions 驱动，需 GitHub 账号。
 
-**地址是什么？** 上面方框里的链接就是本站的固定订阅地址，不会变；打不开时从首页「订阅」进入本页重新复制即可。
+**订阅地址会变吗？** 上方框内即为本站固定订阅地址，长期有效。

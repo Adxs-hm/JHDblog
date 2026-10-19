@@ -1,17 +1,15 @@
 ---
 title: "关于"
 date: 2026-06-29T17:09:09+08:00
-description: "关于 JHD"
+description: "JHD 站点参数与运行状态"
 draft: false
 ---
 
 ## JHD
 
-记录一个网站的建造。
+本站收录自身建造过程的完整记录，范围包括技术架构、设计系统与历次重构。当前界面即最新版本的可运行档案。
 
-这个站点的存在只有一个目的——**把这座档案馆自己的建造过程留下来**。它的技术架构、它的设计系统、它的每一次重构，都是它收录的内容。你正在阅读的这套界面，本身就是最新的那份档案。
-
-> 唯一的项目，就是本站自身。
+> 收录范围：本站自身。
 
 ---
 
@@ -28,7 +26,7 @@ draft: false
 
 ---
 
-## ⏱ 本站已运行
+## 运行状态
 
 <div class="runtime-counter">
   <div class="runtime-digits" id="site-runtime">
@@ -37,7 +35,7 @@ draft: false
     <span class="rt-num">00</span><span class="rt-label">分</span>
     <span class="rt-num">00</span><span class="rt-label">秒</span>
   </div>
-  <p class="runtime-since">自 2026 年 6 月 30 日起</p>
+  <p class="runtime-since">起始时间 2026-06-30 10:33:33 +08:00</p>
 </div>
 
 <script>

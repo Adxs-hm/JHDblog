@@ -8,18 +8,18 @@ const LOGS = [
   '> terminal kernel panic @ 0x7f3a … page table entry missing',
   '> rerouting power to system bus … ok',
   '> cache flushed. integrity 100%',
-  '> 终端会自愈的。大概。',
+  '> 系统具备自修复能力。',
   '> 用 [修复光束] 接住青色数据包，避开红色损坏包',
   '> 方向键 ← / → 可移动光束 · 空格开始'
 ];
 const WIN_LOGS = [
   '> system integrity 100% · all sectors nominal',
-  '> 恢复完成——但你要找的页面确实不存在。',
-  '> 已为你生成返回首页的导航信标。'
+  '> 恢复完成。请求的页面仍不在索引中。',
+  '> 已生成返回首页的导航路径。'
 ];
 const OVER_LOGS = [
   '> integrity critical … falling back to archive index',
-  '> 修复失败。但失败也是数据。'
+  '> 修复失败。失败记录已归档。'
 ];
 
 export default function initRecoveryGame(stage) {
@@ -73,7 +73,7 @@ export default function initRecoveryGame(stage) {
     packets = []; sparks = []; beam.x = W / 2;
     state = S.PLAY;
     renderHud();
-    log(['> recovery session started · good luck']);
+    log(['> recovery session started']);
     actions.innerHTML = '';
     last = performance.now();
     if (!raf) raf = requestAnimationFrame(loop);
