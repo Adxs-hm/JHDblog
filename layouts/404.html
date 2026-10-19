@@ -1,0 +1,25 @@
+{{- /* 404 · PRTS 终端恢复协议（v7 彩蛋页）── */ -}}
+{{ define "main" }}
+<div class="prts-wrap">
+  <div class="prts-head">PRTS · TERMINAL RECOVERY PROTOCOL</div>
+  <h1 class="prts-title">404 // SIGNAL LOST</h1>
+  <div class="prts-sub">你要找的档案不在这个扇区。终端正在尝试修复——或者，玩一盘再说。</div>
+
+  <div class="prts-stage" data-island="prts-game">
+    <div class="prts-hud">
+      <span>REPAIR <b>0%</b></span>
+      <span>INTEGRITY <b>100</b></span>
+      <span>T-<b>60s</b></span>
+      <span>BEST <b>0%</b></span>
+    </div>
+    <canvas class="prts-canvas" width="760" height="340" aria-label="PRTS 终端修复小游戏：接住青色数据包，避开红色损坏包"></canvas>
+    <div class="prts-log" role="status" aria-live="polite"></div>
+    <div class="prts-actions">
+      <button type="button" class="prts-btn" data-act="start">START RECOVERY ></button>
+      <a class="prts-btn" href="{{ "" | relURL }}">‹ GO BACK · 返回首页</a>
+    </div>
+  </div>
+
+  <p class="prts-sub" style="margin-top:1.2rem">提示：鼠标或 ← / → 控制修复光束 · 空格开始 / 重试 · 60 秒内修复度达到 100% 即恢复系统</p>
+</div>
+{{- end }}

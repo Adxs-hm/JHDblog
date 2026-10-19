@@ -1,0 +1,33 @@
+# ============================================================
+# JHD Blog · v7 性能门禁（Lighthouse CI）
+# 触发：push main / 每周一 / 手动
+# 本地复现：hugo --minify && npx @lhci/cli autorun
+# ============================================================
+
+name: Lighthouse Budget Gate
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 22 * * 1'   # 每周一 22:00 UTC
+  workflow_dispatch:
+
+jobs:
+  lhci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v5
+
+      - name: ⚙️ Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: 💡 Run Lighthouse CI（hugo server 自带 gzip，数据源含压缩）
+        run: |
+          npx --yes @lhci/cli@0.14.x autorun --config=.github/lighthouserc.json
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

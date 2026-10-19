@@ -4,3 +4,7 @@
 .hugo_build.lock
 
 # 系统文件
+
+# Node（gsap 已 vendor 至 assets/js/vendor，CI 无需 npm）
+/node_modules/
+package-lock.json

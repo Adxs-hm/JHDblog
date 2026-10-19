@@ -1,23 +1,43 @@
 {{- /* PWA */ -}}
 <link rel="manifest" href="{{ "manifest.json" | relURL }}">
-<meta name="theme-color" content="#f2f1ec" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#f2f1ec" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f4f3ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#06080a" media="(prefers-color-scheme: dark)">
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('{{ "sw.js" | relURL }}');
   }
 </script>
 
-{{- /* Security（font-src 放行 Google Fonts；style-src 放行 giscus 注入样式）*/ -}}
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://giscus.app https://webmention.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://giscus.app; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://webmention.io; frame-src https://giscus.app;">
+{{- /* ═══ v7 系统决策脚本（首帧前执行，防 FOUC / 防闪烁）═══
+     data-theme   : 由 PaperMod defaultTheme="auto" 的内联脚本负责（同源 pref-theme）
+     data-fx      : full | lite | off  —— 动效与特效总门控
+     data-contrast: hc —— 高对比模式 */ -}}
+<script>
+(function () {
+  var d = document.documentElement;
+  try {
+    var c = navigator.connection || {};
+    var lite = c.saveData === true || /(^|-)(2g|3g|slow-2g)/.test(c.effectiveType || '');
+    var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var hc = window.matchMedia && matchMedia('(prefers-contrast: more)').matches;
+    var fx = localStorage.getItem('jhd:fx');
+    if (fx !== 'full' && fx !== 'lite' && fx !== 'off') fx = (lite || rm) ? 'lite' : 'full';
+    d.dataset.fx = fx;
+    if (hc) d.dataset.contrast = 'hc';
+  } catch (e) { d.dataset.fx = 'full'; }
+})();
+</script>
+
+{{- /* Security（字体已自托管 → font-src 'self'；style-src 放行 giscus 注入样式）*/ -}}
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://giscus.app https://webmention.io; style-src 'self' 'unsafe-inline' https://giscus.app; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://webmention.io; frame-src https://giscus.app;">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
 
-{{- /* 字体：Noto Sans SC（展示/正文）+ JetBrains Mono（HUD 标签），失败降级系统字体 */ -}}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+{{- /* 字体：自托管 latin 子集（Chakra Petch 展示 / JetBrains Mono HUD）──
+     中文走系统栈（PingFang / 雅黑 / Noto Sans SC），零下载 */ -}}
+<link rel="preload" href="{{ "fonts/jetbrainsmono-400.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/chakrapetch-700.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 
 {{- /* Performance */ -}}
 <link rel="dns-prefetch" href="https://giscus.app">

@@ -1,1 +1,4 @@
-{{- /* placeholder — 内容收缩后无系列结构；如未来重建系列可在此扩展 */ -}}
+{{- /* 阅读进度轨道 + 徽章岛屿（仅文章页挂载）── */ -}}
+{{- if and .IsPage (eq .Section "posts") -}}
+<div class="ak-progress-track" data-island="badges" aria-hidden="true"></div>
+{{- end -}}

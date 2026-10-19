@@ -1,0 +1,76 @@
+{{- with .cxt}} {{/* Apply proper context from dict */}}
+{{- if (and .Params.cover.image (not $.isHidden)) }}
+{{- $loading := cond $.IsSingle "eager" "lazy" }}
+{{- $addLink := (and site.Params.cover.linkFullImages $.IsSingle) }}
+{{- $prod := (hugo.IsProduction | or (eq site.Params.env "production")) }}
+{{- $alt := (.Params.cover.alt | default .Params.cover.caption | plainify) }}
+{{- $responsiveImages := (.Params.cover.responsiveImages | default site.Params.cover.responsiveImages) | default true }}
+
+{{- $pageBundleCover := (.Resources.ByType "image").GetMatch (printf "*%s*" (.Params.cover.image)) }}
+{{- $globalResourcesCover := (resources.ByType "image").GetMatch (printf "*%s*" (.Params.cover.image)) }}
+{{- $cover := (or $pageBundleCover $globalResourcesCover)}}
+
+{{- $imgdl := (.Params.cover.image) | absURL }}
+{{- if $cover -}}
+{{- $imgdl = $cover.Permalink }}
+{{- end -}}
+
+{{- if $addLink }}
+<a href="{{ $imgdl }}" target="_blank" rel="noopener noreferrer">
+{{- end }}
+
+{{- if $cover -}}
+{{- /* v7：AVIF / WebP 双格式 + srcset + LQIP 渐进占位 */ -}}
+{{- $processable := in (slice "jpg" "jpeg" "png" "tif" "bmp" "gif" "webp") $cover.MediaType.SubType }}
+{{- if (and $processable $responsiveImages $prod hugo.IsExtended) -}}
+<figure class="entry-cover ak-cover">
+  {{- $sizes := (slice "480" "720" "1080" "1500") -}}
+  {{- $lqip := $cover.Fill "20x12 webp q20" -}}
+  <picture style="background:url(data:image/webp;base64,{{ base64Encode (readFile $lqip.Name) }}) center/cover">
+    <source type="image/avif" srcset='{{- range $size := $sizes -}}
+      {{- if (ge $cover.Width $size) }}
+        {{- printf "%s %sw," (($cover.Resize (printf "%sx avif q55" $size)).Permalink) (printf "%s" $size) }}
+      {{- end }}
+    {{- end }}
+    {{- printf "%s %dw" (($cover.Resize "1500x avif q55").Permalink) ($cover.Width) }}'>
+    <source type="image/webp" srcset='{{- range $size := $sizes -}}
+      {{- if (ge $cover.Width $size) }}
+        {{- printf "%s %sw," (($cover.Resize (printf "%sx webp q72" $size)).Permalink) (printf "%s" $size) }}
+      {{- end }}
+    {{- end }}
+    {{- printf "%s %dw" (($cover.Resize "1500x webp q72").Permalink) ($cover.Width) }}'>
+    <img {{ if $.IsSingle }}fetchpriority="high"{{ end }} loading="{{ $loading }}" decoding="async"
+      srcset='{{- range $size := $sizes -}}
+        {{- if (ge $cover.Width $size) }}
+          {{- printf "%s %sw," (($cover.Resize (printf "%sx" $size)).Permalink) (printf "%s" $size) }}
+        {{- end }}
+      {{- end }}
+      {{- printf "%s %dw" ($cover.Permalink) ($cover.Width) }}'
+      src="{{ $cover.Permalink }}"
+      sizes="(min-width: 768px) 720px, 100vw"
+      width="{{ $cover.Width }}" height="{{ $cover.Height }}"
+      alt="{{ $alt }}">
+  </picture>
+{{- else }}{{/* Unprocessable image or responsive images disabled */}}
+<figure class="entry-cover ak-cover">
+  <img {{ if $.IsSingle }}fetchpriority="high"{{ end }} loading="{{ $loading }}" decoding="async" src="{{ $imgdl }}" alt="{{ $alt }}" width="{{ $cover.Width }}" height="{{ $cover.Height }}">
+{{- end }}
+{{- else }}
+<figure class="entry-cover ak-cover">
+  {{- /* For absolute urls and external links, no img processing here */}}
+  <img {{ if $.IsSingle }}fetchpriority="high"{{ end }} loading="{{ $loading }}" decoding="async" src="{{ $imgdl }}" alt="{{ $alt }}">
+{{- end }}
+
+{{- if $addLink }}
+</a>
+{{- end -}}
+
+{{- /* Display Caption */}}
+{{- if $.IsSingle }}
+{{ with .Params.cover.caption -}}
+<figcaption>{{ . | markdownify }}</figcaption>
+{{- end }}
+{{- end }}
+</figure>
+{{- end }}{{/* End image */}}
+{{- end -}}{{/* End context */ -}}

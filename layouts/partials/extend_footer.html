@@ -17,7 +17,7 @@
   if(f && !f.querySelector('.footer-hud')){
     var d=document.createElement('div');
     d.className='footer-hud';
-    d.innerHTML='JHD // SILVER ARCHIVE v6 · HUGO 0.168 EXTENDED · SYSTEMS <b>● NOMINAL</b>';
+    d.innerHTML='JHD // RHODES TERMINAL v7 · HUGO 0.168 EXTENDED · SYSTEMS <b>● NOMINAL</b>';
     f.appendChild(d);
   }
 })();
@@ -78,29 +78,30 @@ document.addEventListener('keydown',function(e){
     });
   });
 })();
-
-/* ═══════ 滚动入场（仅对正文区块，尊重 reduced-motion）══════ */
-(function(){
-  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  var observer=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){
-        e.target.style.opacity='1';e.target.style.transform='translateY(0)';
-        observer.unobserve(e.target);
-      }
-    });
-  },{threshold:.12});
-  document.querySelectorAll('.post-content h2,.post-content h3,.post-content blockquote,.post-content pre,.post-content table').forEach(function(el){
-    el.style.opacity='0';el.style.transform='translateY(16px)';
-    el.style.transition='opacity .6s ease,transform .6s ease';
-    observer.observe(el);
-  });
-})();
 </script>
+
+{{- /* ═══ v7 交互层：三个按页分包（esbuild + minify + fingerprint）═══
+     bundle.js  全站核心（零依赖：reveal/计数/逐字/扫描线/徽章/理智）
+     friends.js 仅友链页（GSAP Flip + Draggable）
+     game.js    仅 404 页（PRTS 小游戏）*/ -}}
+{{- $js := resources.Get "js/main.js" | js.Build (dict "targetPath" "js/bundle.js" "minify" true) | fingerprint -}}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous" defer></script>
+
+{{- with .File -}}
+{{- if eq .Path "friends.md" -}}
+{{- $fj := resources.Get "js/friends-entry.js" | js.Build (dict "targetPath" "js/friends.js" "minify" true) | fingerprint -}}
+<script src="{{ $fj.RelPermalink }}" integrity="{{ $fj.Data.Integrity }}" crossorigin="anonymous" defer></script>
+{{- end -}}
+{{- end -}}
+
+{{- if eq .Kind "404" -}}
+{{- $gj := resources.Get "js/game-entry.js" | js.Build (dict "targetPath" "js/game.js" "minify" true) | fingerprint -}}
+<script src="{{ $gj.RelPermalink }}" integrity="{{ $gj.Data.Integrity }}" crossorigin="anonymous" defer></script>
+{{- end -}}
 
 {{- /* Webmention */ -}}
 {{- with .Site.Params.webmention }}
-<div class="webmentions" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--hairline);"></div>
+<div class="webmentions" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--line);"></div>
 <script>
 (function(){
   var wm=document.querySelector('.webmentions');
@@ -109,25 +110,25 @@ document.addEventListener('keydown',function(e){
     .then(function(r){return r.json()}).then(function(d){
       if(!d.children||!d.children.length){wm.style.display='none';return}
       var likes=d.children.filter(function(m){return m['wm-property']==='like-of'});
-      var replies=d.children.filter(function(m){return m['wm-property']==='in-reply-to'||m['wm-property']==='mention-of'});
+      var replies=d.children.filter(function(m){return m['wm-property']==='in-reply-to'||m['wm-property']=='mention-of'});
       var h='';
       if(likes.length){
-        h+='<div style="margin-bottom:1.2rem"><span style="font-size:.85rem;color:var(--gold);font-weight:600">❤️ '+likes.length+' 个点赞</span>';
+        h+='<div style="margin-bottom:1.2rem"><span style="font-size:.85rem;color:var(--accent-ink);font-weight:600">❤️ '+likes.length+' 个点赞</span>';
         h+='<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:.4rem">';
         likes.forEach(function(m){
           var p=m.author&&m.author.photo?m.author.photo:'';
           var n=m.author&&m.author.name?m.author.name:'';
-          h+=p?'<img src="'+p+'" alt="'+n+'" title="'+n+'" style="width:28px;height:28px;border-radius:50%;border:1px solid var(--hairline)" loading="lazy">':'';
+          h+=p?'<img src="'+p+'" alt="'+n+'" title="'+n+'" style="width:28px;height:28px;border:1px solid var(--line)" loading="lazy">':'';
         });
         h+='</div></div>';
       }
       if(replies.length){
-        h+='<span style="font-size:.85rem;color:var(--gold);font-weight:600">💬 '+replies.length+' 条回复</span>';
+        h+='<span style="font-size:.85rem;color:var(--accent-ink);font-weight:600">💬 '+replies.length+' 条回复</span>';
         replies.forEach(function(m){
-          var a=m.author&&m.author.photo?'<img src="'+m.author.photo+'" style="width:28px;height:28px;border-radius:50%;flex-shrink:0" loading="lazy">':'';
+          var a=m.author&&m.author.photo?'<img src="'+m.author.photo+'" style="width:28px;height:28px;flex-shrink:0" loading="lazy">':'';
           var n=m.author&&m.author.name?m.author.name:'匿名';
           var txt=m.content&&m.content.text?m.content.text.substring(0,200):'';
-          h+='<div style="display:flex;align-items:flex-start;gap:.6rem;padding:.5rem 0;font-size:.85rem;border-bottom:1px solid var(--hairline)">'+a+'<div><strong style="color:var(--text)">'+n+(txt?'<p style="margin:.2rem 0 0;color:var(--body)">'+txt+'</p>':'')+'</div></div>';
+          h+='<div style="display:flex;align-items:flex-start;gap:.6rem;padding:.5rem 0;font-size:.85rem;border-bottom:1px solid var(--line)">'+a+'<div><strong style="color:var(--fg)">'+n+(txt?'<p style="margin:.2rem 0 0;color:var(--fg-dim)">'+txt+'</p>':'')+'</div></div>';
         });
       }
       wm.innerHTML=h;

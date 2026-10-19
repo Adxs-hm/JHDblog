@@ -9,7 +9,7 @@
   {{- /* ✦ 项目档案（Bento：块尺寸 = 重要性）*/ -}}
   {{- $posts := where .Site.RegularPages "Section" "posts" -}}
   {{- with $posts -}}
-  <section class="home-section">
+  <section class="home-section" data-reveal>
     <h2 class="home-section-title">
       <span class="kick">PROJECT · 收录项目</span>
       <span class="cn">项目档案</span>
@@ -46,14 +46,15 @@
   {{- end -}}
 
   {{- /* 档案索引条 */ -}}
-  <div class="index-strip">
+  <div class="index-strip" data-reveal>
     <a class="index-chip" href="{{ "start-here" | relURL }}">◈ 档案索引 <b>START-HERE</b></a>
+    <a class="index-chip" href="{{ "friends" | relURL }}">◇ 友链网络 <b>FRIENDS</b></a>
     <a class="index-chip" href="{{ "archives" | relURL }}">▤ 时间归档 <b>ARCHIVES</b></a>
     <a class="index-chip" href="{{ "about" | relURL }}">◉ 关于本站 <b>ABOUT</b></a>
   </div>
 
   {{- /* 订阅条 */ -}}
-  <div class="home-subscribe">
+  <div class="home-subscribe" data-reveal>
     <span class="lbl">SUBSCRIBE · 订阅</span>
     <a href="{{ "subscribe" | relURL }}">RSS</a>
     <span class="sub-sep">/</span>
