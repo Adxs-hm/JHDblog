@@ -11,8 +11,8 @@
 @font-face{font-family:"Chakra Petch";src:url("/fonts/chakrapetch-500.woff2") format("woff2");font-weight:500;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21BB,U+2212,U+2215}
 @font-face{font-family:"Chakra Petch";src:url("/fonts/chakrapetch-600.woff2") format("woff2");font-weight:600;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21BB,U+2212,U+2215}
 @font-face{font-family:"Chakra Petch";src:url("/fonts/chakrapetch-700.woff2") format("woff2");font-weight:700;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21BB,U+2212,U+2215}
-@font-face{font-family:"JetBrains Mono";src:url("/fonts/jetbrainsmono-400.woff2") format("woff2");font-weight:400;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21BB,U+2212,U+2215}
-@font-face{font-family:"JetBrains Mono";src:url("/fonts/jetbrainsmono-700.woff2") format("woff2");font-weight:700;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21BB,U+2212,U+2215}
+/* JetBrains Mono 可变字体（wght 400–800 单文件，替代静态双档，-25% 体积）*/
+@font-face{font-family:"JetBrains Mono";src:url("/fonts/jetbrainsmono-var.woff2") format("woff2") tech(variations);font-weight:400 800;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21BB,U+2212,U+2215}
 
 /* ── TOKENS · TERMINAL（默认身份主题）──
    选择器必须与 PaperMod 的 :root[data-theme="dark"] 同特异性（0,2,0），
@@ -562,6 +562,10 @@ details.toc .inner{padding-bottom:.2rem}
 .trm-cover{margin:0 0 1.6rem}
 .trm-cover picture{display:block;line-height:0}
 .trm-cover img{max-width:100%;height:auto;border:1px solid var(--line)}
+
+/* ── 排版增强（text-wrap：Baseline 2026）── */
+h1,h2,h3,.cell-title,.home-section-title .cn,.post-title{text-wrap:balance}
+.post-content p,.jhd-intro p,.friend-card__motto{text-wrap:pretty}
 
 /* ── VIEW TRANSITIONS（MPA 直角揭页 + 主题切换网点擦过）── */
 @view-transition{navigation:auto}

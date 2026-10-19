@@ -23,7 +23,7 @@ jobs:
       - name: ⚙️ Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: 'latest'
+          hugo-version: '0.168.0'
           extended: true
 
       - name: 💡 Run Lighthouse CI（hugo server 自带 gzip，数据源含压缩）
