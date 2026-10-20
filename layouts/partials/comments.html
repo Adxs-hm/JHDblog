@@ -1,21 +1,43 @@
-{{- /* giscus 评论 — GitHub Discussions 驱动 */ -}}
+{{- /* giscus 评论 — GitHub Discussions 驱动
+     IO 懒加载：giscus 是一整个 Next.js 应用（~30 请求 / 150KB+），
+     即时加载会使其 iframe 成为文章页 LCP 元素（实测 1.9s+）。
+     滚动至评论区前 400px 才注入，文章页 LCP 回落到标题。*/ -}}
 {{- with .Site.Params.giscus -}}
 <div class="giscus" style="margin:0;padding:0;border:none;min-height:320px">
-  <script src="https://giscus.app/client.js"
-    data-repo="{{ .repo }}"
-    data-repo-id="{{ .repoId }}"
-    data-category="{{ .category }}"
-    data-category-id="{{ .categoryId }}"
-    data-mapping="pathname"
-    data-strict="0"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="bottom"
-    data-theme="light"
-    data-lang="zh-CN"
-    data-loading="eager"
-    crossorigin="anonymous"
-    async>
+  <script>
+  (function () {
+    var wrap = document.currentScript && document.currentScript.parentNode;
+    if (!wrap) return;
+    function inject() {
+      if (wrap.dataset.giscusLoaded) return;
+      wrap.dataset.giscusLoaded = '1';
+      var s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.setAttribute('data-repo', '{{ .repo }}');
+      s.setAttribute('data-repo-id', '{{ .repoId }}');
+      s.setAttribute('data-category', '{{ .category }}');
+      s.setAttribute('data-category-id', '{{ .categoryId }}');
+      s.setAttribute('data-mapping', 'pathname');
+      s.setAttribute('data-strict', '0');
+      s.setAttribute('data-reactions-enabled', '1');
+      s.setAttribute('data-emit-metadata', '0');
+      s.setAttribute('data-input-position', 'bottom');
+      s.setAttribute('data-theme', 'light');
+      s.setAttribute('data-lang', 'zh-CN');
+      s.setAttribute('data-loading', 'lazy');
+      s.crossOrigin = 'anonymous';
+      s.async = true;
+      wrap.appendChild(s);
+    }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) {
+        if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); inject(); }
+      }, { rootMargin: '400px' });
+      io.observe(wrap);
+    } else {
+      inject();
+    }
+  })();
   </script>
   <noscript>
     <p style="color:var(--text-muted);text-align:center;padding:2rem">

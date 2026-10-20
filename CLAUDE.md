@@ -26,9 +26,9 @@
 | 游戏 | `assets/js/games/terminal-recovery.js`（入口 `assets/js/game-entry.js`，仅 404） |
 | 字体 | `static/fonts/`：Chakra Petch 静态三档 + JetBrains Mono 可变字体单文件（wght 400–800） |
 | 封面图管线 | `layouts/partials/cover.html`（AVIF/WebP picture + srcset + LQIP + fetchpriority） |
-| 性能预算 | `.github/budget.json` + `.github/lighthouserc.json` + `.github/workflows/lighthouse.yml` |
+| 性能预算 | `.github/lighthouserc.json`（断言即预算）+ `.github/workflows/lighthouse.yml` + `.tools/ci-static-server.js`（gzip 数据源） |
 | Cloudflare 配置 | `.github/cloudflare-setup.md` |
-| 评论 | `layouts/partials/comments.html`（giscus，仅文章页） |
+| 评论 | `layouts/partials/comments.html`（giscus，仅文章页；IO 懒加载，滚动至评论区前 400px 才注入） |
 | 新文章 | `content/posts/项目名/index.md` |
 
 ## 技术架构（v7 2026-10-19 落地 → v8 2026-10-20 金/银换血）
@@ -40,6 +40,10 @@
 - **PaperMod 特异性坑**：`:root[data-theme="dark"]` 为 (0,2,0)，我的令牌块必须同特异性且后加载（extended 在 core 后）；`.list` 类首页 body 会被 PaperMod 用 `--code-bg` 做底，已用 `.list{background:var(--bg)}` 覆盖
 - **文字强调色双 token**：`--accent` 仅图形；`--accent-ink` 做文字（archive 档 #7a5c1a 对纸白 5.7:1，terminal 档 #c9a227 对纯黑 8.1:1）
 - **粒子/扫描线 30fps 限帧 + requestIdleCallback 启动 + 批量 path fill**；lite/off 档粒子场退化为 CSS 静态字
+- **页面骨架（宽容器 + 窄 Measure）**：`--main-width:1024`（main=1072px，与 `--nav-width` 对齐消除宽度断层）；`.post-content > p/ul/ol/blockquote/h1-h6` 限宽 `44em` 居中（中文 30–50 字/行），表格/代码/图片破出满宽
+- **粒子场内存纪律**：Float32Array 粒子状态（无 per-particle 对象分配，规避 major GC 长任务）+ 3000 硬帽 + 半分辨率离屏采样（getImageData -75%）+ 离屏画布复用 + 静态文字先绘
+- **LHCI 数据源是 `hugo --minify` 产物 + `.tools/ci-static-server.js`（node 内置模块 gzip）**——hugo server 不压缩且注入 78KB livereload，测出的不是生产字节（已弃用）；门禁：perf≥0.9 / a11y≥0.95 / LCP≤2000ms / TBT≤200ms / CLS≤0.05（移动节流 4x CPU）
+- **字体双预载均为必需**：Mono 迟加载会触发 fallback→webfont swap 产生 CLS 0.27（实测），预载即防抖；勿为省带宽去掉
 - 类名前缀：`.trm-`（终端组件）/ `.rec-`（404 游戏）/ `.ms-`（扫雷）；**禁用任何 IP 关联命名**
 - SW：`static/sw.js`（jhd-v8，导航 network-first，静态 cache-first，第三方不拦截）
 - 验证工具：`.tools/verify-v7*.py`（Playwright 冒烟/交互/截图）；本地预览 `python -m http.server 8080 --directory public`（**8081 会被环境代理拦截**）
@@ -74,8 +78,9 @@
 - **OKLCH 迁移**：色彩函数已 Baseline，hex 体系稳定后可迁 oklch（需全量视觉回归）
 - **优化研究报告**：`../文档/JHD架构优化研究报告-v7.1.md`（P1/P2 排期：CSS 滚动驱动动画替换 scrollFire、chroma 官方板、@layer、OG 图构建时生成、Cloudflare Web Analytics）
 
-## 已知坑（2026-10-19 更新）
+## 已知坑（2026-10-20 更新）
 
+- **PaperMod baseof 的 `partialCached "footer.html"` 变体键不含页面身份**——主题原版以 `.Layout/.Kind/hideFooter/ShowCodeCopyButtons` 为键，同键页面共用首个渲染页的 footer 输出：`extend_footer.html` 内任何按页条件渲染的内容会被污染（曾致全部文章页误载 minesweeper.js 5.3KB 死载）。项目级 `layouts/baseof.html` 已覆盖并追加 `.File.UniqueID` 变体键；**今后 extend_footer 内新增按页内容前，先确认该键仍在**
 - **markdown 正文里 `{{ }}` 不执行**（goldmark 非模板）——页面级模板逻辑必须放 layouts（自定义 layout 页的 md 只留 front matter）
 - `js.Build` 的输出路径是 options 字典里的 `targetPath` 键，**不是位置参数**（位置参数会被当成 esbuild 语言 target 报 "unsupported target"）
 - `{{ .Site.Params.author } },` 这类单 `}` 会触发 Go 模板 "unexpected } in operand"——JSON-LD 内嵌模板值注意 `}}` 配对

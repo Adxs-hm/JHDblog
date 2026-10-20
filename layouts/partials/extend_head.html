@@ -35,7 +35,9 @@
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
 
 {{- /* 字体：自托管 latin 子集（Chakra Petch 展示 / JetBrains Mono 可变 HUD）──
-     中文走系统栈（PingFang / 雅黑 / Noto Sans SC），零下载 */ -}}
+     中文走系统栈（PingFang / 雅黑 / Noto Sans SC），零下载。
+     双预载均为必需：Mono 承载全站 HUD/元信息，迟加载会触发
+     fallback→webfont swap 产生布局偏移（实测 CLS 0.27），预载即防抖。*/ -}}
 <link rel="preload" href="{{ "fonts/jetbrainsmono-var.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ "fonts/chakrapetch-700.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 

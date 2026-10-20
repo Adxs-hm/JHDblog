@@ -1,7 +1,17 @@
 # ============================================================
-# JHD Blog · v7 性能门禁（Lighthouse CI）
+# JHD Blog · v8 性能门禁（Lighthouse CI）
 # 触发：push main / 每周一 / 手动
-# 本地复现：hugo --minify && npx @lhci/cli autorun
+# 数据源：hugo --minify 构建产物 + .tools/ci-static-server.js（gzip），
+#         测的是生产等价字节（GitHub Pages 形态）；
+#         hugo server 不压缩且注入 78KB livereload，已弃用为数据源。
+# 门禁基准（移动节流：1.6Mbps / 150ms RTT / 4x CPU / 360×640 DSF2）：
+#   performance ≥ 0.9 · a11y ≥ 0.95 · LCP ≤ 2000ms · TBT ≤ 200ms · CLS ≤ 0.05
+#   LCP 2000ms 依据：该悲观档实测 1.5–1.65s，Google field「good」= 2.5s，
+#   取 2.0s 保留约 25% CI runner 波动余量；TBT/CLS 维持严档（实测远低于阈值）。
+#   INP 无法在无交互的 LHCI 中测量，以 TBT 为代理，不设断言。
+# 本地复现：hugo --minify --baseURL http://localhost:8899/ &&
+#           node .tools/ci-static-server.js &&
+#           npx @lhci/cli autorun --config=.github/lighthouserc.json
 # ============================================================
 
 name: Lighthouse Budget Gate
@@ -26,7 +36,10 @@ jobs:
           hugo-version: '0.168.0'
           extended: true
 
-      - name: 💡 Run Lighthouse CI（hugo server 自带 gzip，数据源含压缩）
+      - name: 🔨 Build（本地 baseURL + minify，产物即线上形态）
+        run: hugo --minify --baseURL http://localhost:8899/
+
+      - name: 💡 Run Lighthouse CI（gzip 静态服务器 = 生产等价字节）
         run: |
           npx --yes @lhci/cli@0.14.x autorun --config=.github/lighthouserc.json
         env:

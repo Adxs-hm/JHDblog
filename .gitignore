@@ -8,3 +8,6 @@
 # Node（gsap 已 vendor 至 assets/js/vendor，CI 无需 npm）
 /node_modules/
 package-lock.json
+
+# Lighthouse CI 本地产物
+/.lighthouseci/

@@ -97,8 +97,7 @@ JHDblog/
 │   └── sw.js                          # Service Worker
 ├── .github/
 │   ├── workflows/                     # 部署 + Lighthouse 门禁 + 安全扫描
-│   ├── budget.json                    # 性能预算（LCP 1500ms / 总量 500KB）
-│   ├── lighthouserc.json              # LHCI 配置
+│   ├── lighthouserc.json              # LHCI 配置（断言即预算：LCP 1500ms / TBT 200ms / CLS 0.05）
 │   └── cloudflare-setup.md            # 边缘网络配置清单
 └── themes/PaperMod/                   # 主题（本地副本，随仓库分发）
 ```

@@ -75,6 +75,18 @@
   --hairline-strong:color-mix(in srgb, var(--fg) 22%, transparent);
 }
 
+/* ── 页面骨架（宽容器 + 窄 Measure）──
+   基准：正文测量 640–760px（中文 30–50 字/行）为桌面阅读舒适区间；
+   表格、代码块与 Bento 网格需要更宽的容器承载。
+   --main-width 抬至 1024，与 --nav-width 对齐（main = 1024 + 2×gap = 1072px），
+   消除导航（1072px）与内容（768px）之间的宽度断层；
+   正文段落与标题限宽 44em 居中，表格/代码/图片破出满宽。 */
+:root{--main-width:1024px}
+.post-content>p,.post-content>ul,.post-content>ol,.post-content>dl,
+.post-content>blockquote,.post-content>h1,.post-content>h2,.post-content>h3,
+.post-content>h4,.post-content>h5,.post-content>h6{max-width:44em;margin-inline:auto}
+.jhd-intro p{max-width:44em;margin-inline:auto}
+
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased;overflow-x:hidden;isolation:isolate}
 /* PaperMod 给首页 body 加 .list 并用 --code-bg 做底（v6 遗留行为）→ 统一回纸底 */
@@ -356,7 +368,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .post-title{font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--fg);line-height:1.35;margin-bottom:.3rem;letter-spacing:.02em;text-transform:uppercase}
 .post-description{margin-top:.4rem;font-size:.95rem;color:var(--fg-dim);line-height:1.65}
 .page-header h1{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--fg);letter-spacing:.04em}
-.post-content{font-size:1rem;line-height:1.95;letter-spacing:.01em;color:var(--fg)}
+.post-content{font-size:1.0625rem;line-height:1.8;letter-spacing:.01em;color:var(--fg)}
 .post-content p{margin-bottom:1.3rem}
 .post-content h1{font-family:var(--font-display);font-size:1.55rem;font-weight:700;margin:2.6rem 0 1rem;padding-left:.8rem;border-left:4px solid var(--accent);color:var(--fg);letter-spacing:.02em}
 .post-content h2{font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin:2.2rem 0 .85rem;padding-left:.7rem;border-left:3px solid var(--accent);color:var(--fg);letter-spacing:.02em}
@@ -588,7 +600,7 @@ h1,h2,h3,.cell-title,.home-section-title .cn,.post-title{text-wrap:balance}
 /* ── RESPONSIVE ── */
 @media(max-width:768px){
   .jhd-hero{padding:1.75rem 1rem 0}.jhd-hero h1{font-size:1.9rem}
-  .post-title{font-size:1.55rem}.post-content{font-size:.95rem}
+  .post-title{font-size:1.55rem}.post-content{font-size:1rem}
   .post-content h1{font-size:1.3rem}.post-content h2{font-size:1.12rem}
   .post-entry,.first-entry{padding:.5rem 0}
   .stat-banner{gap:1.5rem}.stat-number{font-size:1.6rem}
