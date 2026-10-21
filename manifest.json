@@ -1,0 +1,19 @@
+{
+  "name": "JHD · 终端",
+  "short_name": "JHD",
+  "description": "记录一个网站的建造——这里收录的唯一项目，就是本站自身",
+  "start_url": "/JHDblog/",
+  "scope": "/JHDblog/",
+  "display": "standalone",
+  "background_color": "#f4f3ee",
+  "theme_color": "#f4f3ee",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/JHDblog/images/planet-avatar.svg",
+      "sizes": "200x200",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
