@@ -29,5 +29,5 @@ description: "JHD 档案的阅读顺序指引"
 
 ## 其他入口
 
-- 通过[归档](../archives/)按时间浏览，或使用 `Ctrl+K` 全文检索
-- 评论区位于每篇档案底部，由 GitHub Discussions 驱动
+- 通过[构建日志](../changelog/)按版本浏览版本史，或通过[归档](../archives/)按时间浏览
+- 使用 `Ctrl+K` 全文检索；评论区位于每篇档案底部，由 GitHub Discussions 驱动

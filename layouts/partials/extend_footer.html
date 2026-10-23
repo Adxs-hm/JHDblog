@@ -82,7 +82,10 @@ document.addEventListener('keydown',function(e){
 
 {{- /* ═══ v8 交互层：两个按页分包（esbuild + minify + fingerprint）═══
      bundle.js  全站核心（零依赖：reveal/计数/逐字/扫描线/徽章/专注度）
-     game.js    仅 404 页（终端修复小游戏）*/ -}}
+     game.js    仅 404 页（终端修复小游戏）
+     注：Hugo js.Build 不支持 esbuild splitting（代码拆分属 js.Batch），
+     动态 import 的岛屿代码内联在主包内；移动端省下载的优化见粒子场
+     load 门控（islands/particle-logo.js）与 IO 按需加载。*/ -}}
 {{- $js := resources.Get "js/main.js" | js.Build (dict "targetPath" "js/bundle.js" "minify" true) | fingerprint -}}
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous" defer></script>
 

@@ -41,7 +41,21 @@
 </script>
 
 {{- /* Security（字体已自托管 → font-src 'self'；style-src 放行 giscus 注入样式）*/ -}}
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://giscus.app https://webmention.io; style-src 'self' 'unsafe-inline' https://giscus.app; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://webmention.io; frame-src https://giscus.app;">
+{{- /* Cloudflare Web Analytics：token 配置后才渲染 beacon（零 Cookie 隐私优先）。
+     CSP 的放行域与 beacon 由同一开关联动——token 为空时两者皆不出现。 */ -}}
+{{- $cfToken := .Site.Params.analytics.cfBeaconToken -}}
+{{- with $cfToken -}}
+<script defer src="https://static.cloudflareinsights.com/cloudflare-insights/script.js" data-cf-beacon='{"token": "{{ . }}"}'></script>
+{{- end -}}
+
+{{- /* 安全响应头（CSP 放行域随分析开关联动） */ -}}
+{{- $cspScript := "'self' 'unsafe-inline' https://giscus.app https://webmention.io" -}}
+{{- $cspConnect := "'self' https://webmention.io" -}}
+{{- with $cfToken -}}
+{{- $cspScript = printf "%s https://static.cloudflareinsights.com" $cspScript -}}
+{{- $cspConnect = printf "%s https://cloudflareinsights.com" $cspConnect -}}
+{{- end -}}
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src {{ $cspScript }}; style-src 'self' 'unsafe-inline' https://giscus.app; font-src 'self'; img-src 'self' data: https:; connect-src {{ $cspConnect }}; frame-src https://giscus.app;">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">

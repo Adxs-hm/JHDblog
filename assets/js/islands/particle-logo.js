@@ -98,7 +98,7 @@ export default function initParticleLogo(field) {
   }
 
   function stop() { if (raf) { cancelAnimationFrame(raf); raf = 0; } }
-  function start() { if (!raf && visible && W) tick(performance.now()); }
+  function start() { if (!raf && visible && W) raf = requestAnimationFrame(tick); }
 
   addEventListener('resize', () => { stop(); resize(); start(); }, { passive: true });
   field.addEventListener('pointermove', (e) => {
@@ -113,8 +113,13 @@ export default function initParticleLogo(field) {
   document.addEventListener('visibilitychange', () => { document.hidden ? stop() : start(); });
 
   resize();
-  /* 让出首屏绘制窗口：idle 后再启动粒子场（静态文字已先绘）*/
-  const launch = () => { if (visible) start(); };
-  if ('requestIdleCallback' in window) requestIdleCallback(launch, { timeout: 1500 });
-  else setTimeout(launch, 500);
+  /* 让出首屏绘制窗口：load 事件之后才启动粒子场（装饰动画不抢加载突发期的
+     主线程——实测冷启动单任务 1069ms 全部落在 TBT 窗口内）；
+     静态文字已先绘，粒子在页面 settled 后接管，空档即「物质化」过程。*/
+  const launch = () => {
+    if ('requestIdleCallback' in window) requestIdleCallback(() => { if (visible) start(); }, { timeout: 2000 });
+    else setTimeout(() => { if (visible) start(); }, 600);
+  };
+  if (document.readyState === 'complete') launch();
+  else addEventListener('load', launch, { once: true });
 }

@@ -78,6 +78,12 @@ mainSections = ["posts"]
     appendFilePath = true
     Text = "编辑此页"
 
+  # Cloudflare Web Analytics（隐私优先、零 Cookie、无第三方脚本依赖）。
+  # 启用步骤见 .github/cloudflare-setup.md 第 6 节；token 留空则不渲染 beacon，
+  # CSP 亦不放行对应域名（两者由同一开关联动）。
+  [params.analytics]
+    cfBeaconToken = ""
+
 [frontmatter]
   # lastmod 从 git 历史派生（免手工维护），页面 meta 与 og article:modified_time 自动生效
   lastmod = [":git", "lastmod", ":fileModTime"]

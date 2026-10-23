@@ -8,7 +8,7 @@
         "http://localhost:8899/posts/jhd-site/",
         "http://localhost:8899/404.html"
       ],
-      "numberOfRuns": 3,
+      "numberOfRuns": 5,
       "settings": {
         "formFactor": "mobile",
         "screenEmulation": {

@@ -1,5 +1,4 @@
 # Cloudflare 配置清单（v8 上线时执行）
-
 > GitHub Pages 自带全球 CDN 与 Brotli；前置 Cloudflare（免费档）补三件事：
 > HTTP/3、精细缓存规则、安全响应头。以下为具体操作项。
 
@@ -44,3 +43,32 @@ export default {
 - [ ] 验证 `curl -sI https://adxs-hm.github.io/JHDblog/ | grep -i cache`
 - [ ] 验证字体 200 + `cache-control: immutable`（Hugo 哈希文件名）
 - [ ] PageSpeed Insights 移动档 LCP ≤ 1.5s
+
+## 6. Web Analytics（v8.3 接线，免 CDN 前置）
+
+Cloudflare Web Analytics 是独立于 CDN 的免费产品：**不需要把站点前置到
+Cloudflare**，github.io 域名亦可，只需在页面加一段 beacon 脚本。零 Cookie、
+无个人数据、不设 cross-site 标识，与本站隐私姿态一致。
+
+操作步骤：
+
+1. 登录 Cloudflare Dashboard → 左侧 **Analytics & Logs → Web Analytics**
+2. **Add a site**：主机名填 `adxs-hm.github.io`（无需改 DNS，仅用于报表归类）
+3. 复制生成的 beacon token（形如 `a1b2c3d4e5f6...` 的一串十六进制）
+4. 填入 `hugo.toml`：
+   ```toml
+   [params.analytics]
+     cfBeaconToken = "粘贴token"
+   ```
+5. 提交并推送。构建时：
+   - token 非空 → 全站 `<head>` 注入 beacon 脚本，CSP 自动放行
+     `static.cloudflareinsights.com`（script-src）与 `cloudflareinsights.com`（connect-src）
+   - token 为空 → 不渲染 beacon，CSP 亦不放行对应域名（两者由同一开关联动，
+     不存在「配置删了但 CSP 仍放行」的残留）
+
+6. 数据出现在 CF Dashboard 的 Web Analytics 报表（pageviews / 访问来源 /
+    Top 页面 / Core Web Vitals 真实用户数据）。
+
+> 说明：beacon 脚本约 12KB、defer 加载、异步上报，对 LCP/TBT 无实质影响
+> （LHCI 门禁的 TBT 断言已涵盖此类成本）。若未来不再需要，把 token 改回
+> `""` 并推送即可全站摘除。

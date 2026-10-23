@@ -9,6 +9,37 @@
 
     <article class="cl-entry" data-reveal>
       <div class="cl-head">
+        <span class="cl-ver">v8.4</span>
+        <span class="cl-date">2026-10-24</span>
+        <span class="cl-tag">门禁加固</span>
+      </div>
+      <h2 class="cl-title">冷启动成本治理与分析接线</h2>
+      <ul class="cl-items">
+        <li>粒子场 load 门控：init 先绘静态文字，粒子循环延迟到 window load + idle 启动——装饰动画不抢加载突发期，TBT 中位数归零</li>
+        <li>LHCI numberOfRuns 3→5：冷启动 JIT 开销使首次运行显著贵于后续，5 次取中位数更稳</li>
+        <li>Cloudflare Web Analytics 接线：[params.analytics].cfBeaconToken 空则不渲染 beacon、CSP 亦不放行对应域名（同开关联动）；操作步骤见 cloudflare-setup.md 第 6 节</li>
+        <li>文档同步：README 目录树、CLAUDE.md 架构节、start-here 阅读路径补构建日志入口</li>
+      </ul>
+      <div class="cl-meta">commit 待提交</div>
+    </article>
+
+    <article class="cl-entry" data-reveal>
+      <div class="cl-head">
+        <span class="cl-ver">v8.3</span>
+        <span class="cl-date">2026-10-24</span>
+        <span class="cl-tag">实用性</span>
+      </div>
+      <h2 class="cl-title">构建日志 / 搜索 UX / 404 检索入口</h2>
+      <ul class="cl-items">
+        <li>新增 /changelog/ 构建日志页：v4→v8.2 七代版本史，每条对应一次本地提交；挂主菜单第 2 位与首页索引条</li>
+        <li>搜索页增强：结果计数、标题匹配高亮（深金）、空态建议（4 档案入口）、清除按钮；与主题 Fuse/键盘导航解耦</li>
+        <li>404 页补导航行：搜索档案 / 构建日志 / 时间归档 / 档案索引</li>
+      </ul>
+      <div class="cl-meta">commit 1b827a6</div>
+    </article>
+
+    <article class="cl-entry" data-reveal>
+      <div class="cl-head">
         <span class="cl-ver">v8.2</span>
         <span class="cl-date">2026-10-23</span>
         <span class="cl-tag">实用性</span>

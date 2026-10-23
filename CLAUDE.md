@@ -42,9 +42,11 @@
 - **粒子/扫描线 30fps 限帧 + requestIdleCallback 启动 + 批量 path fill**；lite/off 档粒子场退化为 CSS 静态字
 - **页面骨架（宽容器 + 窄 Measure）**：`--main-width:1024`（main=1072px，与 `--nav-width` 对齐消除宽度断层）；`.post-content > p/ul/ol/blockquote/h1-h6` 限宽 `44em` 居中（中文 30–50 字/行），表格/代码/图片破出满宽
 - **粒子场内存纪律**：Float32Array 粒子状态（无 per-particle 对象分配，规避 major GC 长任务）+ 3000 硬帽 + 半分辨率离屏采样（getImageData -75%）+ 离屏画布复用 + 静态文字先绘
-- **LHCI 数据源是 `hugo --minify` 产物 + `.tools/ci-static-server.js`（node 内置模块 gzip）**——hugo server 不压缩且注入 78KB livereload，测出的不是生产字节（已弃用）；门禁：perf≥0.9 / a11y≥0.95 / LCP≤2000ms / TBT≤200ms / CLS≤0.05（移动节流 4x CPU）
+- **粒子场 load 门控**（v8.4）：init 时先绘静态文字，粒子循环延迟到 window `load` + idle 才启动——装饰动画不抢加载突发期主线程（冷启动单任务 1069ms→降档，TBT 中位数归零）；**Hugo js.Build 不支持 esbuild splitting**（代码拆分属 js.Batch），动态 import 的岛屿代码内联主包，勿再试 `"splitting" true`
+- **LHCI 数据源是 `hugo --minify` 产物 + `.tools/ci-static-server.js`（node 内置模块 gzip）**——hugo server 不压缩且注入 78KB livereload，测出的不是生产字节（已弃用）；门禁：perf≥0.9 / a11y≥0.95 / LCP≤2000ms / TBT≤200ms / CLS≤0.05（移动节流 4x CPU）；**numberOfRuns=5**（v8.4，原 3）——冷启动 JIT/首版布局开销使 run1 显著贵于 run2+，5 次取中位数更稳
 - **字体双预载均为必需**：Mono 迟加载会触发 fallback→webfont swap 产生 CLS 0.27（实测），预载即防抖；勿为省带宽去掉
-- 类名前缀：`.trm-`（终端组件）/ `.rec-`（404 游戏）/ `.ms-`（扫雷）；**禁用任何 IP 关联命名**
+- **实用性体系（v8.2/v8.3）**：OG 图由 `.tools/gen-og.py` 生成（**内容标题/描述变更后必须重跑**，front matter `images` 接线，勿用 cover.image）；标题锚点/「更新于」/搜索增强分别由项目级 `anchored_headings.html`/`post_meta.html`/`search.html` 覆盖实现；搜索增强用 MutationObserver 监听 `#searchResults` 与主题 fastsearch.js 解耦（**列表已空时 innerHTML='' 不触发 mutation，空查询须立即复位**）；`/changelog/` 构建日志页——**发新版后必须同步更新该页**；CF Web Analytics 走 `[params.analytics].cfBeaconToken`（token 为空则 beacon 与 CSP 放行域双双不出现）
+- 类名前缀：`.trm-`（终端组件）/ `.rec-`（404 游戏）/ `.ms-`（扫雷）/ `.cl-`（构建日志）/ `.search-`（搜索增强）；**禁用任何 IP 关联命名**
 - SW：`static/sw.js`（jhd-v8，导航 network-first，静态 cache-first，第三方不拦截）
 - 验证工具：`.tools/verify-v7*.py`（Playwright 冒烟/交互/截图）；本地预览 `python -m http.server 8080 --directory public`（**8081 会被环境代理拦截**）
 

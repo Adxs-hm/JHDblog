@@ -63,7 +63,8 @@ JHD 是一座只归档**自身建造过程**的个人站——设计系统、构
 
 ```
 JHDblog/
-├── hugo.toml                          # 站点配置（light 主题 · 纸白主导 / 主区 posts）
+├── hugo.toml                          # 站点配置（light 主题 · 纸白主导 / 菜单 5 项 / 主区 posts）
+├── LICENSE                            # MIT
 ├── assets/
 │   ├── css/extended/custom.css        # TERMINAL v8 设计系统（唯一样式源）
 │   └── js/
@@ -75,30 +76,43 @@ JHDblog/
 │   ├── _index.md                      # 首页 Hero（粒子 Logo 场 + HUD 状态条）
 │   ├── about/_index.md                # 关于页：站点参数表 + 运行计时器
 │   ├── archives.md                    # 归档页
+│   ├── changelog.md                   # 构建日志（v4→v8 版本史）
 │   ├── search.md                      # 搜索页（Fuse.js）
-│   ├── start-here/_index.md           # 档案索引（REC/01–03 阅读路径）
+│   ├── start-here/_index.md           # 档案索引（阅读路径 + 版本史入口）
+│   ├── subscribe.md                   # 订阅落地页
+│   ├── minesweeper.md                 # 扫雷游戏页
 │   └── posts/                         # 唯一内容区：只收录本站自身
 │       ├── jhd-site/                  #   JHD 站点（旗舰档案）
 │       └── site-launch/               #   JHD 站点上线记录
 ├── layouts/
+│   ├── baseof.html                    # 项目覆盖：footer partialCached 追加页面身份变体键
 │   ├── index.html                     # 首页（Hero → Bento → 索引条 → 订阅）
-│   ├── 404.html                       # 404 终端恢复协议（游戏彩蛋）
+│   ├── 404.html                       # 404 终端恢复协议（游戏彩蛋 + 检索入口）
+│   ├── search.html                    # 搜索页覆盖（计数/高亮/空态/清除）
+│   ├── _default/changelog.html        # 构建日志布局（时间线）
 │   ├── _markup/render-codeblock.html  # 代码块
 │   └── partials/
-│       ├── comments.html              # giscus 评论
+│       ├── anchored_headings.html     # 标题锚点（项目覆盖：可见化）
+│       ├── comments.html              # giscus 评论（IO 懒加载）
 │       ├── cover.html                 # 封面图 AVIF/WebP/LQIP 管线
-│       ├── extend_head.html           # 字体 + CSP + data-fx 决策 + JSON-LD
+│       ├── extend_head.html           # 字体 + CSP + data-fx 决策 + OG + JSON-LD
 │       ├── extend_footer.html         # JS 分包 + Ctrl+K + TOC + webmention
-│       └── extend_post_content.html   # 阅读进度轨道
+│       ├── extend_post_content.html   # 阅读进度轨道
+│       └── post_meta.html             # 文章 meta（覆盖：显示「更新于」）
 ├── static/
-│   ├── fonts/                         # 自托管 woff2  latin 子集（4 个：Chakra Petch ×3 + JetBrains Mono 可变）
+│   ├── fonts/                         # 自托管 woff2 latin 子集（4 个：Chakra Petch ×3 + JetBrains Mono 可变）
 │   ├── images/planet-avatar.svg       # 动态行星（连续环 + 环上卫星 + 线框经线）
+│   ├── og/                            # OG 分享图 PNG ×4（.tools/gen-og.py 生成）
 │   ├── manifest.json                  # PWA
 │   └── sw.js                          # Service Worker
+├── .tools/                            # 本地工具（不入 Hugo 产物）
+│   ├── ci-static-server.js            # LHCI 数据源：gzip 静态服务器（node 内置模块）
+│   ├── gen-og.py                      # OG 分享图生成器（Playwright 截图）
+│   └── og-card.html                   # OG 卡模板
 ├── .github/
 │   ├── workflows/                     # 部署 + Lighthouse 门禁 + 安全扫描
-│   ├── lighthouserc.json              # LHCI 配置（断言即预算：LCP 1500ms / TBT 200ms / CLS 0.05）
-│   └── cloudflare-setup.md            # 边缘网络配置清单
+│   ├── lighthouserc.json              # LHCI 配置（断言即预算：LCP 2000ms / TBT 200ms / CLS 0.05）
+│   └── cloudflare-setup.md            # 边缘网络 + Web Analytics 配置清单
 └── themes/PaperMod/                   # 主题（本地副本，随仓库分发）
 ```
 
