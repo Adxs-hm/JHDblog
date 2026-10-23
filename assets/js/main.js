@@ -9,6 +9,15 @@ const root = document.documentElement;
 const FX = root.dataset.fx || 'full';
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+/* a11y 补丁（v8.2）：goldmark 把 markdown 任务列表渲染为无 label 的 disabled
+   checkbox（Lighthouse「form elements do not have associated labels」失分）。
+   补 aria-label；与 FX 档位无关，off 档同样执行。 */
+document.querySelectorAll('.post-content input[type="checkbox"]').forEach(cb => {
+  if (!cb.hasAttribute('aria-label')) {
+    cb.setAttribute('aria-label', cb.checked ? '已完成' : '未完成');
+  }
+});
+
 if (FX === 'off') {
   mountFxToggle();           /* off 档仅保留开关本身，保证可恢复 */
 } else {
@@ -25,7 +34,8 @@ function mountFxToggle() {
   btn.className = 'fx-toggle';
   const LABEL = { full: '特效 FULL', lite: '特效 LITE', off: '特效 OFF' };
   btn.innerHTML = '<span class="fx-toggle__dot"></span>' + (LABEL[FX] || '特效 FULL');
-  btn.setAttribute('aria-label', '切换动效与特效档位');
+  /* aria-label 须包含可见文本（WCAG 2.5.3 Label in Name）——带上当前档位 */
+  btn.setAttribute('aria-label', '切换动效与特效档位，当前 ' + LABEL[FX]);
   btn.addEventListener('click', () => {
     const order = { full: 'off', off: 'lite', lite: 'full' };
     try { localStorage.setItem('jhd:fx', order[FX] || 'full'); } catch (e) {}

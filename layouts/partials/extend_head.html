@@ -2,6 +2,18 @@
 <link rel="manifest" href="{{ "manifest.json" | relURL }}">
 <meta name="theme-color" content="#f4f3ee" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#06080a" media="(prefers-color-scheme: dark)">
+
+{{- /* OG 补充（v8.2）：opengraph.html 只输出 og:image 本体——alt/宽高/twitter 卡在此补齐。
+     og:image 本体由 .Params.images（页优先）/ site.Params.images（兜底）经 absURL 输出。 */ -}}
+{{- $ogTitle := .Title -}}
+{{- with or .Params.images site.Params.images -}}
+{{- $ogImg := index . 0 -}}
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ with $ogTitle }}{{ . }} — {{ end }}JHD · 终端">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{{ $ogImg | absURL }}">
+{{- end -}}
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('{{ "sw.js" | relURL }}');

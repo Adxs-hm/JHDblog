@@ -2,6 +2,7 @@
 title: "JHD 站点"
 date: 2026-06-30T12:36:13+08:00
 description: "Hugo + PaperMod 深度定制个人站点——技术架构、设计系统与工程链路全档"
+images: ["og/og-jhd-site.png"]
 tags: ["网站", "Hugo", "GitHub Pages"]
 categories: ["项目"]
 flagship: true

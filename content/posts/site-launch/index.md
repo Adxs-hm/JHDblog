@@ -2,6 +2,7 @@
 title: "JHD 站点正式上线"
 date: 2026-06-30T10:33:33+08:00
 description: "本站从零到一的完整上线记录"
+images: ["og/og-site-launch.png"]
 tags: ["网站", "里程碑"]
 categories: ["项目"]
 draft: false

@@ -17,7 +17,7 @@ mainSections = ["posts"]
   env = "production"
   description = "记录一个网站的建造——这里收录的唯一项目，就是本站自身"
   author = "JHD"
-  images = ["images/planet-avatar.svg"]
+  images = ["og/og-default.png"]
   defaultTheme = "light"
   dateFormat = "2006-01-02"
 
@@ -71,6 +71,16 @@ mainSections = ["posts"]
 
   [params.label]
     text = "JHD"
+
+  # 编辑链接（每页 meta 区显示，指向 GitHub 编辑源文件）
+  [params.editPost]
+    URL = "https://github.com/Adxs-hm/JHDblog/edit/main/content"
+    appendFilePath = true
+    Text = "编辑此页"
+
+[frontmatter]
+  # lastmod 从 git 历史派生（免手工维护），页面 meta 与 og article:modified_time 自动生效
+  lastmod = [":git", "lastmod", ":fileModTime"]
 
 [[menu.main]]
   name = "项目"

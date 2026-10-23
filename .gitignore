@@ -11,3 +11,6 @@ package-lock.json
 
 # Lighthouse CI 本地产物
 /.lighthouseci/
+
+# Lighthouse 审计临时产物
+/.tools/lh-a11y*.json

@@ -375,6 +375,15 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .post-content h3{font-size:1.05rem;font-weight:700;margin:1.7rem 0 .6rem;padding-left:.5rem;border-left:2px solid var(--hairline-strong);color:var(--fg)}
 .post-content a{color:var(--accent-ink);text-decoration:none;padding-bottom:1px;border-bottom:1px solid var(--line-gold);transition:color .2s ease}
 .post-content a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+/* 标题锚点（v8.2）：hover/focus 时金色 # 淡入——长文深链引用；scroll-margin 防吸顶裁剪 */
+.post-content h1,.post-content h2,.post-content h3,
+.post-content h4,.post-content h5,.post-content h6{scroll-margin-top:84px}
+.post-content .anchor{display:inline-block;margin-left:.45em;font-family:var(--font-mono);
+  font-weight:400;font-size:.72em;color:var(--accent);text-decoration:none;
+  opacity:0;transition:opacity .18s ease;vertical-align:middle}
+.post-content h1:hover .anchor,.post-content h2:hover .anchor,.post-content h3:hover .anchor,
+.post-content h4:hover .anchor,.post-content h5:hover .anchor,.post-content h6:hover .anchor,
+.post-content .anchor:focus{opacity:1}
 .post-content code{font-family:var(--font-mono);font-size:.875em;background:var(--code-bg);color:var(--accent-ink);padding:.15em .4em}
 .post-content pre{background:var(--code-block-bg);border:none;border-left:3px solid var(--accent);padding:1.25rem 1.5rem;margin:1.5rem 0;overflow-x:auto}
 .post-content pre code{background:transparent;color:var(--fg);font-size:.85rem;line-height:1.7;padding:0}
@@ -645,4 +654,29 @@ h1,h2,h3,.cell-title,.home-section-title .cn,.post-title{text-wrap:balance}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
+/* ── 打印/PDF 形态（v8.2：工程档案的纸质输出）──
+   隐藏界面铬；外链展开 URL；代码块强制浅色；分页保护。
+   验证：DevTools → Rendering → Emulate CSS media type: print */
+@media print{
+  .header,.nav,footer,.footer,.trm-focus,.trm-scanline,.fx-toggle,.top-link,.skip-link,
+  .trm-progress-track,.trm-badge-toast,.share-buttons,.breadcrumbs,.toc,.giscus,.webmentions,
+  body::before,body::after{display:none!important}
+  /* TOC 侧栏规则带 display:block!important 且特异性 (0,3,0)——用同选择器后加载决胜 */
+  .post-single:has(details.toc) .toc{display:none!important}
+  body{background:#fff;color:#000}
+  .main{max-width:none;padding:0}
+  .post-content{font-size:11pt;line-height:1.65;color:#000}
+  .post-content h1,.post-content h2,.post-content h3,
+  .post-content h4,.post-content h5,.post-content h6{color:#000;break-after:avoid}
+  .post-content .anchor{display:none}
+  .post-content a{color:#000;border-bottom:none}
+  .post-content a[href^="http"]::after{content:" (" attr(href) ")";font-size:.8em;color:#555;overflow-wrap:anywhere}
+  .post-content table,.post-content pre,.post-content blockquote,.post-content figure{break-inside:avoid}
+  .post-content p{orphans:3;widows:3}
+  .code-block-header button{display:none!important}
+  .code-block-body,.code-block-body .chroma{background:#fff!important;color:#111!important}
+  .code-block-body pre{white-space:pre-wrap;overflow-wrap:anywhere}
+  @page{margin:18mm 15mm}
 }

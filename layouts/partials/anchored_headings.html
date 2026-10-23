@@ -1,0 +1,8 @@
+{{- /* 项目覆盖（v8.2）：主题原版给标题锚点加 hidden + aria-hidden，导致永久不可见，
+       长文无法被深链引用。本版输出可见锚点（CSS 控制 hover 淡入）。
+       aria-label 以可见文本 "#" 开头——满足 WCAG 2.5.3（Label in Name）。 */ -}}
+{{ . | replaceRE
+    "(<h[1-6] id=\"([^\"]+)\".+)(</h[1-6]+>)"
+    "${1}<a class=\"anchor\" href=\"#${2}\" aria-label=\"# 链接到本节\">#</a>${3}"
+    | safeHTML
+}}

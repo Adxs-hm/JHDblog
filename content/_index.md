@@ -1,6 +1,7 @@
 ---
 title: "JHD"
 description: "本站建造过程的完整档案"
+images: ["og/og-home.png"]
 ---
 
 <div class="jhd-hero">
