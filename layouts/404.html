@@ -21,5 +21,13 @@
   </div>
 
   <p class="rec-sub" style="margin-top:1.2rem">操作说明：指针或 ← / → 控制修复光束；空格开始或重试。60 秒内修复度达到 100% 记为恢复成功。</p>
+
+  {{- /* 检索入口（v8.3）：失路点的替代路径——游戏之外提供搜索与档案导航 */ -}}
+  <nav class="rec-nav" aria-label="站点导航">
+    <a class="rec-nav__link" href="{{ "search" | relURL }}">⌕ 搜索档案 <b>SEARCH</b></a>
+    <a class="rec-nav__link" href="{{ "changelog" | relURL }}">▤ 构建日志 <b>CHANGELOG</b></a>
+    <a class="rec-nav__link" href="{{ "archives" | relURL }}">▤ 时间归档 <b>ARCHIVES</b></a>
+    <a class="rec-nav__link" href="{{ "start-here" | relURL }}">◈ 档案索引 <b>START-HERE</b></a>
+  </nav>
 </div>
 {{- end }}

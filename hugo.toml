@@ -87,17 +87,21 @@ mainSections = ["posts"]
   url = "posts"
   weight = 1
 [[menu.main]]
+  name = "构建日志"
+  url = "changelog"
+  weight = 2
+[[menu.main]]
   name = "关于"
   url = "about"
-  weight = 2
+  weight = 3
 [[menu.main]]
   name = "搜索"
   url = "search"
-  weight = 3
+  weight = 4
 [[menu.main]]
   name = "游戏"
   url = "minesweeper"
-  weight = 4
+  weight = 5
 
 [languages.zh-cn]
   label = "简体中文"

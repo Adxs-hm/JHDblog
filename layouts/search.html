@@ -1,0 +1,104 @@
+{{- define "main" }}
+
+<header class="page-header">
+    <h1>{{- (printf "%s&nbsp;" .Title ) | htmlUnescape -}}
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+    </h1>
+    {{- if .Description }}
+    <div class="post-description">
+        {{ .Description }}
+    </div>
+    {{- end }}
+</header>
+
+<div id="searchbox" class="searchbox">
+    <div class="searchbox__row">
+        <input id="searchInput" disabled placeholder="{{ .Params.placeholder | default (printf "%s ↵" .Title) }}"
+            aria-label="search" type="search" autocomplete="off" maxlength="64">
+        <button type="button" class="searchbox__clear" id="searchClear" aria-label="清空搜索词" hidden>&times;</button>
+    </div>
+    <div class="search-status" id="searchStatus" role="status" aria-live="polite" hidden></div>
+    <ul id="searchResults" class="searchResults" aria-label="search results"></ul>
+    <div class="search-empty" id="searchEmpty" hidden>
+        <div class="search-empty__title">未找到匹配项</div>
+        <p class="search-empty__hint">可换用更短的关键词，或从下列入口浏览档案：</p>
+        <nav class="search-empty__links">
+            <a href="{{ "changelog" | relURL }}">▤ 构建日志 <b>CHANGELOG</b></a>
+            <a href="{{ "archives" | relURL }}">▤ 时间归档 <b>ARCHIVES</b></a>
+            <a href="{{ "start-here" | relURL }}">◈ 档案索引 <b>START-HERE</b></a>
+            <a href="{{ "about" | relURL }}">◉ 关于本站 <b>ABOUT</b></a>
+        </nav>
+    </div>
+</div>
+
+{{- /* 搜索增强（v8.3）：结果计数 / 匹配高亮 / 空态 / 清除按钮。
+     主题 fastsearch.js 负责 Fuse 索引与键盘导航（↑↓ 移动、→ 打开、Esc 清空），
+     此处仅做 DOM 后处理——MutationObserver 监听 #searchResults，
+     与主题内部时序完全解耦；defer 的 search.js 在本脚本之后执行亦无妨。*/ -}}
+<script>
+(function () {
+    var input = document.getElementById('searchInput');
+    var list = document.getElementById('searchResults');
+    var status = document.getElementById('searchStatus');
+    var empty = document.getElementById('searchEmpty');
+    var clearBtn = document.getElementById('searchClear');
+    if (!input || !list || !status || !empty || !clearBtn) return;
+
+    var ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+    function esc(s) { return s.replace(/[&<>"']/g, function (c) { return ESC[c]; }); }
+    function highlight(text, q) {
+        var i = text.toLowerCase().indexOf(q.toLowerCase());
+        if (i < 0) return esc(text);
+        return esc(text.slice(0, i)) + '<mark class="search-mark">' + esc(text.slice(i, i + q.length)) + '</mark>' + esc(text.slice(i + q.length));
+    }
+    function render() {
+        var q = input.value.trim();
+        clearBtn.hidden = !q;
+        var items = list.querySelectorAll('li');
+        if (!q) {
+            status.hidden = true;
+            status.textContent = '';
+            empty.hidden = true;
+            return;
+        }
+        status.hidden = false;
+        if (!items.length) {
+            status.textContent = '“' + q + '” · 无匹配项';
+            empty.hidden = false;
+            return;
+        }
+        empty.hidden = true;
+        status.textContent = '“' + q + '” · 匹配 ' + items.length + ' 项 · ↑↓ 选择 · Enter 打开';
+        /* 标题匹配高亮：替换首个非空文本节点，保留主题的 svg 与 entry-link 覆盖层 */
+        items.forEach(function (li) {
+            var node = null;
+            for (var i = 0; i < li.childNodes.length; i++) {
+                if (li.childNodes[i].nodeType === 3 && li.childNodes[i].textContent.trim()) { node = li.childNodes[i]; break; }
+            }
+            if (node) {
+                var span = document.createElement('span');
+                span.className = 'search-title';
+                span.innerHTML = highlight(node.textContent, q);
+                li.replaceChild(span, node);
+            }
+        });
+    }
+    new MutationObserver(render).observe(list, { childList: true });
+    /* 输入事件双路兜底：空查询立即复位（列表已空时 innerHTML='' 不触发 mutation）；
+       非空查询等主题 150ms 防抖渲染完成后再后处理 */
+    input.addEventListener('input', function () {
+        if (!input.value.trim()) { render(); } else { setTimeout(render, 220); }
+    });
+    clearBtn.addEventListener('click', function () {
+        input.value = '';
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        input.focus();
+    });
+})();
+</script>
+
+{{- end }}
