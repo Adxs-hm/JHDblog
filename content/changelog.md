@@ -26,7 +26,7 @@ comments: false
     <li>prefers-reduced-motion 显式覆盖 SDA（滚动驱动动画不受 animation-duration 影响，须单独关闭并直出终态）；lite 档 reveal 退化为纯渐隐、视差关闭</li>
     <li>门禁复测：perf 100/100/100、TBT 0/0/0（滚动监听工作移出主线程）、LCP 不变；冒烟 64/64（新增 SDA 透明度与视差矩阵断言）</li>
   </ul>
-  <div class="cl-meta">commit 待提交</div>
+  <div class="cl-meta">commit 3ca976e</div>
 </article>
 
 <article class="cl-entry" data-reveal>
