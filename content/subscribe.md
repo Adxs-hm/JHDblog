@@ -1,4 +1,5 @@
 ---
+hiddenInRss: true
 title: "订阅"
 url: "/subscribe"
 description: "通过 RSS 订阅本站更新"

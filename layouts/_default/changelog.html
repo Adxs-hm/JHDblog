@@ -9,6 +9,23 @@
 
     <article class="cl-entry" data-reveal>
       <div class="cl-head">
+        <span class="cl-ver">v8.5</span>
+        <span class="cl-date">2026-10-24</span>
+        <span class="cl-tag">清理加固</span>
+      </div>
+      <h2 class="cl-title">构建告警清零 · 测试套件重建 · Feed 收敛</h2>
+      <ul class="cl-items">
+        <li>Hugo 0.158 弃用项清零：项目级 baseof 与 opengraph/rss 覆盖同步修正（LanguageDirection→Direction、LanguageCode→Locale），构建零告警</li>
+        <li>测试套件重建：v7 时代三脚本（引用已删除的友链页，必然崩溃）合并重写为 .tools/verify.py——11 页 × 双主题零错误/零 4xx、搜索五功能、404 游戏、扫雷渲染、FX 开关，63 断言全过</li>
+        <li>补 .tools/test-minesweeper.js：扫雷 core 回归（Node 零依赖），覆盖首击安全区/插旗/问号/chord 门控/踩雷判负/autoStep 只插旗决策，19 断言十轮稳定</li>
+        <li>RSS 收敛：工具页（订阅/扫雷/搜索/归档）标记 hiddenInRss，feed 只载内容——两篇档案 + 构建日志</li>
+        <li>.tools/shots.py 替代过期截图脚本（含移动端视口）</li>
+      </ul>
+      <div class="cl-meta">commit 待提交</div>
+    </article>
+
+    <article class="cl-entry" data-reveal>
+      <div class="cl-head">
         <span class="cl-ver">v8.4</span>
         <span class="cl-date">2026-10-24</span>
         <span class="cl-tag">门禁加固</span>

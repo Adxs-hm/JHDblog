@@ -108,7 +108,10 @@ JHDblog/
 ├── .tools/                            # 本地工具（不入 Hugo 产物）
 │   ├── ci-static-server.js            # LHCI 数据源：gzip 静态服务器（node 内置模块）
 │   ├── gen-og.py                      # OG 分享图生成器（Playwright 截图）
-│   └── og-card.html                   # OG 卡模板
+│   ├── og-card.html                   # OG 卡模板
+│   ├── verify.py                      # 全站冒烟测试（63 断言，双主题）
+│   ├── test-minesweeper.js            # 扫雷 core 回归（Node 零依赖）
+│   └── shots.py                       # 全站截图工具（含移动端）
 ├── .github/
 │   ├── workflows/                     # 部署 + Lighthouse 门禁 + 安全扫描
 │   ├── lighthouserc.json              # LHCI 配置（断言即预算：LCP 2000ms / TBT 200ms / CLS 0.05）

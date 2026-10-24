@@ -1,4 +1,5 @@
 ---
+hiddenInRss: true
 title: "扫雷"
 url: "/minesweeper"
 description: "扫雷实现：支持自动标雷与自定义棋盘"

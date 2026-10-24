@@ -48,7 +48,7 @@
 - **实用性体系（v8.2/v8.3）**：OG 图由 `.tools/gen-og.py` 生成（**内容标题/描述变更后必须重跑**，front matter `images` 接线，勿用 cover.image）；标题锚点/「更新于」/搜索增强分别由项目级 `anchored_headings.html`/`post_meta.html`/`search.html` 覆盖实现；搜索增强用 MutationObserver 监听 `#searchResults` 与主题 fastsearch.js 解耦（**列表已空时 innerHTML='' 不触发 mutation，空查询须立即复位**）；`/changelog/` 构建日志页——**发新版后必须同步更新该页**；CF Web Analytics 走 `[params.analytics].cfBeaconToken`（token 为空则 beacon 与 CSP 放行域双双不出现）
 - 类名前缀：`.trm-`（终端组件）/ `.rec-`（404 游戏）/ `.ms-`（扫雷）/ `.cl-`（构建日志）/ `.search-`（搜索增强）；**禁用任何 IP 关联命名**
 - SW：`static/sw.js`（jhd-v8，导航 network-first，静态 cache-first，第三方不拦截）
-- 验证工具：`.tools/verify-v7*.py`（Playwright 冒烟/交互/截图）；本地预览 `python -m http.server 8080 --directory public`（**8081 会被环境代理拦截**）
+- 验证工具：`.tools/verify.py`（全站冒烟：11 页 × 双主题零错误/搜索/404 游戏/扫雷/FX 开关，63 断言）；`.tools/test-minesweeper.js`（扫雷 core 回归，Node 零依赖）；`.tools/shots.py`（全站截图，含移动端）；本地预览 `python -m http.server 8080 --directory public`（**8081 会被环境代理拦截**；**本地构建必须 `--baseURL http://localhost:8080/`**，否则资源走 /JHDblog/ 前缀全部 404）
 
 ## 内容约定
 
