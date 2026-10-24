@@ -74,9 +74,9 @@ def main():
         check("专注度组件挂载", st["focus"])
         check("首页 HUD 显示 BUILD v8.4+", "BUILD v8" in (st["hud"] or ""))
 
-        # 粒子场绘制（load 门控后轮询）
+        # 粒子场绘制（load 门控后轮询；软件渲染 + 机器负载下留足预算）
         painted = 0
-        for _ in range(20):
+        for _ in range(40):
             page.wait_for_timeout(250)
             painted = page.evaluate("""() => {
                 const cv = document.querySelector('.trm-logo-canvas');
@@ -148,9 +148,11 @@ def main():
         )
         check("游戏会话启动（日志）", "recovery session started" in started, started[:40])
         # headless 软件渲染下 rAF 约 1fps（帧绘制被 SwiftShader 拖慢），
-        # 计时以突发方式推进——轮询等待游戏时间流逝即可，不要求每帧平滑
+        # 计时以突发方式推进——轮询等待游戏时间流逝即可，不要求每帧平滑；
+        # 预算取 15s 以容忍机器负载波动
         advanced = False
-        for _ in range(24):
+        hud = ""
+        for _ in range(30):
             gp.wait_for_timeout(500)
             hud = gp.evaluate("() => (document.querySelector('.rec-hud') || {}).textContent || ''")
             if "T-60s" not in hud:

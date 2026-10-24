@@ -17,12 +17,14 @@ draft: false
 
 | 参数 | 值 |
 |------|-----|
-| 生成器 | Hugo Extended |
+| 生成器 | Hugo Extended（0.168.0，CI 锁定） |
 | 主题基底 | PaperMod（深度定制） |
 | 设计系统 | TERMINAL v8 · 金/银 |
 | 部署 | GitHub Actions → GitHub Pages |
 | 评论 | giscus（GitHub Discussions） |
 | 搜索 | Fuse.js 全文检索 + `Ctrl+K` |
+| 版本史 | v8.6（[构建日志](../changelog/)） |
+| 质量门禁 | Lighthouse CI（perf ≥ 0.9 / a11y ≥ 0.95）+ 63 断言冒烟套件 |
 
 ---
 
