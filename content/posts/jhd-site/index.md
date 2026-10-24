@@ -181,7 +181,7 @@ JHDblog/
 │   ├── _index.md              # 首页（Hero + Bento + 档案索引条 + 订阅条）
 │   ├── about/_index.md        # 关于页：站点参数表 + 运行计时器
 │   ├── archives.md            # 归档页
-│   ├── changelog.md           # 构建日志（v4→v8.6 版本史）
+│   ├── changelog.md           # 构建日志（v4→v8.9 版本史，条目即内容）
 │   ├── search.md              # 搜索页
 │   ├── start-here/_index.md   # 档案索引（阅读路径）
 │   ├── subscribe.md           # 订阅落地页

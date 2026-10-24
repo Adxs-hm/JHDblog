@@ -36,6 +36,9 @@ mainSections = ["posts"]
   ShowRelatedPosts = true
   disableSpecial1stPost = false
 
+  # RSS 全文输出（content:encoded）——订阅页声明的即此项；关闭则只输出摘要
+  ShowFullTextinRSS = true
+
   # giscus 评论（GitHub Discussions 驱动）— single.html 依 .Param "comments" 渲染
   comments = true
 
