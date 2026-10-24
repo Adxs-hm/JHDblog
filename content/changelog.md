@@ -14,6 +14,22 @@ comments: false
 
 <article class="cl-entry" data-reveal>
   <div class="cl-head">
+    <span class="cl-ver">v8.14</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">色彩演进</span>
+  </div>
+  <h2 class="cl-title">色彩体系迁移 OKLCH</h2>
+  <ul class="cl-items">
+    <li>双主题 ~30 个色值令牌 hex/rgba → oklch()：标准 OKLab 矩阵精确转换（.tools/oklch_convert.py），回程误差 0/255</li>
+    <li>像素 diff 实证：4 视图（home/post × light/dark）× 1024000 像素采样，差异像素 0，最大通道差 1/255（抗锯齿边缘，容差内）——对比度结论原样成立</li>
+    <li>rgba 令牌（halftone/grid/panel）同步 oklch / alpha 语法；原 hex 存档于注释；color-mix 维持 srgb（混合行为不变）</li>
+    <li>收益：设计系统获得感知均匀的操纵空间——oklch color-mix、亮度缩放、宽色域就绪；hex 时代结束（v7.1 报告演进项清偿）</li>
+  </ul>
+  <div class="cl-meta">commit 3df8611</div>
+</article>
+
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
     <span class="cl-ver">v8.12</span>
     <span class="cl-date">2026-10-24</span>
     <span class="cl-tag">动效极致</span>
