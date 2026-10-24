@@ -18,23 +18,24 @@
 @font-face{font-family:"JetBrains Mono";src:url("/fonts/jetbrainsmono-var.woff2") format("woff2") tech(variations);font-weight:400 800;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21BB,U+2212,U+2215}
 
 /* ── TOKENS · TERMINAL（纯黑终端 · 次级主题）──
-   选择器必须与 PaperMod 的 :root[data-theme="dark"] 同特异性（0,2,0），
-   且 extended.css 后于主题核心加载 → 同特异性下源序决胜 */
+   v8.14 起色彩体系为 OKLCH（回程误差 0/255，像素级等价迁移，
+   原 hex 存档于注释）；选择器必须与 PaperMod 的 :root[data-theme="dark"]
+   同特异性（0,2,0），且 extended.css 后于主题核心加载 → 源序决胜 */
 :root,:root[data-theme="dark"]{
-  --bg:#06080a;            /* 纯黑（非 #000，避 OLED 眩光）*/
-  --bg-2:#0b0f13;          /* 面板 */
-  --fg:#eef2f4;            /* 纸白 */
-  --fg-dim:#96a2ab;        /* 次级 */
-  --line:#1d252c;          /* 分隔线 */
-  --accent:#c9a227;        /* 金 · 仅图形（对 --bg 8.1:1）*/
-  --accent-deep:#8a6d1f;   /* 金深阶 */
-  --accent-ink:#c9a227;    /* 金 · 文字（对 --bg 8.1:1）*/
-  --warn:#f5b800;          /* 警戒黄 · 仅装饰条纹 */
-  --warn-ink:#f5b800;
-  --danger:#ff4d5e;        /* 损坏/错误 */
-  --halftone:rgba(238,242,244,.055);
-  --grid:rgba(238,242,244,.035);
-  --panel:rgba(11,15,19,.72);
+  --bg:oklch(13.26% 0.0064 244.3);            /* 纯黑 · 原 #06080a（非 #000，避 OLED 眩光）*/
+  --bg-2:oklch(16.6% 0.0106 248.47);          /* 面板 · #0b0f13 */
+  --fg:oklch(95.87% 0.0051 228.82);           /* 纸白 · #eef2f4 */
+  --fg-dim:oklch(70.56% 0.019 240.12);        /* 次级 · #96a2ab */
+  --line:oklch(25.98% 0.0175 244.95);         /* 分隔线 · #1d252c */
+  --accent:oklch(72.8% 0.138 89.73);          /* 金 · 仅图形（对 --bg 8.1:1）· #c9a227 */
+  --accent-deep:oklch(54.91% 0.0996 87.38);   /* 金深阶 · #8a6d1f */
+  --accent-ink:oklch(72.8% 0.138 89.73);      /* 金 · 文字（对 --bg 8.1:1）*/
+  --warn:oklch(81.64% 0.1675 84.4);           /* 警戒黄 · 仅装饰条纹 · #f5b800 */
+  --warn-ink:oklch(81.64% 0.1675 84.4);
+  --danger:oklch(67.56% 0.2131 19.83);        /* 损坏/错误 · #ff4d5e */
+  --halftone:oklch(95.87% 0.0051 228.82 / .055);
+  --grid:oklch(95.87% 0.0051 228.82 / .035);
+  --panel:oklch(16.6% 0.0106 248.47 / .72);
   --ease:cubic-bezier(.33,1,.68,1);
   --font-display:"Chakra Petch","PingFang SC","Microsoft YaHei",sans-serif;
   --font-mono:"JetBrains Mono","Cascadia Mono",Consolas,monospace;
@@ -43,24 +44,24 @@
   --theme:var(--bg);--entry:var(--bg-2);--primary:var(--fg);
   --secondary:var(--fg-dim);--tertiary:var(--bg-2);--content:var(--fg);
   --border:var(--line);--radius:0;
-  --code-block-bg:#0d1117;--code-bg:#0d1117;
+  --code-block-bg:oklch(17.63% 0.014 258.36);--code-bg:oklch(17.63% 0.014 258.36);
   color-scheme:dark;
 }
 /* ── TOKENS · ARCHIVE（档案纸白 · 主视觉，v6 纸底血脉复兴）── */
 :root:not([data-theme="dark"]),:root[data-theme="light"]{
-  --bg:#f4f3ee;--bg-2:#fbfaf6;--fg:#0d0f12;--fg-dim:#4c545c;
-  --line:#cdd1d8;          /* 银灰细线 */
-  --accent:#a5824a;        /* 哑光金 · 装饰（仅图形）*/
-  --accent-deep:#8a6d1f;   /* 金深阶 */
-  --accent-ink:#7a5c1a;    /* 深金 · 文字（对纸白 5.7:1 · AA）*/
-  --warn:#f5b800;--warn-ink:#8a6100;--danger:#c2253a;
-  --halftone:rgba(13,15,18,.06);
-  --grid:rgba(13,15,18,.04);
-  --panel:rgba(251,250,246,.78);
+  --bg:oklch(96.35% 0.0067 97.35);--bg-2:oklch(98.48% 0.0054 95.1);--fg:oklch(16.76% 0.0071 258.37);--fg-dim:oklch(44.17% 0.0167 248.2);
+  --line:oklch(85.97% 0.0106 261.79);       /* 银灰细线 · #cdd1d8 */
+  --accent:oklch(62.78% 0.0854 77.96);      /* 哑光金 · 装饰（仅图形）· #a5824a */
+  --accent-deep:oklch(54.91% 0.0996 87.38); /* 金深阶 · #8a6d1f */
+  --accent-ink:oklch(49.34% 0.0896 82.95);  /* 深金 · 文字（对纸白 5.7:1 · AA）· #7a5c1a */
+  --warn:oklch(81.64% 0.1675 84.4);--warn-ink:oklch(52.21% 0.1082 79.73);--danger:oklch(53.16% 0.1905 20.35);
+  --halftone:oklch(16.76% 0.0071 258.37 / .06);
+  --grid:oklch(16.76% 0.0071 258.37 / .04);
+  --panel:oklch(98.48% 0.0054 95.1 / .78);
   --theme:var(--bg);--entry:var(--bg-2);--primary:var(--fg);
   --secondary:var(--fg-dim);--tertiary:var(--bg-2);--content:var(--fg);
   --border:var(--line);--radius:0;
-  --code-block-bg:#f6f5f0;--code-bg:#efece3;
+  --code-block-bg:oklch(96.95% 0.0067 97.35);--code-bg:oklch(94.29% 0.0124 91.52);
   color-scheme:light;
 }
 /* ── 兼容别名：v6 金色命名 → v8 金令牌（旧区块样式零改动迁移）── */
