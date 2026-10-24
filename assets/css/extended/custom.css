@@ -694,6 +694,15 @@ h1,h2,h3,.cell-title,.home-section-title .cn,.post-title{text-wrap:balance}
 .rec-nav__link b{font-weight:700}
 .rec-nav__link:hover{background:color-mix(in srgb, var(--accent) 10%, transparent)}
 
+/* ── 标签/分类 taxonomy 页（v8.10）：主题默认白盒 chips 不在 v8 语言内 ── */
+.terms-tags{display:flex;flex-wrap:wrap;gap:.6rem}
+.terms-tags li{list-style:none}
+.terms-tags a{display:inline-block;font-family:var(--font-mono);font-size:.85rem;
+  letter-spacing:.04em;color:var(--fg);background:var(--bg-2);border:1px solid var(--line);
+  padding:.5rem .85rem;text-decoration:none;transition:border-color .2s ease,background .2s ease}
+.terms-tags a:hover{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 8%, transparent)}
+.terms-tags a sup{color:var(--accent-ink);font-size:.68rem;margin-left:.3rem}
+
 /* ── REDUCED MOTION ── */
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
