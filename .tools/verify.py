@@ -89,14 +89,25 @@ def main():
                 break
         check("粒子场绘制（load 门控后）", painted > 50, f"px={painted}")
 
-        # 滚动 reveal
+        # 滚动 reveal（双路：SDA 浏览器查计算透明度，回退查 .is-in 类）
+        sda = page.evaluate("() => CSS.supports && CSS.supports('animation-timeline: view()')")
         page.evaluate("window.scrollTo(0, 1200)")
         page.wait_for_timeout(600)
-        reveal = page.evaluate("""() => ({
-            total: document.querySelectorAll('[data-reveal]').length,
-            inView: document.querySelectorAll('[data-reveal].is-in').length
-        })""")
-        check("滚动后 reveal 触发", reveal["inView"] > 0, str(reveal))
+        if sda:
+            ops = page.evaluate(
+                "() => [...document.querySelectorAll('[data-reveal]')]"
+                ".map(el => parseFloat(getComputedStyle(el).opacity))"
+            )
+            vis = sum(1 for o in ops if o > 0.5)
+            check("滚动后 reveal 触发（SDA 计算透明度）", vis >= 1, f"ops={ops}")
+            tr = page.evaluate("() => getComputedStyle(document.body, '::before').transform")
+            check("背景视差生效（SDA）", tr not in ("none", ""), str(tr)[:44])
+        else:
+            reveal = page.evaluate("""() => ({
+                total: document.querySelectorAll('[data-reveal]').length,
+                inView: document.querySelectorAll('[data-reveal].is-in').length
+            })""")
+            check("滚动后 reveal 触发（JS 管线）", reveal["inView"] > 0, str(reveal))
         page.close()
 
         # ── 3. 搜索页 ──

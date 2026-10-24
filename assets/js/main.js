@@ -8,6 +8,10 @@
 const root = document.documentElement;
 const FX = root.dataset.fx || 'full';
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* SDA（Baseline 2026）：支持滚动时间线时 reveal 交由 CSS 驱动，
+   scrollFire 管线对 [data-reveal] 退出（split-char/计数器仍走 JS） */
+const SDA = !REDUCED && typeof CSS !== 'undefined' && CSS.supports && CSS.supports('animation-timeline: view()');
+if (SDA) root.classList.add('sda');
 
 /* a11y 补丁（v8.2）：goldmark 把 markdown 任务列表渲染为无 label 的 disabled
    checkbox（Lighthouse「form elements do not have associated labels」失分）。
@@ -100,11 +104,11 @@ function boot() {
     check();
   }
 
-  /* ── 机械感 reveal：直角切入（CSS clip-path 转场）── */
+  /* ── 机械感 reveal：直角切入（SDA 走 CSS 滚动时间线，其余走本管线）── */
   const reveals = Array.from(document.querySelectorAll('[data-reveal]'));
   if (REDUCED) {
     reveals.forEach(el => el.classList.add('is-in'));
-  } else {
+  } else if (!SDA) {
     scrollFire(reveals, .88, el => el.classList.add('is-in'));
   }
 

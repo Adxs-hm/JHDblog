@@ -14,6 +14,23 @@ comments: false
 
 <article class="cl-entry" data-reveal>
   <div class="cl-head">
+    <span class="cl-ver">v8.12</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">动效极致</span>
+  </div>
+  <h2 class="cl-title">滚动驱动动画 · 背景视差 · 微交互</h2>
+  <ul class="cl-items">
+    <li>reveal 迁移至 CSS 滚动驱动动画（animation-timeline: view()，Baseline 2026）：合成器参与驱动，scrollFire 轮询对 reveal 退出（split-char 入场保留 JS——首屏元素在 view() 时间线上已完成 entry）；三路架构 = SDA / JS 管线回退 / 无 JS 直显</li>
+    <li>背景双层视差：网点层与网格层以不同速率随滚动漂移（scroll(root) 时间线，oversize 120px 防露边），与内容产生相对纵深——两层背景结构未变</li>
+    <li>微交互：::selection 金色化（accent 底 + bg 字）、:focus-visible 金色 2px 外框（a11y）、页眉跨页驻留（view-transition-name 独立成组，转场中视觉静止）</li>
+    <li>prefers-reduced-motion 显式覆盖 SDA（滚动驱动动画不受 animation-duration 影响，须单独关闭并直出终态）；lite 档 reveal 退化为纯渐隐、视差关闭</li>
+    <li>门禁复测：perf 100/100/100、TBT 0/0/0（滚动监听工作移出主线程）、LCP 不变；冒烟 64/64（新增 SDA 透明度与视差矩阵断言）</li>
+  </ul>
+  <div class="cl-meta">commit 待提交</div>
+</article>
+
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
     <span class="cl-ver">v8.9</span>
     <span class="cl-date">2026-10-24</span>
     <span class="cl-tag">诚实性修复</span>

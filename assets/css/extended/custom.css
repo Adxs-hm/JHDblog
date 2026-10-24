@@ -110,12 +110,14 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .nav,.header,footer,.footer{position:relative;z-index:3}
 .post-entry,.first-entry{position:relative;z-index:2}
 
-/* ── 机械感 reveal（JS 加 .js 门控 + .is-in 触发；无 JS 时内容直显）── */
-.js [data-reveal]{opacity:0;transform:translateY(10px);clip-path:inset(0 100% 0 0);
+/* ── 机械感 reveal（三路：SDA 合成器驱动 / JS .is-in 转场 / 无 JS 直显）──
+   v8.12 起 reveal 优先走滚动驱动动画（见文末 @supports 块），
+   本段为 JS 管线回退（Firefox 旧版 / SDA 检测失败）。*/
+.js:not(.sda) [data-reveal]{opacity:0;transform:translateY(10px);clip-path:inset(0 100% 0 0);
   transition:opacity .55s var(--ease),transform .55s var(--ease),clip-path .55s var(--ease)}
-.js [data-reveal].is-in{opacity:1;transform:none;clip-path:inset(0 0 0 0)}
+.js:not(.sda) [data-reveal].is-in{opacity:1;transform:none;clip-path:inset(0 0 0 0)}
 /* lite / reduce：只渐隐，不位移不裁切 */
-:root[data-fx="lite"] .js [data-reveal]{transform:none;clip-path:none;transition:opacity .3s ease}
+:root[data-fx="lite"] .js:not(.sda) [data-reveal]{transform:none;clip-path:none;transition:opacity .3s ease}
 /* ── Hero 逐字入场 ── */
 .trm-split .ch{display:inline-block;transform:translateY(.55em);opacity:0;
   transition:transform .5s var(--ease),opacity .5s var(--ease)}
@@ -703,10 +705,43 @@ h1,h2,h3,.cell-title,.home-section-title .cn,.post-title{text-wrap:balance}
 .terms-tags a:hover{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 8%, transparent)}
 .terms-tags a sup{color:var(--accent-ink);font-size:.68rem;margin-left:.3rem}
 
+/* ── 滚动驱动动画（SDA · Baseline 2026 · v8.12）──
+   支持 view() 的浏览器：[data-reveal] 由滚动时间线直接驱动（合成器参与，
+   scrollFire 管线对 reveal 退出；split-char 入场仍走 JS——首屏元素在
+   view() 时间线上已完成 entry，无滚动入场可言）。
+   背景双层视差：网点快、网格慢，滚动时与内容产生相对纵深（两层结构未变）。
+   clip-path 动画 Chrome/Edge 已合成器化，Firefox 走重绘但条目有限可接受。*/
+@supports (animation-timeline: view()) {
+  .js.sda [data-reveal]{opacity:0;transform:translateY(10px);clip-path:inset(0 100% 0 0);
+    animation:trm-reveal linear both;animation-timeline:view();
+    animation-range:entry 0% entry 60%}
+  @keyframes trm-reveal{to{opacity:1;transform:none;clip-path:inset(0 0 0 0)}}
+  :root[data-fx="lite"] .js.sda [data-reveal]{transform:none;clip-path:none;
+    animation-name:trm-reveal-lite;animation-range:entry 0% entry 100%}
+  @keyframes trm-reveal-lite{to{opacity:1}}
+  /* 背景视差（oversize 120px 防漂移露边；lite 档关闭环境动效）*/
+  body::before,body::after{inset:-120px 0}
+  body::before{animation:halftone-drift linear both;animation-timeline:scroll(root)}
+  body::after{animation:grid-drift linear both;animation-timeline:scroll(root)}
+  @keyframes halftone-drift{to{transform:translateY(-110px)}}
+  @keyframes grid-drift{to{transform:translateY(-44px)}}
+  :root[data-fx="lite"] body::before,:root[data-fx="lite"] body::after{animation:none}
+}
+
+/* ── 微交互（v8.12）：选区金色化 / 键盘焦点金框（a11y + 质感）── */
+::selection{background:var(--accent);color:var(--bg)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ── 页眉跨页驻留：MPA 转场中页眉独立成组，同名同位即视觉静止 ── */
+.header{view-transition-name:site-header}
+
 /* ── REDUCED MOTION ── */
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  /* SDA：滚动驱动动画不受 animation-duration 影响，需显式关闭并直出终态 */
+  .js.sda [data-reveal]{animation:none!important;opacity:1!important;transform:none!important;clip-path:none!important}
+  body::before,body::after{animation:none!important}
 }
 
 /* ── 打印/PDF 形态（v8.2：工程档案的纸质输出）──

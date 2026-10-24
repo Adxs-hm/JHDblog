@@ -40,6 +40,8 @@
 - **PaperMod 特异性坑**：`:root[data-theme="dark"]` 为 (0,2,0)，我的令牌块必须同特异性且后加载（extended 在 core 后）；`.list` 类首页 body 会被 PaperMod 用 `--code-bg` 做底，已用 `.list{background:var(--bg)}` 覆盖
 - **文字强调色双 token**：`--accent` 仅图形；`--accent-ink` 做文字（archive 档 #7a5c1a 对纸白 5.7:1，terminal 档 #c9a227 对纯黑 8.1:1）
 - **粒子/扫描线 30fps 限帧 + requestIdleCallback 启动 + 批量 path fill**；lite/off 档粒子场退化为 CSS 静态字
+- **滚动驱动动画（v8.12）**：reveal 三路 = SDA（view() 时间线，root 加 .sda）/ JS scrollFire 回退 / 无 JS 直显——**reveal 的旧约束「不能用 IO（clip-path 裁出零面积）」对 SDA 不适用（无交叠检测）**；背景双层视差走 scroll(root)（网点快网格慢，oversize 120px 防露边）；**SDA 不受 animation-duration 影响，reduced-motion 需显式 animation:none 并直出终态**；lite 档 reveal 纯渐隐、视差关闭；页眉 view-transition-name 跨页驻留；::selection/:focus-visible 金色化
+- **滚动驱动动画（v8.12）**：reveal 三路 = SDA（view() 时间线，root 加 .sda）/ JS scrollFire 回退 / 无 JS 直显——**reveal 的旧约束「不能用 IO（clip-path 裁出零面积）」对 SDA 不适用（无交叠检测）**；背景双层视差走 scroll(root)（网点快网格慢，oversize 120px 防露边）；**SDA 不受 animation-duration 影响，reduced-motion 需显式 animation:none 并直出终态**；lite 档 reveal 纯渐隐、视差关闭；页眉 view-transition-name 跨页驻留；::selection/:focus-visible 金色化
 - **页面骨架（宽容器 + 窄 Measure）**：`--main-width:1024`（main=1072px，与 `--nav-width` 对齐消除宽度断层）；`.post-content > p/ul/ol/blockquote/h1-h6` 限宽 `44em` 居中（中文 30–50 字/行），表格/代码/图片破出满宽
 - **粒子场内存纪律**：Float32Array 粒子状态（无 per-particle 对象分配，规避 major GC 长任务）+ 3000 硬帽 + 半分辨率离屏采样（getImageData -75%）+ 离屏画布复用 + 静态文字先绘
 - **粒子场 load 门控**（v8.4）：init 时先绘静态文字，粒子循环延迟到 window `load` + idle 才启动——装饰动画不抢加载突发期主线程（冷启动单任务 1069ms→降档，TBT 中位数归零）；**Hugo js.Build 不支持 esbuild splitting**（代码拆分属 js.Batch），动态 import 的岛屿代码内联主包，勿再试 `"splitting" true`
