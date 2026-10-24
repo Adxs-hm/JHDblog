@@ -213,7 +213,7 @@
         cfg.rows = r; cfg.cols = c; cfg.mines = m;
         return { rows: r, cols: c, mines: m };
       }
-      var d = DIFFICULTIES[cfg.difficulty];
+      var d = DIFFICULTIES.hasOwnProperty(cfg.difficulty) ? DIFFICULTIES[cfg.difficulty] : DIFFICULTIES.easy; /* 白名单：原型链污染（如 "constructor"）回落 easy */
       return { rows: d.rows, cols: d.cols, mines: d.mines };
     }
     function clampInt(v, lo, hi, dflt) {

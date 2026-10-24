@@ -14,7 +14,10 @@ export default function initFocus() {
   let st = { v: CAP, t: Date.now() };
   try {
     const raw = JSON.parse(localStorage.getItem('jhd:focus') || 'null');
-    if (raw && typeof raw.v === 'number') st = raw;
+    /* 类型白名单：数值且有限才采信，并钳制到 [0, CAP]——存储损坏/篡改不外泄 */
+    if (raw && typeof raw.v === 'number' && Number.isFinite(raw.v)) {
+      st = { v: Math.min(CAP, Math.max(0, Math.round(raw.v))), t: raw.t || Date.now() };
+    }
   } catch (e) {}
   if (!st.t) st.t = Date.now();
   const gain = Math.floor((Date.now() - st.t) / PER);
