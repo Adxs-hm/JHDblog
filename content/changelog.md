@@ -25,7 +25,7 @@ comments: false
     <li>全站 11 页可访问性普查：此前仅审计 5 页，本次补齐——11 页全部 a11y 100、零失分项</li>
     <li>v8.4–v8.8 条目的「commit 待提交」占位符补为真实哈希</li>
   </ul>
-  <div class="cl-meta">commit e96f028</div>
+  <div class="cl-meta">commit 6756d98</div>
 </article>
 
 <article class="cl-entry" data-reveal>
@@ -40,7 +40,7 @@ comments: false
     <li>修复 PWA 安装性：manifest 原仅含 SVG 图标，而 Chrome 安装性要求至少一个 ≥192px 的 PNG——站点实际无法安装。新增 `.tools/gen-icons.py` 生成 192/512 PNG（纸白底 + 头像 84% 居中，兼容 maskable 安全区），manifest 补 3 个 PNG 条目</li>
     <li>sitemap/robots/manifest 核查通过（18 条 URL、404 正确排除）</li>
   </ul>
-  <div class="cl-meta">commit e96f028</div>
+  <div class="cl-meta">commit 978f760</div>
 </article>
 
 <article class="cl-entry" data-reveal>
