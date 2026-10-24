@@ -9,6 +9,22 @@
 
     <article class="cl-entry" data-reveal>
       <div class="cl-head">
+        <span class="cl-ver">v8.6</span>
+        <span class="cl-date">2026-10-24</span>
+        <span class="cl-tag">发布前终检</span>
+      </div>
+      <h2 class="cl-title">OG 卡补全与全量验证</h2>
+      <ul class="cl-items">
+        <li>构建日志页补专属 OG 分享卡（og-changelog.png）与页面日期——JSON-LD 与 og article 时间不再空值</li>
+        <li>新页面可访问性审计：构建日志页与搜索页 a11y 100，零失分项</li>
+        <li>SW 预缓存清单核查：仅含无指纹稳定路径，指纹资源走运行时缓存，安装不会因哈希变更失败——无需改动</li>
+        <li>发布前全量终检：LHCI 5 轮中位数 perf 100/100/100、TBT 0/12/0、LCP 1503/1503/1653；冒烟 63/63；扫雷单测 19/19；构建 33 页零告警，产物 856K</li>
+      </ul>
+      <div class="cl-meta">commit 待提交</div>
+    </article>
+
+    <article class="cl-entry" data-reveal>
+      <div class="cl-head">
         <span class="cl-ver">v8.5</span>
         <span class="cl-date">2026-10-24</span>
         <span class="cl-tag">清理加固</span>
