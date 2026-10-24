@@ -9,6 +9,21 @@
 
     <article class="cl-entry" data-reveal>
       <div class="cl-head">
+        <span class="cl-ver">v8.8</span>
+        <span class="cl-date">2026-10-24</span>
+        <span class="cl-tag">PWA 修复</span>
+      </div>
+      <h2 class="cl-title">安装性缺口修复</h2>
+      <ul class="cl-items">
+        <li>全库存档审查：违禁/过期词扫描确认零残留（命中全部位于历史记录与内部文档，属合法）</li>
+        <li>修复 PWA 安装性：manifest 原仅含 SVG 图标，而 Chrome 安装性要求至少一个 ≥192px 的 PNG——站点实际无法安装。新增 `.tools/gen-icons.py` 生成 192/512 PNG（纸白底 + 头像 84% 居中，兼容 maskable 安全区），manifest 补 3 个 PNG 条目</li>
+        <li>sitemap/robots/manifest 核查通过（18 条 URL、404 正确排除）</li>
+      </ul>
+      <div class="cl-meta">commit 待提交</div>
+    </article>
+
+    <article class="cl-entry" data-reveal>
+      <div class="cl-head">
         <span class="cl-ver">v8.7</span>
         <span class="cl-date">2026-10-24</span>
         <span class="cl-tag">内容同步</span>

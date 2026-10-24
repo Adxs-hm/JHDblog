@@ -7,3 +7,234 @@ images: ["og/og-changelog.png"]
 date: 2026-10-24T02:00:00+08:00
 comments: false
 ---
+
+<p class="cl-intro">本站自身的版本史。设计系统换代、架构调整、门禁变更与实用性增补按时间倒序记录。每条目对应一次本地提交。</p>
+
+<div class="cl-list">
+
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.9</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">诚实性修复</span>
+  </div>
+  <h2 class="cl-title">RSS 全文与版本史可搜索</h2>
+  <ul class="cl-items">
+    <li>RSS 全文输出修复：订阅页声称「Feed 全文输出」，但主题的全文输出由 <code>ShowFullTextinRSS</code> 参数门控而配置未开——feed 实际只输出摘要（无 content:encoded）。参数已启用，声明与事实一致</li>
+    <li>构建日志内容迁移：条目从布局模板搬进 markdown 正文——版本史自此进入站内搜索索引（迁移前 changelog 的索引 content 为 0 字符，搜不到任何版本记录）与 RSS 全文</li>
+    <li>全站 11 页可访问性普查：此前仅审计 5 页，本次补齐——11 页全部 a11y 100、零失分项</li>
+    <li>v8.4–v8.8 条目的「commit 待提交」占位符补为真实哈希</li>
+  </ul>
+  <div class="cl-meta">commit e96f028</div>
+</article>
+
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.8</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">PWA 修复</span>
+  </div>
+  <h2 class="cl-title">安装性缺口修复</h2>
+  <ul class="cl-items">
+    <li>全库存档审查：违禁/过期词扫描确认零残留（命中全部位于历史记录与内部文档，属合法）</li>
+    <li>修复 PWA 安装性：manifest 原仅含 SVG 图标，而 Chrome 安装性要求至少一个 ≥192px 的 PNG——站点实际无法安装。新增 `.tools/gen-icons.py` 生成 192/512 PNG（纸白底 + 头像 84% 居中，兼容 maskable 安全区），manifest 补 3 个 PNG 条目</li>
+    <li>sitemap/robots/manifest 核查通过（18 条 URL、404 正确排除）</li>
+  </ul>
+  <div class="cl-meta">commit e96f028</div>
+</article>
+
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.7</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">内容同步</span>
+  </div>
+  <h2 class="cl-title">旗舰档案重写为当前实况</h2>
+  <ul class="cl-items">
+    <li>旗舰档案（JHD 站点）全文重写：原文本停留在 v4 时代（LoveIt 主题、Tailwind、星空背景、blender-blog 目录结构），与运行实况完全脱节</li>
+    <li>新文本覆盖：三工作流 CI（部署/门禁/扫描）、体积与传输实数、质量保障（LHCI 五轮中位数表 + 63/19 断言）、实用性体系九项、v4→v8.6 代际表、当前文件结构、本轮确认的五条工程约束、诚实的后续规划（域名/CF 启用/OKLCH/滚动驱动动画/Pagefind 阈值/Astro 评估）</li>
+    <li>上线记录加框架说明：该文是上线当日（2026-06-30）的时间胶囊，选型以当日状态为准——历史记录不重写，但标明 snapshot 属性</li>
+    <li>关于页参数表补当前版本与质量门禁两行</li>
+  </ul>
+  <div class="cl-meta">commit 4f648f9</div>
+</article>
+
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.6</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">发布前终检</span>
+  </div>
+  <h2 class="cl-title">OG 卡补全与全量验证</h2>
+  <ul class="cl-items">
+    <li>构建日志页补专属 OG 分享卡（og-changelog.png）与页面日期——JSON-LD 与 og article 时间不再空值</li>
+    <li>新页面可访问性审计：构建日志页与搜索页 a11y 100，零失分项</li>
+    <li>SW 预缓存清单核查：仅含无指纹稳定路径，指纹资源走运行时缓存，安装不会因哈希变更失败——无需改动</li>
+    <li>发布前全量终检：LHCI 5 轮中位数 perf 100/100/100、TBT 0/12/0、LCP 1503/1503/1653；冒烟 63/63；扫雷单测 19/19；构建 33 页零告警，产物 856K</li>
+  </ul>
+  <div class="cl-meta">commit b51c8fe</div>
+</article>
+
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.5</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">清理加固</span>
+  </div>
+  <h2 class="cl-title">构建告警清零 · 测试套件重建 · Feed 收敛</h2>
+  <ul class="cl-items">
+    <li>Hugo 0.158 弃用项清零：项目级 baseof 与 opengraph/rss 覆盖同步修正（LanguageDirection→Direction、LanguageCode→Locale），构建零告警</li>
+    <li>测试套件重建：v7 时代三脚本（引用已删除的友链页，必然崩溃）合并重写为 .tools/verify.py——11 页 × 双主题零错误/零 4xx、搜索五功能、404 游戏、扫雷渲染、FX 开关，63 断言全过</li>
+    <li>补 .tools/test-minesweeper.js：扫雷 core 回归（Node 零依赖），覆盖首击安全区/插旗/问号/chord 门控/踩雷判负/autoStep 只插旗决策，19 断言十轮稳定</li>
+    <li>RSS 收敛：工具页（订阅/扫雷/搜索/归档）标记 hiddenInRss，feed 只载内容——两篇档案 + 构建日志</li>
+    <li>.tools/shots.py 替代过期截图脚本（含移动端视口）</li>
+  </ul>
+  <div class="cl-meta">commit 0609ffe</div>
+</article>
+
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.4</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">门禁加固</span>
+  </div>
+  <h2 class="cl-title">冷启动成本治理与分析接线</h2>
+  <ul class="cl-items">
+    <li>粒子场 load 门控：init 先绘静态文字，粒子循环延迟到 window load + idle 启动——装饰动画不抢加载突发期，TBT 中位数归零</li>
+    <li>LHCI numberOfRuns 3→5：冷启动 JIT 开销使首次运行显著贵于后续，5 次取中位数更稳</li>
+    <li>Cloudflare Web Analytics 接线：[params.analytics].cfBeaconToken 空则不渲染 beacon、CSP 亦不放行对应域名（同开关联动）；操作步骤见 cloudflare-setup.md 第 6 节</li>
+    <li>文档同步：README 目录树、CLAUDE.md 架构节、start-here 阅读路径补构建日志入口</li>
+  </ul>
+  <div class="cl-meta">commit 5aac2a7</div>
+</article>
+
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.3</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">实用性</span>
+  </div>
+  <h2 class="cl-title">构建日志 / 搜索 UX / 404 检索入口</h2>
+  <ul class="cl-items">
+    <li>新增 /changelog/ 构建日志页：v4→v8.2 七代版本史，每条对应一次本地提交；挂主菜单第 2 位与首页索引条</li>
+    <li>搜索页增强：结果计数、标题匹配高亮（深金）、空态建议（4 档案入口）、清除按钮；与主题 Fuse/键盘导航解耦</li>
+    <li>404 页补导航行：搜索档案 / 构建日志 / 时间归档 / 档案索引</li>
+  </ul>
+  <div class="cl-meta">commit 1b827a6</div>
+</article>
+
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.2</span>
+    <span class="cl-date">2026-10-23</span>
+    <span class="cl-tag">实用性</span>
+  </div>
+  <h2 class="cl-title">实用性体系</h2>
+  <ul class="cl-items">
+    <li>OG 分享图：每页独立 1200×630 PNG 于构建时生成，替换不被平台抓取的 SVG og:image；补 og:image:alt、宽高声明与 twitter:card</li>
+    <li>标题锚点可见化：hover 显示金色 #，长文可逐节深链引用；补 scroll-margin-top 防吸顶裁剪</li>
+    <li>打印形态：@media print 隐藏界面铬、外链 URL 括号展开、代码块强制浅色、分页保护——文章可直接打印或存为 PDF</li>
+    <li>更新日期：lastmod 从 git 历史派生，meta 区显示「更新于」；og article:modified_time 自动生效</li>
+    <li>协作入口：每页 meta 区「编辑此页」链接指向 GitHub 源文件；补 MIT LICENSE</li>
+    <li>可访问性：修复任务列表 checkbox 无标签与两处 WCAG 2.5.3 违规，文章页与首页 a11y 100，零失分项</li>
+  </ul>
+  <div class="cl-meta">commit 9b0a912 · 研究报告：JHD实用性优化研究报告-v8.2</div>
+</article>
+
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.1</span>
+    <span class="cl-date">2026-10-20</span>
+    <span class="cl-tag">门禁与骨架</span>
+  </div>
+  <h2 class="cl-title">性能门禁修复与内容宽度重构</h2>
+  <ul class="cl-items">
+    <li>Lighthouse CI 数据源改为生产等价字节：hugo --minify 产物 + gzip 静态服务器（hugo server 不压缩且注入 78KB livereload，已弃用）</li>
+    <li>门禁校准：LCP 1500→2000ms（Google field「good」2500ms，留 CI 波动余量）；删除已下线的 friends URL 与死配置 budget.json</li>
+    <li>修复 partialCached footer 缓存污染：PaperMod baseof 变体键不含页面身份，致全部文章页误载 minesweeper.js；项目级覆盖追加 .File.UniqueID</li>
+    <li>giscus 改 IO 懒加载（原 ~30 请求/150KB+，其 iframe 即文章页 LCP 元素）；粒子场重写为 Float32Array，消除 566ms GC 长任务</li>
+    <li>页面骨架改「宽容器 + 窄 Measure」：--main-width 720→1024 与导航对齐，正文限宽 44em 居中，表格/代码破出满宽</li>
+    <li>门禁结果：移动节流 4x CPU 下 perf 100×3、TBT 0、CLS 0</li>
+  </ul>
+  <div class="cl-meta">commit bcdde16</div>
+</article>
+
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8</span>
+    <span class="cl-date">2026-10-20</span>
+    <span class="cl-tag">设计系统</span>
+  </div>
+  <h2 class="cl-title">金/银换血 · 纸白主导</h2>
+  <ul class="cl-items">
+    <li>色彩体系：青蓝整体替换为金属系——金 = 唯一强调色（--accent 哑光金 / --accent-ink 深金，纸底 5.7:1 · AA），银 = 结构色（细线/HUD/元信息/网点/网格）</li>
+    <li>双主题主次：纸白档升为主视觉（defaultTheme=light），纯黑终端档降为次级（经 pref-theme 切换）</li>
+    <li>代码高亮双板：TERMINAL 金板（暗）/ ARCHIVE 纸面深金板</li>
+    <li>头像 SVG 金属化：蓝行星→银灰石墨，金环/线框/卫星保留，环几何约束未动</li>
+    <li>交互层主题感知：扫描线重写（暗色 screen 金带 / 亮色 multiply 深金高光带），游戏读令牌取色</li>
+  </ul>
+  <div class="cl-meta">commit 7cc7c8a</div>
+</article>
+
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v7</span>
+    <span class="cl-date">2026-10-19</span>
+    <span class="cl-tag">设计系统 · 合规</span>
+  </div>
+  <h2 class="cl-title">TERMINAL 终端与全站中性化</h2>
+  <ul class="cl-items">
+    <li>设计系统换血：纯黑/纸白双主题 + 单一青蓝 + 直角/斜切/角 brackets/警戒条纹；自托管 latin 字体子集替代 Google Fonts CDN</li>
+    <li>交互层落地：零依赖核心 bundle（9.7KB）+ 404 终端修复游戏；GSAP 仅友链页分包（后随友链下线移除）</li>
+    <li>全站去第三方 IP 直指（含代码标识符）：系统名与组件命名改为通用词，设计只取语言不挂名</li>
+    <li>友链功能下线：未经站长同意不收录第三方站点信息，数据与代码整条删除（恢复路径存于 git 历史 23e26a1）</li>
+    <li>全站文案改写为冰冷陈述的百科风格：无人称修辞、无幽默、无比喻、无套话</li>
+  </ul>
+  <div class="cl-meta">commit 23e26a1 → 672ec9a → 2e6fcee</div>
+</article>
+
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v6</span>
+    <span class="cl-date">2026-10-18</span>
+    <span class="cl-tag">设计系统</span>
+  </div>
+  <h2 class="cl-title">白银档案 Silver Archive</h2>
+  <ul class="cl-items">
+    <li>浅色米白纸底 #f2f1ec + 银灰细线 + 单一哑光金 #a5824a；Noto Sans SC 900 展示 + JetBrains Mono HUD 语言</li>
+    <li>血统语言定型：半调网点/套印错位/编号档案/警戒条纹；背景仅两层（网点 + 图纸网格）</li>
+    <li>行星头像几何定型：连续整环分层遮挡方案，倾角约束 ±11.3°</li>
+    <li>同日内容收缩：站点定位改为只收录自身建造过程的档案</li>
+  </ul>
+  <div class="cl-meta">commit b3f738b · 9a2a368</div>
+</article>
+
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v5</span>
+    <span class="cl-date">2026-10-18</span>
+    <span class="cl-tag">设计系统</span>
+  </div>
+  <h2 class="cl-title">深空编年史</h2>
+  <ul class="cl-items">
+    <li>暗色深空底 + 金星金强调的设计系统；首页 Bento 编排与内容分区（设定 section、系列导航、新人入口）</li>
+    <li>行星头像呼吸光晕与环旋转动效；Hero 级联污染修复</li>
+  </ul>
+  <div class="cl-meta">commit 4eff807</div>
+</article>
+
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v4</span>
+    <span class="cl-date">2026-07-08</span>
+    <span class="cl-tag">起点</span>
+  </div>
+  <h2 class="cl-title">Deep Space Archive</h2>
+  <ul class="cl-items">
+    <li>Hugo 静态站点初始化（2026-06-30），首个全站设计系统版本；作品集博客定位</li>
+    <li>后续增补：/subscribe/ 订阅落地页、GAME-01 扫雷（只插旗不自动挖开的设计决策）</li>
+  </ul>
+  <div class="cl-meta">commit 4c11557 → e528247</div>
+</article>
+
+</div>

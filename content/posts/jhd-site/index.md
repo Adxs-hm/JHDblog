@@ -199,9 +199,9 @@ JHDblog/
 │                               # cover / extend_head / extend_footer / templates
 ├── static/
 │   ├── fonts/                 # 自托管 woff2 latin 子集 ×4
-│   ├── images/planet-avatar.svg
+│   ├── images/planet-avatar.svg + icon-192/512.png   # 头像 + PWA 图标
 │   ├── og/                    # OG 分享图 PNG ×5
-│   ├── manifest.json / sw.js  # PWA
+│   ├── manifest.json / sw.js  # PWA（PNG 图标满足安装性）
 ├── .tools/                    # 本地工具：gen-og.py / verify.py / shots.py /
 │                               # test-minesweeper.js / ci-static-server.js
 ├── .github/
