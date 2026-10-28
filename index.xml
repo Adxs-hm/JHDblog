@@ -1,0 +1,953 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>JHD</title><link>https://adxs-hm.github.io/JHDblog/</link><description>Recent content on JHD</description><image><title>JHD</title><url>https://adxs-hm.github.io/JHDblog/og/og-default.png</url><link>https://adxs-hm.github.io/JHDblog/og/og-default.png</link></image><generator>Hugo</generator><language>zh-cn</language><atom:link href="https://adxs-hm.github.io/JHDblog/index.xml" rel="self" type="application/rss+xml"/><item><title>构建日志</title><link>https://adxs-hm.github.io/JHDblog/changelog/</link><pubDate>Sat, 24 Oct 2026 02:00:00 +0800</pubDate><guid>https://adxs-hm.github.io/JHDblog/changelog/</guid><description>本站自身的版本史——设计系统换代、架构调整与门禁变更记录</description><content:encoded><![CDATA[<p class="cl-intro">本站自身的版本史。设计系统换代、架构调整、门禁变更与实用性增补按时间倒序记录。每条目对应一次本地提交。</p>
+<div class="cl-list">
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.14</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">色彩演进</span>
+  </div>
+  <h2 class="cl-title">色彩体系迁移 OKLCH</h2>
+  <ul class="cl-items">
+    <li>双主题 ~30 个色值令牌 hex/rgba → oklch()：标准 OKLab 矩阵精确转换（.tools/oklch_convert.py），回程误差 0/255</li>
+    <li>像素 diff 实证：4 视图（home/post × light/dark）× 1024000 像素采样，差异像素 0，最大通道差 1/255（抗锯齿边缘，容差内）——对比度结论原样成立</li>
+    <li>rgba 令牌（halftone/grid/panel）同步 oklch / alpha 语法；原 hex 存档于注释；color-mix 维持 srgb（混合行为不变）</li>
+    <li>收益：设计系统获得感知均匀的操纵空间——oklch color-mix、亮度缩放、宽色域就绪；hex 时代结束（v7.1 报告演进项清偿）</li>
+  </ul>
+  <div class="cl-meta">commit 3df8611</div>
+</article>
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.12</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">动效极致</span>
+  </div>
+  <h2 class="cl-title">滚动驱动动画 · 背景视差 · 微交互</h2>
+  <ul class="cl-items">
+    <li>reveal 迁移至 CSS 滚动驱动动画（animation-timeline: view()，Baseline 2026）：合成器参与驱动，scrollFire 轮询对 reveal 退出（split-char 入场保留 JS——首屏元素在 view() 时间线上已完成 entry）；三路架构 = SDA / JS 管线回退 / 无 JS 直显</li>
+    <li>背景双层视差：网点层与网格层以不同速率随滚动漂移（scroll(root) 时间线，oversize 120px 防露边），与内容产生相对纵深——两层背景结构未变</li>
+    <li>微交互：::selection 金色化（accent 底 + bg 字）、:focus-visible 金色 2px 外框（a11y）、页眉跨页驻留（view-transition-name 独立成组，转场中视觉静止）</li>
+    <li>prefers-reduced-motion 显式覆盖 SDA（滚动驱动动画不受 animation-duration 影响，须单独关闭并直出终态）；lite 档 reveal 退化为纯渐隐、视差关闭</li>
+    <li>门禁复测：perf 100/100/100、TBT 0/0/0（滚动监听工作移出主线程）、LCP 不变；冒烟 64/64（新增 SDA 透明度与视差矩阵断言）</li>
+  </ul>
+  <div class="cl-meta">commit 3ca976e</div>
+</article>
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.9</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">诚实性修复</span>
+  </div>
+  <h2 class="cl-title">RSS 全文与版本史可搜索</h2>
+  <ul class="cl-items">
+    <li>RSS 全文输出修复：订阅页声称「Feed 全文输出」，但主题的全文输出由 <code>ShowFullTextinRSS</code> 参数门控而配置未开——feed 实际只输出摘要（无 content:encoded）。参数已启用，声明与事实一致</li>
+    <li>构建日志内容迁移：条目从布局模板搬进 markdown 正文——版本史自此进入站内搜索索引（迁移前 changelog 的索引 content 为 0 字符，搜不到任何版本记录）与 RSS 全文</li>
+    <li>全站 11 页可访问性普查：此前仅审计 5 页，本次补齐——11 页全部 a11y 100、零失分项</li>
+    <li>v8.4–v8.8 条目的「commit 待提交」占位符补为真实哈希</li>
+  </ul>
+  <div class="cl-meta">commit 6756d98</div>
+</article>
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.8</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">PWA 修复</span>
+  </div>
+  <h2 class="cl-title">安装性缺口修复</h2>
+  <ul class="cl-items">
+    <li>全库存档审查：违禁/过期词扫描确认零残留（命中全部位于历史记录与内部文档，属合法）</li>
+    <li>修复 PWA 安装性：manifest 原仅含 SVG 图标，而 Chrome 安装性要求至少一个 ≥192px 的 PNG——站点实际无法安装。新增 `.tools/gen-icons.py` 生成 192/512 PNG（纸白底 + 头像 84% 居中，兼容 maskable 安全区），manifest 补 3 个 PNG 条目</li>
+    <li>sitemap/robots/manifest 核查通过（18 条 URL、404 正确排除）</li>
+  </ul>
+  <div class="cl-meta">commit 978f760</div>
+</article>
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.7</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">内容同步</span>
+  </div>
+  <h2 class="cl-title">旗舰档案重写为当前实况</h2>
+  <ul class="cl-items">
+    <li>旗舰档案（JHD 站点）全文重写：原文本停留在 v4 时代（LoveIt 主题、Tailwind、星空背景、blender-blog 目录结构），与运行实况完全脱节</li>
+    <li>新文本覆盖：三工作流 CI（部署/门禁/扫描）、体积与传输实数、质量保障（LHCI 五轮中位数表 + 63/19 断言）、实用性体系九项、v4→v8.6 代际表、当前文件结构、本轮确认的五条工程约束、诚实的后续规划（域名/CF 启用/OKLCH/滚动驱动动画/Pagefind 阈值/Astro 评估）</li>
+    <li>上线记录加框架说明：该文是上线当日（2026-06-30）的时间胶囊，选型以当日状态为准——历史记录不重写，但标明 snapshot 属性</li>
+    <li>关于页参数表补当前版本与质量门禁两行</li>
+  </ul>
+  <div class="cl-meta">commit 4f648f9</div>
+</article>
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.6</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">发布前终检</span>
+  </div>
+  <h2 class="cl-title">OG 卡补全与全量验证</h2>
+  <ul class="cl-items">
+    <li>构建日志页补专属 OG 分享卡（og-changelog.png）与页面日期——JSON-LD 与 og article 时间不再空值</li>
+    <li>新页面可访问性审计：构建日志页与搜索页 a11y 100，零失分项</li>
+    <li>SW 预缓存清单核查：仅含无指纹稳定路径，指纹资源走运行时缓存，安装不会因哈希变更失败——无需改动</li>
+    <li>发布前全量终检：LHCI 5 轮中位数 perf 100/100/100、TBT 0/12/0、LCP 1503/1503/1653；冒烟 63/63；扫雷单测 19/19；构建 33 页零告警，产物 856K</li>
+  </ul>
+  <div class="cl-meta">commit b51c8fe</div>
+</article>
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.5</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">清理加固</span>
+  </div>
+  <h2 class="cl-title">构建告警清零 · 测试套件重建 · Feed 收敛</h2>
+  <ul class="cl-items">
+    <li>Hugo 0.158 弃用项清零：项目级 baseof 与 opengraph/rss 覆盖同步修正（LanguageDirection→Direction、LanguageCode→Locale），构建零告警</li>
+    <li>测试套件重建：v7 时代三脚本（引用已删除的友链页，必然崩溃）合并重写为 .tools/verify.py——11 页 × 双主题零错误/零 4xx、搜索五功能、404 游戏、扫雷渲染、FX 开关，63 断言全过</li>
+    <li>补 .tools/test-minesweeper.js：扫雷 core 回归（Node 零依赖），覆盖首击安全区/插旗/问号/chord 门控/踩雷判负/autoStep 只插旗决策，19 断言十轮稳定</li>
+    <li>RSS 收敛：工具页（订阅/扫雷/搜索/归档）标记 hiddenInRss，feed 只载内容——两篇档案 + 构建日志</li>
+    <li>.tools/shots.py 替代过期截图脚本（含移动端视口）</li>
+  </ul>
+  <div class="cl-meta">commit 0609ffe</div>
+</article>
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.4</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">门禁加固</span>
+  </div>
+  <h2 class="cl-title">冷启动成本治理与分析接线</h2>
+  <ul class="cl-items">
+    <li>粒子场 load 门控：init 先绘静态文字，粒子循环延迟到 window load + idle 启动——装饰动画不抢加载突发期，TBT 中位数归零</li>
+    <li>LHCI numberOfRuns 3→5：冷启动 JIT 开销使首次运行显著贵于后续，5 次取中位数更稳</li>
+    <li>Cloudflare Web Analytics 接线：[params.analytics].cfBeaconToken 空则不渲染 beacon、CSP 亦不放行对应域名（同开关联动）；操作步骤见 cloudflare-setup.md 第 6 节</li>
+    <li>文档同步：README 目录树、CLAUDE.md 架构节、start-here 阅读路径补构建日志入口</li>
+  </ul>
+  <div class="cl-meta">commit 5aac2a7</div>
+</article>
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.3</span>
+    <span class="cl-date">2026-10-24</span>
+    <span class="cl-tag">实用性</span>
+  </div>
+  <h2 class="cl-title">构建日志 / 搜索 UX / 404 检索入口</h2>
+  <ul class="cl-items">
+    <li>新增 /changelog/ 构建日志页：v4→v8.2 七代版本史，每条对应一次本地提交；挂主菜单第 2 位与首页索引条</li>
+    <li>搜索页增强：结果计数、标题匹配高亮（深金）、空态建议（4 档案入口）、清除按钮；与主题 Fuse/键盘导航解耦</li>
+    <li>404 页补导航行：搜索档案 / 构建日志 / 时间归档 / 档案索引</li>
+  </ul>
+  <div class="cl-meta">commit 1b827a6</div>
+</article>
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.2</span>
+    <span class="cl-date">2026-10-23</span>
+    <span class="cl-tag">实用性</span>
+  </div>
+  <h2 class="cl-title">实用性体系</h2>
+  <ul class="cl-items">
+    <li>OG 分享图：每页独立 1200×630 PNG 于构建时生成，替换不被平台抓取的 SVG og:image；补 og:image:alt、宽高声明与 twitter:card</li>
+    <li>标题锚点可见化：hover 显示金色 #，长文可逐节深链引用；补 scroll-margin-top 防吸顶裁剪</li>
+    <li>打印形态：@media print 隐藏界面铬、外链 URL 括号展开、代码块强制浅色、分页保护——文章可直接打印或存为 PDF</li>
+    <li>更新日期：lastmod 从 git 历史派生，meta 区显示「更新于」；og article:modified_time 自动生效</li>
+    <li>协作入口：每页 meta 区「编辑此页」链接指向 GitHub 源文件；补 MIT LICENSE</li>
+    <li>可访问性：修复任务列表 checkbox 无标签与两处 WCAG 2.5.3 违规，文章页与首页 a11y 100，零失分项</li>
+  </ul>
+  <div class="cl-meta">commit 9b0a912 · 研究报告：JHD实用性优化研究报告-v8.2</div>
+</article>
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8.1</span>
+    <span class="cl-date">2026-10-20</span>
+    <span class="cl-tag">门禁与骨架</span>
+  </div>
+  <h2 class="cl-title">性能门禁修复与内容宽度重构</h2>
+  <ul class="cl-items">
+    <li>Lighthouse CI 数据源改为生产等价字节：hugo --minify 产物 + gzip 静态服务器（hugo server 不压缩且注入 78KB livereload，已弃用）</li>
+    <li>门禁校准：LCP 1500→2000ms（Google field「good」2500ms，留 CI 波动余量）；删除已下线的 friends URL 与死配置 budget.json</li>
+    <li>修复 partialCached footer 缓存污染：PaperMod baseof 变体键不含页面身份，致全部文章页误载 minesweeper.js；项目级覆盖追加 .File.UniqueID</li>
+    <li>giscus 改 IO 懒加载（原 ~30 请求/150KB+，其 iframe 即文章页 LCP 元素）；粒子场重写为 Float32Array，消除 566ms GC 长任务</li>
+    <li>页面骨架改「宽容器 + 窄 Measure」：--main-width 720→1024 与导航对齐，正文限宽 44em 居中，表格/代码破出满宽</li>
+    <li>门禁结果：移动节流 4x CPU 下 perf 100×3、TBT 0、CLS 0</li>
+  </ul>
+  <div class="cl-meta">commit bcdde16</div>
+</article>
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v8</span>
+    <span class="cl-date">2026-10-20</span>
+    <span class="cl-tag">设计系统</span>
+  </div>
+  <h2 class="cl-title">金/银换血 · 纸白主导</h2>
+  <ul class="cl-items">
+    <li>色彩体系：青蓝整体替换为金属系——金 = 唯一强调色（--accent 哑光金 / --accent-ink 深金，纸底 5.7:1 · AA），银 = 结构色（细线/HUD/元信息/网点/网格）</li>
+    <li>双主题主次：纸白档升为主视觉（defaultTheme=light），纯黑终端档降为次级（经 pref-theme 切换）</li>
+    <li>代码高亮双板：TERMINAL 金板（暗）/ ARCHIVE 纸面深金板</li>
+    <li>头像 SVG 金属化：蓝行星→银灰石墨，金环/线框/卫星保留，环几何约束未动</li>
+    <li>交互层主题感知：扫描线重写（暗色 screen 金带 / 亮色 multiply 深金高光带），游戏读令牌取色</li>
+  </ul>
+  <div class="cl-meta">commit 7cc7c8a</div>
+</article>
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v7</span>
+    <span class="cl-date">2026-10-19</span>
+    <span class="cl-tag">设计系统 · 合规</span>
+  </div>
+  <h2 class="cl-title">TERMINAL 终端与全站中性化</h2>
+  <ul class="cl-items">
+    <li>设计系统换血：纯黑/纸白双主题 + 单一青蓝 + 直角/斜切/角 brackets/警戒条纹；自托管 latin 字体子集替代 Google Fonts CDN</li>
+    <li>交互层落地：零依赖核心 bundle（9.7KB）+ 404 终端修复游戏；GSAP 仅友链页分包（后随友链下线移除）</li>
+    <li>全站去第三方 IP 直指（含代码标识符）：系统名与组件命名改为通用词，设计只取语言不挂名</li>
+    <li>友链功能下线：未经站长同意不收录第三方站点信息，数据与代码整条删除（恢复路径存于 git 历史 23e26a1）</li>
+    <li>全站文案改写为冰冷陈述的百科风格：无人称修辞、无幽默、无比喻、无套话</li>
+  </ul>
+  <div class="cl-meta">commit 23e26a1 → 672ec9a → 2e6fcee</div>
+</article>
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v6</span>
+    <span class="cl-date">2026-10-18</span>
+    <span class="cl-tag">设计系统</span>
+  </div>
+  <h2 class="cl-title">白银档案 Silver Archive</h2>
+  <ul class="cl-items">
+    <li>浅色米白纸底 #f2f1ec + 银灰细线 + 单一哑光金 #a5824a；Noto Sans SC 900 展示 + JetBrains Mono HUD 语言</li>
+    <li>血统语言定型：半调网点/套印错位/编号档案/警戒条纹；背景仅两层（网点 + 图纸网格）</li>
+    <li>行星头像几何定型：连续整环分层遮挡方案，倾角约束 ±11.3°</li>
+    <li>同日内容收缩：站点定位改为只收录自身建造过程的档案</li>
+  </ul>
+  <div class="cl-meta">commit b3f738b · 9a2a368</div>
+</article>
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v5</span>
+    <span class="cl-date">2026-10-18</span>
+    <span class="cl-tag">设计系统</span>
+  </div>
+  <h2 class="cl-title">深空编年史</h2>
+  <ul class="cl-items">
+    <li>暗色深空底 + 金星金强调的设计系统；首页 Bento 编排与内容分区（设定 section、系列导航、新人入口）</li>
+    <li>行星头像呼吸光晕与环旋转动效；Hero 级联污染修复</li>
+  </ul>
+  <div class="cl-meta">commit 4eff807</div>
+</article>
+<article class="cl-entry" data-reveal>
+  <div class="cl-head">
+    <span class="cl-ver">v4</span>
+    <span class="cl-date">2026-07-08</span>
+    <span class="cl-tag">起点</span>
+  </div>
+  <h2 class="cl-title">Deep Space Archive</h2>
+  <ul class="cl-items">
+    <li>Hugo 静态站点初始化（2026-06-30），首个全站设计系统版本；作品集博客定位</li>
+    <li>后续增补：/subscribe/ 订阅落地页、GAME-01 扫雷（只插旗不自动挖开的设计决策）</li>
+  </ul>
+  <div class="cl-meta">commit 4c11557 → e528247</div>
+</article>
+</div>
+]]></content:encoded></item><item><title>JHD 站点</title><link>https://adxs-hm.github.io/JHDblog/posts/jhd-site/</link><pubDate>Tue, 30 Jun 2026 12:36:13 +0800</pubDate><guid>https://adxs-hm.github.io/JHDblog/posts/jhd-site/</guid><description>Hugo + PaperMod 深度定制个人站点——技术架构、设计系统与工程链路全档</description><content:encoded><![CDATA[<h2 id="这个项目是什么">这个项目是什么</h2>
+<p><strong>JHD 站点</strong>是一个基于 Hugo 静态站点生成器构建的站点，内容限于自身建造过程的记录。本页即为该站点的规格说明，随每次架构变更同步更新。</p>
+<h2 id="技术架构">技术架构</h2>
+<h3 id="构建与部署链路">构建与部署链路</h3>
+<div class="code-block-wrapper">
+  <div class="code-block-header">
+    <span class="code-dots">
+      <span class="code-dot dot-red"></span>
+      <span class="code-dot dot-yellow"></span>
+      <span class="code-dot dot-green"></span>
+    </span>
+    <span class="code-lang">text</span>
+  </div>
+  <div class="code-block-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Markdown 文章 → Hugo 构建 → 纯 HTML/CSS/JS → GitHub Pages 托管
+</span></span><span class="line"><span class="cl">     ↑                ↑                                ↑
+</span></span><span class="line"><span class="cl">  本地编辑        &lt;300ms 构建                    全球 CDN 分发</span></span></code></pre></div>
+  </div>
+</div>
+<p>整个链路没有数据库、没有后端服务器、没有运行时依赖。从写完一篇文章到全世界可见，只需要 <code>git push</code>。GitHub Actions 承担三个独立任务：</p>
+<table>
+	<thead>
+			<tr>
+					<th>工作流</th>
+					<th>触发</th>
+					<th>职责</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>hugo-deploy.yml</code></td>
+					<td>push main</td>
+					<td>构建校验（体量门禁 50MB）→ 部署 gh-pages 分支</td>
+			</tr>
+			<tr>
+					<td><code>lighthouse.yml</code></td>
+					<td>push main / 每周一 / 手动</td>
+					<td>性能门禁：3 个代表页 × 5 轮取中位数</td>
+			</tr>
+			<tr>
+					<td><code>codeql.yml</code></td>
+					<td>push main / 每周一</td>
+					<td>代码安全扫描</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="技术选型理由">技术选型理由</h3>
+<table>
+	<thead>
+			<tr>
+					<th>选型</th>
+					<th>理由</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>Hugo</strong>（Go 语言）</td>
+					<td>单二进制文件，构建 &lt;300ms，不需要 Node.js 环境；CI 锁定 0.168.0 Extended</td>
+			</tr>
+			<tr>
+					<td><strong>PaperMod 主题</strong></td>
+					<td>结构清晰、无构建期依赖；随仓库分发本地副本，定制层全部在项目 <code>layouts/</code> 覆盖</td>
+			</tr>
+			<tr>
+					<td><strong>手写 CSS 设计令牌</strong></td>
+					<td>单一 <code>custom.css</code> 源管理全部色彩/排版/组件，无 CSS 框架；主题核心样式之后加载，令牌同特异性覆盖</td>
+			</tr>
+			<tr>
+					<td><strong>GitHub Pages</strong></td>
+					<td>永久免费、自带 HTTPS、全球 CDN、与 Git 工作流无缝整合</td>
+			</tr>
+			<tr>
+					<td><strong>GitHub Actions</strong></td>
+					<td>push 即部署，零手动操作；门禁与扫描同链路执行</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="技术栈">技术栈</h3>
+<table>
+	<thead>
+			<tr>
+					<th>层级</th>
+					<th>技术</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>生成器</td>
+					<td>Hugo 0.168.0 Extended（CI 锁定版本）</td>
+			</tr>
+			<tr>
+					<td>模板引擎</td>
+					<td>Go Templates + Hugo Pipes（资源指纹/压缩）</td>
+			</tr>
+			<tr>
+					<td>脚本</td>
+					<td>Vanilla JS（esbuild 分包 + minify + fingerprint，零运行时依赖）</td>
+			</tr>
+			<tr>
+					<td>样式</td>
+					<td>手写 CSS 自定义属性体系，<code>@media print</code> 打印形态</td>
+			</tr>
+			<tr>
+					<td>内容格式</td>
+					<td>Markdown (Goldmark)</td>
+			</tr>
+			<tr>
+					<td>评论</td>
+					<td>giscus（GitHub Discussions 驱动，IntersectionObserver 懒加载）</td>
+			</tr>
+			<tr>
+					<td>搜索</td>
+					<td>Fuse.js 客户端全文检索（主题内置 + 项目增强层）</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="体积与传输">体积与传输</h3>
+<table>
+	<thead>
+			<tr>
+					<th>资源</th>
+					<th>原始</th>
+					<th>gzip</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>样式（单文件）</td>
+					<td>64.7 KB</td>
+					<td>13.3 KB</td>
+			</tr>
+			<tr>
+					<td>交互主包（全站）</td>
+					<td>11.1 KB</td>
+					<td>4.6 KB</td>
+			</tr>
+			<tr>
+					<td>404 游戏包（仅 404 页）</td>
+					<td>5.6 KB</td>
+					<td>2.7 KB</td>
+			</tr>
+			<tr>
+					<td>扫雷脚本（仅游戏页）</td>
+					<td>17.9 KB</td>
+					<td>5.1 KB</td>
+			</tr>
+			<tr>
+					<td>字体（4 个 woff2，latin 子集）</td>
+					<td>60.5 KB</td>
+					<td>同（woff2 不再压缩）</td>
+			</tr>
+			<tr>
+					<td>OG 分享图（5 张 PNG）</td>
+					<td>165 KB</td>
+					<td>同（仅 meta 引用，不随页面加载）</td>
+			</tr>
+	</tbody>
+</table>
+<p>全站产物 856 KB / 27 个 HTML 页面。中文正文走系统字体栈（PingFang SC / 微软雅黑），零下载；自托管字体只覆盖拉丁字符。</p>
+<h2 id="质量保障">质量保障</h2>
+<h3 id="性能门禁lighthouse-ci">性能门禁（Lighthouse CI）</h3>
+<p>移动节流档位（1.6Mbps / 150ms RTT / 4x CPU / 360×640）下，3 个代表页各跑 5 轮取中位数，断言不满足即 CI 失败：</p>
+<table>
+	<thead>
+			<tr>
+					<th>指标</th>
+					<th>门限</th>
+					<th>实测中位数</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>performance</td>
+					<td>≥ 0.9</td>
+					<td>1.00（三页）</td>
+			</tr>
+			<tr>
+					<td>accessibility</td>
+					<td>≥ 0.95</td>
+					<td>1.00（三页）</td>
+			</tr>
+			<tr>
+					<td>LCP</td>
+					<td>≤ 2000ms</td>
+					<td>1503 / 1503 / 1653ms</td>
+			</tr>
+			<tr>
+					<td>TBT</td>
+					<td>≤ 200ms</td>
+					<td>0 / 12 / 0ms</td>
+			</tr>
+			<tr>
+					<td>CLS</td>
+					<td>≤ 0.05</td>
+					<td>0（三页）</td>
+			</tr>
+	</tbody>
+</table>
+<p>门禁数据源是 <code>hugo --minify</code> 产物 + gzip 静态服务器——测的是生产等价字节；<code>hugo server</code> 不压缩且注入 livereload 脚本，已弃用为数据源。</p>
+<h3 id="自动化测试">自动化测试</h3>
+<table>
+	<thead>
+			<tr>
+					<th>套件</th>
+					<th>覆盖</th>
+					<th>规模</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>.tools/verify.py</code></td>
+					<td>11 个页面 × 亮/暗双主题加载（零 console 错误、零 4xx 子资源）、运行时状态、搜索五功能、404 游戏、扫雷渲染、特效开关</td>
+					<td>63 断言</td>
+			</tr>
+			<tr>
+					<td><code>.tools/test-minesweeper.js</code></td>
+					<td>扫雷纯逻辑 core：首击安全区、插旗/问号、chord 门控、踩雷判负、自动标雷策略</td>
+					<td>19 断言</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="构建卫生">构建卫生</h3>
+<p>Hugo 构建输出零弃用告警（主题层两处 0.158 弃用项由项目级覆盖修正）；部署前校验产物体积（上限 50MB，当前 856KB）。</p>
+<h2 id="实用性体系">实用性体系</h2>
+<table>
+	<thead>
+			<tr>
+					<th>能力</th>
+					<th>实现</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>社交分享预览</td>
+					<td>每页独立 OG 分享卡（1200×630 PNG，构建时由 <code>.tools/gen-og.py</code> 生成，共 5 张）；补 <code>og:image:alt</code> / 宽高声明 / twitter:card</td>
+			</tr>
+			<tr>
+					<td>长文深链引用</td>
+					<td>标题锚点 hover 显示金色 <code>#</code>（aria-label 满足 WCAG 2.5.3），<code>scroll-margin-top</code> 防吸顶裁剪</td>
+			</tr>
+			<tr>
+					<td>打印 / PDF 形态</td>
+					<td><code>@media print</code>：隐藏界面铬、外链 URL 括号展开、代码块强制浅色、分页保护、<code>@page</code> 页边距</td>
+			</tr>
+			<tr>
+					<td>时效信号</td>
+					<td><code>lastmod</code> 从 git 历史派生，meta 区显示「更新于」；og <code>article:modified_time</code> 同步</td>
+			</tr>
+			<tr>
+					<td>协作修正</td>
+					<td>每页 meta 区「编辑此页」链接指向 GitHub 源文件；仓库根目录 MIT LICENSE</td>
+			</tr>
+			<tr>
+					<td>搜索增强</td>
+					<td>结果计数、标题匹配高亮、空态建议（档案入口）、清除按钮；与主题 Fuse 引擎解耦</td>
+			</tr>
+			<tr>
+					<td>版本史</td>
+					<td><code>/changelog/</code> 构建日志页：v4→v8.6 逐代记录，每条对应一次本地提交</td>
+			</tr>
+			<tr>
+					<td>阅读测量</td>
+					<td>Cloudflare Web Analytics（零 Cookie）；<code>cfBeaconToken</code> 为空时 beacon 与 CSP 放行域同步关闭</td>
+			</tr>
+			<tr>
+					<td>订阅</td>
+					<td>RSS 全文输出（仅载内容：档案 + 构建日志），<code>/subscribe/</code> 落地页</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="设计系统">设计系统</h2>
+<h3 id="色彩方案terminal-v8--金银双主题">色彩方案（TERMINAL v8 · 金/银，双主题）</h3>
+<table>
+	<thead>
+			<tr>
+					<th>用途</th>
+					<th>色值</th>
+					<th>说明</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>纸底 / 终端底</td>
+					<td><code>#f4f3ee</code> / <code>#06080a</code></td>
+					<td>双主题背景（light=档案纸白 · 主视觉，dark=终端黑 · 次级）</td>
+			</tr>
+			<tr>
+					<td>主文字</td>
+					<td><code>#0d0f12</code> / <code>#eef2f4</code></td>
+					<td>墨黑 / 纸白</td>
+			</tr>
+			<tr>
+					<td>强调色</td>
+					<td><code>#a5824a</code> / <code>#c9a227</code> — 哑光金</td>
+					<td>链接、标签、高亮（仅图形）</td>
+			</tr>
+			<tr>
+					<td>强调文字色</td>
+					<td><code>#7a5c1a</code> / <code>#c9a227</code></td>
+					<td>纸底用深金（5.7:1 · AA），深底用亮金（8.1:1 · AA）</td>
+			</tr>
+			<tr>
+					<td>结构色</td>
+					<td><code>#cdd1d8</code> / <code>#1d252c</code> — 银</td>
+					<td>细线、HUD、元信息、边框、网点与网格</td>
+			</tr>
+			<tr>
+					<td>次要文字</td>
+					<td><code>#4c545c</code> / <code>#96a2ab</code></td>
+					<td>银灰，元信息</td>
+			</tr>
+			<tr>
+					<td>细线</td>
+					<td><code>#cdd1d8</code> / <code>#1d252c</code></td>
+					<td>1px 分隔线，零投影</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="排版层级">排版层级</h3>
+<ul>
+<li>页面标题：Chakra Petch 700 / 宽字距</li>
+<li>一级标题：左侧 4px 金色边杠；二级标题 3px</li>
+<li>正文：系统中文栈，17px / 行高 1.8；正文测量宽 44em（中文 30–50 字/行），表格/代码破出满宽</li>
+<li>元信息：JetBrains Mono（编号 / 状态 / 日期 / 数据）</li>
+<li>标题平衡断行（<code>text-wrap: balance</code>），正文 <code>pretty</code></li>
+</ul>
+<h3 id="页面骨架">页面骨架</h3>
+<p>宽容器 + 窄 Measure：主区 1072px（与导航边缘对齐），正文块限宽居中，代码/表格/图片可用满宽。侧栏目录在文章页常驻。</p>
+<h3 id="交互效果">交互效果</h3>
+<ul>
+<li>项目卡片：hover 金色描边 + 套印错位框 + 角括号张开</li>
+<li>入场：直角切入（clip-path 从左向右揭开）+ HUD 数字滚动</li>
+<li>首页 Hero：粒子 Logo 场（Canvas 2D 文字采样，3000 粒硬上限，load 事件后才启动粒子循环，静态文字先绘做视觉桥接）</li>
+<li>页面转场：View Transitions 直角揭页（Firefox 走网点遮罩兜底）</li>
+<li>404 页：终端修复游戏（Canvas，60 秒修复度挑战）；扫雷页：GAME-01（自动标雷，不自动挖开）</li>
+<li>特效四级门控：<code>data-fx</code> = full / lite / off / hc，按 save-data、网络制式、<code>prefers-reduced-motion</code> 首帧前决策，页脚开关可循环切换并持久化</li>
+</ul>
+<h2 id="开发历程">开发历程</h2>
+<p>站点经历了四个设计系统代际与两轮工程化扩建，完整逐代记录见<a href="/JHDblog/changelog/">构建日志</a>。</p>
+<table>
+	<thead>
+			<tr>
+					<th>代</th>
+					<th>主题</th>
+					<th>要点</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>v4</td>
+					<td>Deep Space Archive</td>
+					<td>Hugo 初始化，首个全站设计系统（2026-07）</td>
+			</tr>
+			<tr>
+					<td>v5</td>
+					<td>深空编年史</td>
+					<td>暗色深空 + 金星金，首页 Bento 编排（2026-10-18）</td>
+			</tr>
+			<tr>
+					<td>v6</td>
+					<td>Silver Archive 白银档案</td>
+					<td>浅色纸底 + 银灰细线 + 哑光金，血统语言定型（2026-10-18）</td>
+			</tr>
+			<tr>
+					<td>v7</td>
+					<td>TERMINAL</td>
+					<td>纯黑/纸白双主题 + 单一强调；全站去第三方 IP 化；文案改为冰冷陈述体（2026-10-19）</td>
+			</tr>
+			<tr>
+					<td>v8</td>
+					<td>金/银 · 纸白主导</td>
+					<td>金属色系替换青蓝，纸白升为主视觉；交互层零依赖分包（2026-10-20）</td>
+			</tr>
+			<tr>
+					<td>v8.1–v8.6</td>
+					<td>工程化扩建</td>
+					<td>CI 门禁修复与宽度重构；实用性体系（OG/锚点/打印/日志页）；测试套件重建；发布前终检（2026-10-20 至 24）</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="工程约束本次扩建中确认">工程约束（本次扩建中确认）</h3>
+<ul>
+<li><strong>PaperMod 的 <code>partialCached</code> footer 变体键不含页面身份</strong>——同 Layout/Kind 的页面会共用首个渲染页的 footer 输出，按页条件渲染的内容被污染（曾致全部文章页误载扫雷脚本）。项目级 <code>baseof.html</code> 覆盖并追加 <code>.File.UniqueID</code> 变体键</li>
+<li><strong>字体预载不可省</strong>：JetBrains Mono 迟加载会触发 fallback→webfont swap，实测产生 CLS 0.27</li>
+<li><strong>minify 产物无属性引号</strong>：验证脚本的匹配模式不能假设引号存在</li>
+<li><strong>本地构建必须带 <code>--baseURL http://localhost:8080/</code></strong>：默认 baseURL 下资源走 <code>/JHDblog/</code> 前缀，本地服务全部 404</li>
+<li><strong>Hugo <code>js.Build</code> 不支持 esbuild splitting</strong>：动态 import 的岛屿代码内联主包；代码拆分属 <code>js.Batch</code> 职责</li>
+</ul>
+<h2 id="文件结构">文件结构</h2>
+<div class="code-block-wrapper is-foldable">
+  <div class="code-block-header">
+    <span class="code-dots">
+      <span class="code-dot dot-red"></span>
+      <span class="code-dot dot-yellow"></span>
+      <span class="code-dot dot-green"></span>
+    </span>
+    <span class="code-lang">text</span>
+    <button class="code-fold-btn" onclick="this.closest('.code-block-wrapper').classList.toggle('is-folded')" aria-label="展开/折叠代码">
+      <span class="fold-text">展开</span>
+      <span class="unfold-text">折叠</span>
+    </button>
+  </div>
+  <div class="code-block-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">JHDblog/
+</span></span><span class="line"><span class="cl">├── hugo.toml                  # 站点配置（菜单 5 项 / 输出格式 / Fuse 参数）
+</span></span><span class="line"><span class="cl">├── LICENSE                    # MIT
+</span></span><span class="line"><span class="cl">├── assets/
+</span></span><span class="line"><span class="cl">│   ├── css/extended/custom.css        # TERMINAL v8 设计系统（唯一样式源）
+</span></span><span class="line"><span class="cl">│   └── js/
+</span></span><span class="line"><span class="cl">│       ├── main.js                    # 核心入口（零依赖：reveal/计数/逐字/扫描线/徽章/专注度）
+</span></span><span class="line"><span class="cl">│       ├── game-entry.js              # 404 游戏入口
+</span></span><span class="line"><span class="cl">│       ├── islands/                   # particle-logo / scanline / badges / focus
+</span></span><span class="line"><span class="cl">│       └── games/terminal-recovery.js # 404 终端修复游戏
+</span></span><span class="line"><span class="cl">├── content/
+</span></span><span class="line"><span class="cl">│   ├── _index.md              # 首页（Hero + Bento + 档案索引条 + 订阅条）
+</span></span><span class="line"><span class="cl">│   ├── about/_index.md        # 关于页：站点参数表 + 运行计时器
+</span></span><span class="line"><span class="cl">│   ├── archives.md            # 归档页
+</span></span><span class="line"><span class="cl">│   ├── changelog.md           # 构建日志（v4→v8.12 版本史，条目即内容）
+</span></span><span class="line"><span class="cl">│   ├── search.md              # 搜索页
+</span></span><span class="line"><span class="cl">│   ├── start-here/_index.md   # 档案索引（阅读路径）
+</span></span><span class="line"><span class="cl">│   ├── subscribe.md           # 订阅落地页
+</span></span><span class="line"><span class="cl">│   ├── minesweeper.md         # 扫雷游戏页
+</span></span><span class="line"><span class="cl">│   └── posts/                 # 唯一内容区：只收录本站自身
+</span></span><span class="line"><span class="cl">│       ├── jhd-site/          #   本页（旗舰档案）
+</span></span><span class="line"><span class="cl">│       └── site-launch/       #   上线记录
+</span></span><span class="line"><span class="cl">├── layouts/
+</span></span><span class="line"><span class="cl">│   ├── baseof.html            # 项目覆盖：footer 缓存变体键追加页面身份
+</span></span><span class="line"><span class="cl">│   ├── index.html / 404.html / search.html
+</span></span><span class="line"><span class="cl">│   ├── _default/changelog.html
+</span></span><span class="line"><span class="cl">│   ├── _markup/render-codeblock.html
+</span></span><span class="line"><span class="cl">│   ├── rss.xml                # 项目覆盖：弃用项修正
+</span></span><span class="line"><span class="cl">│   └── partials/              # anchored_headings / post_meta / comments /
+</span></span><span class="line"><span class="cl">│                               # cover / extend_head / extend_footer / templates
+</span></span><span class="line"><span class="cl">├── static/
+</span></span><span class="line"><span class="cl">│   ├── fonts/                 # 自托管 woff2 latin 子集 ×4
+</span></span><span class="line"><span class="cl">│   ├── images/planet-avatar.svg + icon-192/512.png   # 头像 + PWA 图标
+</span></span><span class="line"><span class="cl">│   ├── og/                    # OG 分享图 PNG ×5
+</span></span><span class="line"><span class="cl">│   ├── manifest.json / sw.js  # PWA（PNG 图标满足安装性）
+</span></span><span class="line"><span class="cl">├── .tools/                    # 本地工具：gen-og.py / verify.py / shots.py /
+</span></span><span class="line"><span class="cl">│                               # test-minesweeper.js / ci-static-server.js
+</span></span><span class="line"><span class="cl">├── .github/
+</span></span><span class="line"><span class="cl">│   ├── workflows/             # 部署 + Lighthouse 门禁 + CodeQL
+</span></span><span class="line"><span class="cl">│   ├── lighthouserc.json      # 门禁断言即预算
+</span></span><span class="line"><span class="cl">│   └── cloudflare-setup.md    # 边缘网络 + Web Analytics 配置清单
+</span></span><span class="line"><span class="cl">└── themes/PaperMod/           # 主题（本地副本，随仓库分发）</span></span></code></pre></div>
+  </div>
+</div>
+<h2 id="后续规划">后续规划</h2>
+<h3 id="短期">短期</h3>
+<ul>
+<li><input disabled="" type="checkbox"> 自定义域名绑定（当前 <code>adxs-hm.github.io/JHDblog/</code>）</li>
+<li><input disabled="" type="checkbox"> 启用 Cloudflare Web Analytics（token 填入 <code>hugo.toml</code>，链路已就绪）</li>
+</ul>
+<h3 id="中期">中期</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 色彩体系迁移 OKLCH（v8.14 完成：像素级等价迁移，回程误差 0/255）</li>
+</ul>
+<h3 id="已完成原规划项">已完成（原规划项）</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> RSS 全文输出 · 站内搜索增强 · 深色/浅色双主题独立配色（v8 系列落地）</li>
+<li><input checked="" disabled="" type="checkbox"> CSS 滚动驱动动画替代滚动监听管线（v8.12，Baseline 2026 + JS 管线回退）</li>
+</ul>
+<h3 id="远期评估中未排期">远期（评估中，未排期）</h3>
+<ul>
+<li><input disabled="" type="checkbox"> Pagefind 替换 Fuse（内容 ≥100 篇的阈值触发）</li>
+<li><input disabled="" type="checkbox"> Astro 2.0 迁移评估（仓库内存有实验分支，无排期）</li>
+</ul>
+<h2 id="完成时间">完成时间</h2>
+<p><strong>2026 年 6 月 30 日</strong>（首次上线）<br>
+持续迭代中，当前版本 v8.14。逐代记录见<a href="/JHDblog/changelog/">构建日志</a>。</p>
+]]></content:encoded></item><item><title>JHD 站点正式上线</title><link>https://adxs-hm.github.io/JHDblog/posts/site-launch/</link><pubDate>Tue, 30 Jun 2026 10:33:33 +0800</pubDate><guid>https://adxs-hm.github.io/JHDblog/posts/site-launch/</guid><description>本站从零到一的完整上线记录</description><content:encoded><![CDATA[<h2 id="成品-001">成品 #001</h2>
+<blockquote>
+<p>本文是上线当日（2026-06-30）的过程记录，所述技术选型与问题以当日状态为准。当前架构规格见《JHD 站点》。</p>
+</blockquote>
+<p>JHD 站点的第一个记录，对象是本站本身。</p>
+<p>从方案评估到上线，历经多轮选型与问题修复，最终交付可长期维护的静态站点。</p>
+<h2 id="技术选型历程">技术选型历程</h2>
+<h3 id="方案对比">方案对比</h3>
+<table>
+	<thead>
+			<tr>
+					<th>方案</th>
+					<th>评估结论</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>ddmer-1（Next.js 全栈博客）</strong></td>
+					<td>功能极丰富（文章/相册/音乐/Live2D/管理后台），但依赖 Neon 数据库 + Cloudflare R2 + GitHub OAuth，部署复杂，对纯记录需求过度工程化</td>
+			</tr>
+			<tr>
+					<td><strong>Gridea</strong></td>
+					<td>GUI 客户端友好，但项目已停滞，无作品展示主题</td>
+			</tr>
+			<tr>
+					<td><strong>Hexo</strong></td>
+					<td>中文生态最好，主题最丰富，但依赖 Node.js，构建速度随内容增长线性下降</td>
+			</tr>
+			<tr>
+					<td><strong>Astro</strong></td>
+					<td>现代架构，内置图片优化，但需要写代码定制，非&quot;开箱即用&quot;</td>
+			</tr>
+			<tr>
+					<td><strong>Hugo（选定）</strong></td>
+					<td>单二进制文件（零系统依赖），构建速度最快（&lt;500ms），主题生态成熟，GitHub Pages 原生支持</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="选择-hugo-的核心理由">选择 Hugo 的核心理由</h3>
+<ol>
+<li><strong>零运维负担</strong>：没有数据库、没有 Node.js、没有依赖版本焦虑，10 年后这个站点仍然可以构建</li>
+<li><strong>Markdown 写作</strong>：内容与展示完全分离，迁移成本为零</li>
+<li><strong>GitHub Pages 原生</strong>：push 即部署，不需要额外注册任何服务</li>
+<li><strong>构建速度</strong>：当前 82 页 + 特效 JS 仅需 ~400ms，扩展到 500 页也不会有性能问题</li>
+</ol>
+<h2 id="开发过程与踩坑记录">开发过程与踩坑记录</h2>
+<h3 id="主题定制">主题定制</h3>
+<p>选用 LoveIt 主题后进行了深度改造：</p>
+<table>
+	<thead>
+			<tr>
+					<th>改造项</th>
+					<th>说明</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>星空背景</strong></td>
+					<td>CSS-only 实现：三层伪元素（body::before 小星点 60s 漂移 + body::after 大星点 + 银河光带 160s 漂移 + .wrapper::before 星云呼吸光晕）</td>
+			</tr>
+			<tr>
+					<td><strong>动态行星头像</strong></td>
+					<td>SVG 矢量动画：光环 30s 自转 + 星点闪烁 + 呼吸式光晕脉动（3s 周期）</td>
+			</tr>
+			<tr>
+					<td><strong>项目卡片</strong></td>
+					<td>横行毛玻璃卡片：左侧图标 + 右侧信息栏，整卡 <code>&lt;a&gt;</code> 包裹可点击，悬停右滑 + 箭头淡入</td>
+			</tr>
+			<tr>
+					<td><strong>配色体系</strong></td>
+					<td>CSS 变量驱动：<code>--bg-deep #0a0c1e</code> / <code>--text-body #c0cce4</code> / <code>--gold #c8b478</code> / <code>--purple #a080d8</code>，全站统一</td>
+			</tr>
+			<tr>
+					<td><strong>编译时注入</strong></td>
+					<td><code>assets/css/_custom.scss</code> 在 LoveIt SCSS 管线末尾注入暗色规则，从编译层面消除白色背景</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="踩过的坑">踩过的坑</h3>
+<table>
+	<thead>
+			<tr>
+					<th>#</th>
+					<th>坑</th>
+					<th>解决</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>1</td>
+					<td>LoveIt section 模板不渲染 <code>_index.md</code> 正文（只显示子文章列表）</td>
+					<td>创建 <code>layouts/section.html</code> 覆写，在列表前插入 <code>{{ .Content }}</code></td>
+			</tr>
+			<tr>
+					<td>2</td>
+					<td>自定义 CSS 相对路径在子页面 404（<code>css/space-theme.css</code> → <code>/projects/css/space-theme.css</code>）</td>
+					<td>改为绝对路径 <code>/css/space-theme.css</code></td>
+			</tr>
+			<tr>
+					<td>3</td>
+					<td>Hugo permalink <code>:contentbasename</code> 导致文章 URL 在根目录，与卡片链接 <code>/posts/xxx/</code> 不匹配</td>
+					<td>改 permalink 为 <code>/posts/:contentbasename/</code></td>
+			</tr>
+			<tr>
+					<td>4</td>
+					<td><strong>Hugo 的 tdewolff/minify 库将 CSS <code>transparent</code> 关键字错误转换为 <code>initial</code> 和 <code>0 0</code></strong>，导致所有透明属性失效，白框反复出现无法消除</td>
+					<td>在 <code>hugo.toml</code> 中添加 <code>[minify] disableCSS = true, disableHTML = true</code>，并从 GitHub Actions 构建命令中移除 <code>--minify</code> 标志</td>
+			</tr>
+			<tr>
+					<td>5</td>
+					<td>GitHub push 被 secret scanning 拦截（LoveIt theme 示例文件中的 Mapbox token）</td>
+					<td>删除 theme 的 <code>exampleSite/</code> 目录并重置 Git 历史</td>
+			</tr>
+			<tr>
+					<td>6</td>
+					<td>内联 <code>&lt;style&gt;</code> 标签被 Hugo HTML 压缩器递归处理，CSS 语法再次被破坏</td>
+					<td>最终方案：禁用 HTML 压缩 + 编译时注入，双保险</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="技术架构总览">技术架构总览</h3>
+<div class="code-block-wrapper">
+  <div class="code-block-header">
+    <span class="code-dots">
+      <span class="code-dot dot-red"></span>
+      <span class="code-dot dot-yellow"></span>
+      <span class="code-dot dot-green"></span>
+    </span>
+    <span class="code-lang">text</span>
+  </div>
+  <div class="code-block-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">┌─────────────┐     ┌──────────────┐     ┌─────────────────┐
+</span></span><span class="line"><span class="cl">│ 本地编辑 MD  │ ──→ │ Hugo 构建    │ ──→ │ GitHub Pages    │
+</span></span><span class="line"><span class="cl">│ (VS Code)   │     │ (&lt;500ms)     │     │ (全球 CDN)      │
+</span></span><span class="line"><span class="cl">└─────────────┘     └──────────────┘     └─────────────────┘
+</span></span><span class="line"><span class="cl">                            │
+</span></span><span class="line"><span class="cl">                    ┌───────┴───────┐
+</span></span><span class="line"><span class="cl">                    │ GitHub Actions │
+</span></span><span class="line"><span class="cl">                    │ (自动部署)      │
+</span></span><span class="line"><span class="cl">                    └───────────────┘</span></span></code></pre></div>
+  </div>
+</div>
+<table>
+	<thead>
+			<tr>
+					<th>层级</th>
+					<th>技术</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>框架</td>
+					<td>Hugo 0.163.3 Extended</td>
+			</tr>
+			<tr>
+					<td>主题</td>
+					<td>LoveIt（SCSS 深度定制 + 编译时注入）</td>
+			</tr>
+			<tr>
+					<td>自定义 CSS</td>
+					<td><code>space-theme.css</code>（~40KB，CSS 变量体系 + 星空特效）</td>
+			</tr>
+			<tr>
+					<td>自定义 JS</td>
+					<td><code>space-fx.js</code>（鼠标视差 + 卡片光影追踪 + 滚动入场）</td>
+			</tr>
+			<tr>
+					<td>布局覆写</td>
+					<td><code>layouts/section.html</code>、<code>layouts/posts/single.html</code>、<code>layouts/baseof.html</code></td>
+			</tr>
+			<tr>
+					<td>托管</td>
+					<td>GitHub Pages</td>
+			</tr>
+			<tr>
+					<td>CI/CD</td>
+					<td>GitHub Actions（peaceiris/actions-hugo + actions-gh-pages）</td>
+			</tr>
+			<tr>
+					<td>包管理</td>
+					<td>无（Hugo 单二进制）</td>
+			</tr>
+			<tr>
+					<td>数据库</td>
+					<td>无（纯静态 HTML）</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="当前站点数据">当前站点数据</h2>
+<table>
+	<thead>
+			<tr>
+					<th>统计</th>
+					<th>数值</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>总页面数</td>
+					<td>82</td>
+			</tr>
+			<tr>
+					<td>项目详情页</td>
+					<td>9</td>
+			</tr>
+			<tr>
+					<td>分类栏目</td>
+					<td>4（游戏开发 / AI 角色扮演 / 世界观设定 / 网站建设）</td>
+			</tr>
+			<tr>
+					<td>构建时间</td>
+					<td>~400ms</td>
+			</tr>
+			<tr>
+					<td>CSS 体积</td>
+					<td>76KB（style.min.css）+ 40KB（space-theme.css）</td>
+			</tr>
+			<tr>
+					<td>JS 体积</td>
+					<td>3.8KB（space-fx.js）</td>
+			</tr>
+			<tr>
+					<td>零外部请求</td>
+					<td>所有资源自托管</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="后续规划">后续规划</h2>
+<ul>
+<li><strong>JHD 2.0 全新站点</strong>（远期）：全新视觉设计，可能的技术栈为 Astro 或继续 Hugo，当前站点保留为档案</li>
+<li>自定义域名绑定</li>
+<li>图片资源体系（截图、流程图、渲染图）</li>
+<li>RSS/Atom Feed</li>
+<li>多语言支持</li>
+<li>无头 CMS 集成</li>
+</ul>
+<hr>
+<blockquote>
+<p>🌟 <em>这个站点是第一颗被记录的恒星。在它运行的同时，更多的轨道正在星图中标注。</em></p>
+</blockquote>
+]]></content:encoded></item></channel></rss>

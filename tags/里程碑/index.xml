@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>里程碑 on JHD</title><link>https://adxs-hm.github.io/JHDblog/tags/%E9%87%8C%E7%A8%8B%E7%A2%91/</link><description>Recent content in 里程碑 on JHD</description><image><title>JHD</title><url>https://adxs-hm.github.io/JHDblog/og/og-default.png</url><link>https://adxs-hm.github.io/JHDblog/og/og-default.png</link></image><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Wed, 28 Oct 2026 10:52:28 +0000</lastBuildDate><atom:link href="https://adxs-hm.github.io/JHDblog/tags/%E9%87%8C%E7%A8%8B%E7%A2%91/index.xml" rel="self" type="application/rss+xml"/><item><title>JHD 站点正式上线</title><link>https://adxs-hm.github.io/JHDblog/posts/site-launch/</link><pubDate>Tue, 30 Jun 2026 10:33:33 +0800</pubDate><guid>https://adxs-hm.github.io/JHDblog/posts/site-launch/</guid><description>本站从零到一的完整上线记录</description><content:encoded><![CDATA[<h2 id="成品-001">成品 #001</h2>
+<blockquote>
+<p>本文是上线当日（2026-06-30）的过程记录，所述技术选型与问题以当日状态为准。当前架构规格见《JHD 站点》。</p>
+</blockquote>
+<p>JHD 站点的第一个记录，对象是本站本身。</p>
+<p>从方案评估到上线，历经多轮选型与问题修复，最终交付可长期维护的静态站点。</p>
+<h2 id="技术选型历程">技术选型历程</h2>
+<h3 id="方案对比">方案对比</h3>
+<table>
+	<thead>
+			<tr>
+					<th>方案</th>
+					<th>评估结论</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>ddmer-1（Next.js 全栈博客）</strong></td>
+					<td>功能极丰富（文章/相册/音乐/Live2D/管理后台），但依赖 Neon 数据库 + Cloudflare R2 + GitHub OAuth，部署复杂，对纯记录需求过度工程化</td>
+			</tr>
+			<tr>
+					<td><strong>Gridea</strong></td>
+					<td>GUI 客户端友好，但项目已停滞，无作品展示主题</td>
+			</tr>
+			<tr>
+					<td><strong>Hexo</strong></td>
+					<td>中文生态最好，主题最丰富，但依赖 Node.js，构建速度随内容增长线性下降</td>
+			</tr>
+			<tr>
+					<td><strong>Astro</strong></td>
+					<td>现代架构，内置图片优化，但需要写代码定制，非&quot;开箱即用&quot;</td>
+			</tr>
+			<tr>
+					<td><strong>Hugo（选定）</strong></td>
+					<td>单二进制文件（零系统依赖），构建速度最快（&lt;500ms），主题生态成熟，GitHub Pages 原生支持</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="选择-hugo-的核心理由">选择 Hugo 的核心理由</h3>
+<ol>
+<li><strong>零运维负担</strong>：没有数据库、没有 Node.js、没有依赖版本焦虑，10 年后这个站点仍然可以构建</li>
+<li><strong>Markdown 写作</strong>：内容与展示完全分离，迁移成本为零</li>
+<li><strong>GitHub Pages 原生</strong>：push 即部署，不需要额外注册任何服务</li>
+<li><strong>构建速度</strong>：当前 82 页 + 特效 JS 仅需 ~400ms，扩展到 500 页也不会有性能问题</li>
+</ol>
+<h2 id="开发过程与踩坑记录">开发过程与踩坑记录</h2>
+<h3 id="主题定制">主题定制</h3>
+<p>选用 LoveIt 主题后进行了深度改造：</p>
+<table>
+	<thead>
+			<tr>
+					<th>改造项</th>
+					<th>说明</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>星空背景</strong></td>
+					<td>CSS-only 实现：三层伪元素（body::before 小星点 60s 漂移 + body::after 大星点 + 银河光带 160s 漂移 + .wrapper::before 星云呼吸光晕）</td>
+			</tr>
+			<tr>
+					<td><strong>动态行星头像</strong></td>
+					<td>SVG 矢量动画：光环 30s 自转 + 星点闪烁 + 呼吸式光晕脉动（3s 周期）</td>
+			</tr>
+			<tr>
+					<td><strong>项目卡片</strong></td>
+					<td>横行毛玻璃卡片：左侧图标 + 右侧信息栏，整卡 <code>&lt;a&gt;</code> 包裹可点击，悬停右滑 + 箭头淡入</td>
+			</tr>
+			<tr>
+					<td><strong>配色体系</strong></td>
+					<td>CSS 变量驱动：<code>--bg-deep #0a0c1e</code> / <code>--text-body #c0cce4</code> / <code>--gold #c8b478</code> / <code>--purple #a080d8</code>，全站统一</td>
+			</tr>
+			<tr>
+					<td><strong>编译时注入</strong></td>
+					<td><code>assets/css/_custom.scss</code> 在 LoveIt SCSS 管线末尾注入暗色规则，从编译层面消除白色背景</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="踩过的坑">踩过的坑</h3>
+<table>
+	<thead>
+			<tr>
+					<th>#</th>
+					<th>坑</th>
+					<th>解决</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>1</td>
+					<td>LoveIt section 模板不渲染 <code>_index.md</code> 正文（只显示子文章列表）</td>
+					<td>创建 <code>layouts/section.html</code> 覆写，在列表前插入 <code>{{ .Content }}</code></td>
+			</tr>
+			<tr>
+					<td>2</td>
+					<td>自定义 CSS 相对路径在子页面 404（<code>css/space-theme.css</code> → <code>/projects/css/space-theme.css</code>）</td>
+					<td>改为绝对路径 <code>/css/space-theme.css</code></td>
+			</tr>
+			<tr>
+					<td>3</td>
+					<td>Hugo permalink <code>:contentbasename</code> 导致文章 URL 在根目录，与卡片链接 <code>/posts/xxx/</code> 不匹配</td>
+					<td>改 permalink 为 <code>/posts/:contentbasename/</code></td>
+			</tr>
+			<tr>
+					<td>4</td>
+					<td><strong>Hugo 的 tdewolff/minify 库将 CSS <code>transparent</code> 关键字错误转换为 <code>initial</code> 和 <code>0 0</code></strong>，导致所有透明属性失效，白框反复出现无法消除</td>
+					<td>在 <code>hugo.toml</code> 中添加 <code>[minify] disableCSS = true, disableHTML = true</code>，并从 GitHub Actions 构建命令中移除 <code>--minify</code> 标志</td>
+			</tr>
+			<tr>
+					<td>5</td>
+					<td>GitHub push 被 secret scanning 拦截（LoveIt theme 示例文件中的 Mapbox token）</td>
+					<td>删除 theme 的 <code>exampleSite/</code> 目录并重置 Git 历史</td>
+			</tr>
+			<tr>
+					<td>6</td>
+					<td>内联 <code>&lt;style&gt;</code> 标签被 Hugo HTML 压缩器递归处理，CSS 语法再次被破坏</td>
+					<td>最终方案：禁用 HTML 压缩 + 编译时注入，双保险</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="技术架构总览">技术架构总览</h3>
+<div class="code-block-wrapper">
+  <div class="code-block-header">
+    <span class="code-dots">
+      <span class="code-dot dot-red"></span>
+      <span class="code-dot dot-yellow"></span>
+      <span class="code-dot dot-green"></span>
+    </span>
+    <span class="code-lang">text</span>
+  </div>
+  <div class="code-block-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">┌─────────────┐     ┌──────────────┐     ┌─────────────────┐
+</span></span><span class="line"><span class="cl">│ 本地编辑 MD  │ ──→ │ Hugo 构建    │ ──→ │ GitHub Pages    │
+</span></span><span class="line"><span class="cl">│ (VS Code)   │     │ (&lt;500ms)     │     │ (全球 CDN)      │
+</span></span><span class="line"><span class="cl">└─────────────┘     └──────────────┘     └─────────────────┘
+</span></span><span class="line"><span class="cl">                            │
+</span></span><span class="line"><span class="cl">                    ┌───────┴───────┐
+</span></span><span class="line"><span class="cl">                    │ GitHub Actions │
+</span></span><span class="line"><span class="cl">                    │ (自动部署)      │
+</span></span><span class="line"><span class="cl">                    └───────────────┘</span></span></code></pre></div>
+  </div>
+</div>
+<table>
+	<thead>
+			<tr>
+					<th>层级</th>
+					<th>技术</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>框架</td>
+					<td>Hugo 0.163.3 Extended</td>
+			</tr>
+			<tr>
+					<td>主题</td>
+					<td>LoveIt（SCSS 深度定制 + 编译时注入）</td>
+			</tr>
+			<tr>
+					<td>自定义 CSS</td>
+					<td><code>space-theme.css</code>（~40KB，CSS 变量体系 + 星空特效）</td>
+			</tr>
+			<tr>
+					<td>自定义 JS</td>
+					<td><code>space-fx.js</code>（鼠标视差 + 卡片光影追踪 + 滚动入场）</td>
+			</tr>
+			<tr>
+					<td>布局覆写</td>
+					<td><code>layouts/section.html</code>、<code>layouts/posts/single.html</code>、<code>layouts/baseof.html</code></td>
+			</tr>
+			<tr>
+					<td>托管</td>
+					<td>GitHub Pages</td>
+			</tr>
+			<tr>
+					<td>CI/CD</td>
+					<td>GitHub Actions（peaceiris/actions-hugo + actions-gh-pages）</td>
+			</tr>
+			<tr>
+					<td>包管理</td>
+					<td>无（Hugo 单二进制）</td>
+			</tr>
+			<tr>
+					<td>数据库</td>
+					<td>无（纯静态 HTML）</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="当前站点数据">当前站点数据</h2>
+<table>
+	<thead>
+			<tr>
+					<th>统计</th>
+					<th>数值</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>总页面数</td>
+					<td>82</td>
+			</tr>
+			<tr>
+					<td>项目详情页</td>
+					<td>9</td>
+			</tr>
+			<tr>
+					<td>分类栏目</td>
+					<td>4（游戏开发 / AI 角色扮演 / 世界观设定 / 网站建设）</td>
+			</tr>
+			<tr>
+					<td>构建时间</td>
+					<td>~400ms</td>
+			</tr>
+			<tr>
+					<td>CSS 体积</td>
+					<td>76KB（style.min.css）+ 40KB（space-theme.css）</td>
+			</tr>
+			<tr>
+					<td>JS 体积</td>
+					<td>3.8KB（space-fx.js）</td>
+			</tr>
+			<tr>
+					<td>零外部请求</td>
+					<td>所有资源自托管</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="后续规划">后续规划</h2>
+<ul>
+<li><strong>JHD 2.0 全新站点</strong>（远期）：全新视觉设计，可能的技术栈为 Astro 或继续 Hugo，当前站点保留为档案</li>
+<li>自定义域名绑定</li>
+<li>图片资源体系（截图、流程图、渲染图）</li>
+<li>RSS/Atom Feed</li>
+<li>多语言支持</li>
+<li>无头 CMS 集成</li>
+</ul>
+<hr>
+<blockquote>
+<p>🌟 <em>这个站点是第一颗被记录的恒星。在它运行的同时，更多的轨道正在星图中标注。</em></p>
+</blockquote>
+]]></content:encoded></item></channel></rss>
